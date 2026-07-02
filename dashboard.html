@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NOMA LAB — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   NOMA LAB dashboard styles.
+   Same design language as the guest app: navy/azure/gold,
+   Playfair for headings, Mulish for text.
+   ============================================================ */
+:root {
+  --bg:#f3f3f1; --card:#fff; --ink:#18222e; --muted:#687180;
+  --accent:#2f6fd0; --accent-dk:#1f3a5f; --tint:#eaf1fb; --gold:#f2b53d;
+  --line:rgba(24,34,46,.09);
+  --shadow:0 1px 2px rgba(24,34,46,.05), 0 10px 30px rgba(24,34,46,.07);
+  --radius:16px;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:"Mulish",system-ui,sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; }
+button { font:inherit; cursor:pointer; }
+
+/* ---------- LOGIN SCREEN ---------- */
+#loginScreen {
+  min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px;
+  background:linear-gradient(160deg, #1f3a5f 0%, #16283f 100%);
+}
+.login-card {
+  width:100%; max-width:400px; background:var(--card); border-radius:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.35); padding:36px 30px;
+}
+.login-brand { text-align:center; margin-bottom:26px; }
+.login-brand h1 { font-family:"Playfair Display",serif; font-size:1.9rem; letter-spacing:.14em; color:var(--accent-dk); }
+.login-brand p { color:var(--muted); font-size:.9rem; margin-top:4px; }
+.fld { display:block; margin-bottom:14px; }
+.fld span { display:block; font-size:.8rem; font-weight:700; color:var(--muted); margin-bottom:5px; }
+.fld input {
+  width:100%; padding:12px 14px; border:1.5px solid var(--line); border-radius:12px;
+  font:inherit; background:#fafafa;
+}
+.fld input:focus { outline:none; border-color:var(--accent); background:#fff; }
+.login-btn {
+  width:100%; padding:13px; border:0; border-radius:12px; margin-top:6px;
+  background:var(--accent-dk); color:#fff; font-weight:800; font-size:1rem;
+}
+.login-btn:hover { background:#2a4a75; }
+.login-err { color:#c0392b; font-size:.86rem; margin-top:10px; text-align:center; min-height:1.2em; }
+.login-hint { margin-top:18px; padding:10px 12px; background:var(--tint); border-radius:10px;
+  font-size:.78rem; color:var(--muted); text-align:center; }
+
+/* ---------- DASHBOARD SHELL (sidebar + main) ---------- */
+#dashScreen { display:none; }               /* hidden until logged in */
+.shell { display:flex; min-height:100vh; }
+.sidebar {
+  width:230px; flex:none; background:var(--accent-dk); color:#fff;
+  padding:22px 0; display:flex; flex-direction:column;
+}
+.sidebar__brand { font-family:"Playfair Display",serif; font-size:1.25rem; letter-spacing:.12em;
+  padding:0 22px 20px; border-bottom:1px solid rgba(255,255,255,.12); }
+.sidebar nav { margin-top:12px; flex:1; }
+.snav {
+  display:flex; align-items:center; gap:11px; width:100%;
+  padding:11px 22px; background:none; border:0; color:rgba(255,255,255,.85);
+  font-weight:600; font-size:.9rem; text-align:left;
+}
+.snav:hover { background:rgba(255,255,255,.06); }
+.snav.active { background:rgba(255,255,255,.12); color:#fff; border-right:3px solid var(--gold); }
+.snav.soon { opacity:.45; cursor:default; }
+.snav .emoji { width:20px; text-align:center; }
+.snav .tag { margin-left:auto; font-size:.6rem; background:rgba(255,255,255,.15);
+  padding:2px 7px; border-radius:99px; font-weight:700; letter-spacing:.05em; }
+.sidebar__foot { padding:14px 22px 0; border-top:1px solid rgba(255,255,255,.12); }
+.logout { background:none; border:0; color:rgba(255,255,255,.6); font-size:.84rem; font-weight:600; }
+.logout:hover { color:#fff; }
+
+.main { flex:1; padding:30px 34px; min-width:0; }
+.main__head { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:22px; flex-wrap:wrap; }
+.main__head h2 { font-family:"Playfair Display",serif; font-size:1.65rem; color:var(--ink); }
+.main__head p { color:var(--muted); font-size:.92rem; margin-top:2px; }
+.addbtn {
+  display:inline-flex; align-items:center; gap:8px; border:0; border-radius:12px;
+  background:var(--accent); color:#fff; font-weight:800; padding:11px 18px; font-size:.92rem;
+}
+.addbtn:hover { background:#2860b8; }
+
+/* ---------- PROPERTY CARDS ---------- */
+.plist { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:18px; }
+.pcard { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
+.pcard__top { display:flex; align-items:center; gap:13px; padding:18px 18px 6px; }
+.pcard__badge {
+  flex:none; width:46px; height:46px; border-radius:12px; background:var(--tint);
+  display:grid; place-items:center; font-size:1.3rem;
+}
+.pcard__name { font-weight:800; font-size:1.06rem; }
+.pcard__slug { color:var(--muted); font-size:.78rem; font-family:monospace; }
+.pcard__acts { display:flex; gap:8px; padding:14px 18px 18px; flex-wrap:wrap; }
+.pbtn {
+  flex:1; min-width:80px; padding:9px 8px; border-radius:10px; border:1.5px solid var(--line);
+  background:#fff; font-weight:700; font-size:.82rem; color:var(--ink); text-align:center; text-decoration:none;
+}
+.pbtn:hover { border-color:var(--accent); color:var(--accent); }
+.pbtn--primary { background:var(--accent-dk); border-color:var(--accent-dk); color:#fff; }
+.pbtn--primary:hover { background:#2a4a75; color:#fff; }
+.plist-msg { color:var(--muted); padding:30px 4px; }
+
+/* toast, same idea as the guest app */
+.toast { position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(12px);
+  background:var(--ink); color:#fff; font-weight:600; font-size:.88rem; padding:11px 18px;
+  border-radius:99px; opacity:0; pointer-events:none; transition:.2s; z-index:50; }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* Phones: sidebar becomes a top bar */
+@media (max-width: 760px) {
+  .shell { flex-direction:column; }
+  .sidebar { width:100%; flex-direction:row; align-items:center; padding:10px 8px; overflow-x:auto; }
+  .sidebar__brand { border:0; padding:0 14px; font-size:1rem; white-space:nowrap; }
+  .sidebar nav { display:flex; margin:0; }
+  .snav { padding:9px 12px; white-space:nowrap; }
+  .snav.active { border-right:0; border-bottom:3px solid var(--gold); }
+  .snav .tag { display:none; }
+  .sidebar__foot { border:0; padding:0 10px; }
+  .main { padding:18px 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ SCREEN 1: LOGIN ============ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand">
+      <h1>NOMA LAB</h1>
+      <p>Property Operations Platform</p>
+    </div>
+    <label class="fld"><span>Email</span>
+      <input type="email" id="loginEmail" placeholder="you@company.com" autocomplete="username">
+    </label>
+    <label class="fld"><span>Password</span>
+      <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
+    </label>
+    <button class="login-btn" id="loginBtn">Sign in</button>
+    <p class="login-err" id="loginErr"></p>
+    <p class="login-hint">Demo build — use password <b>noma2026</b>. Real accounts arrive in Phase 1.</p>
+  </div>
+</div>
+
+<!-- ============ SCREEN 2: DASHBOARD ============ -->
+<div id="dashScreen">
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sidebar__brand">NOMA LAB</div>
+      <nav id="sideNav"></nav>
+      <div class="sidebar__foot">
+        <button class="logout" id="logoutBtn">Sign out</button>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="main__head">
+        <div>
+          <h2>Guest App</h2>
+          <p>Your properties and their digital guest guides.</p>
+        </div>
+        <button class="addbtn" id="addBtn">＋ New property</button>
+      </div>
+      <div class="plist" id="plist"><p class="plist-msg">Loading properties…</p></div>
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ==================================================================
+   NOMA LAB dashboard — Phase 0 (demo).
+   Three responsibilities:
+     1. Demo login gate (sessionStorage; replaced by Supabase in Phase 1)
+     2. Sidebar with the module menu (Guest App live, others "soon")
+     3. Property list from data/properties.json with Edit/Preview/Link
+   ================================================================== */
+
+/* ---------- tiny helpers ---------- */
+const $ = (id) => document.getElementById(id);          // shorthand: $("plist") instead of document.getElementById("plist")
+const esc = (s) => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c]));
+
+let toastTimer;
+function toast(msg){
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 1800);
+}
+
+/* ---------- 1. LOGIN (demo) ----------
+   sessionStorage is a small key-value store the browser keeps
+   per-tab until the tab closes. We store one flag: "nomalab_auth".
+   If it's set, the user is "logged in" for this session.
+   SECURITY NOTE: this is a demo gate only — anyone technical can
+   bypass it. Fine for an internal demo; Phase 1 replaces exactly
+   this block with real Supabase authentication.                    */
+const DEMO_PASSWORD = "noma2026";
+
+function isLoggedIn(){
+  try { return sessionStorage.getItem("nomalab_auth") === "1"; }
+  catch { return false; }
+}
+function showScreen(){
+  const logged = isLoggedIn();
+  $("loginScreen").style.display = logged ? "none" : "flex";
+  $("dashScreen").style.display  = logged ? "block" : "none";
+  if (logged) loadProperties();
+}
+$("loginBtn").addEventListener("click", () => {
+  const pass = $("loginPass").value;
+  if (pass === DEMO_PASSWORD) {
+    try { sessionStorage.setItem("nomalab_auth", "1"); } catch {}
+    showScreen();
+  } else {
+    $("loginErr").textContent = "Wrong password — this demo uses the password shown below.";
+  }
+});
+/* Let Enter submit the form, like users expect */
+$("loginPass").addEventListener("keydown", e => { if (e.key === "Enter") $("loginBtn").click(); });
+$("logoutBtn").addEventListener("click", () => {
+  try { sessionStorage.removeItem("nomalab_auth"); } catch {}
+  showScreen();
+});
+
+/* ---------- 2. SIDEBAR MENU ----------
+   One array describes the menu; a loop draws it. To add/rename a
+   module later, edit this array only — never the HTML.             */
+const MODULES = [
+  { emoji:"🏠", name:"Guest App",               live:true  },
+  { emoji:"🧹", name:"Cleaning",                live:false },
+  { emoji:"👤", name:"Virtual Property Manager",live:false },
+  { emoji:"💰", name:"Revenue Center",          live:false },
+  { emoji:"📦", name:"Warehouse",               live:false },
+  { emoji:"🔧", name:"Maintenance",             live:false },
+  { emoji:"💬", name:"Communication",           live:false },
+  { emoji:"📊", name:"Reports",                 live:false },
+  { emoji:"⚙️", name:"Settings",                live:false },
+];
+$("sideNav").innerHTML = MODULES.map(m =>
+  `<button class="snav ${m.live ? "active" : "soon"}">
+     <span class="emoji">${m.emoji}</span>${esc(m.name)}
+     ${m.live ? "" : `<span class="tag">SOON</span>`}
+   </button>`
+).join("");
+
+/* ---------- 3. PROPERTY LIST ----------
+   Reuses data/properties.json — the same file the generator uses.
+   fetch() -> array of {slug, name} -> one card per villa.          */
+async function loadProperties(){
+  const box = $("plist");
+  try {
+    const res = await fetch("data/properties.json", { cache:"no-cache" });
+    if (!res.ok) throw new Error(res.status);
+    const props = await res.json();
+    if (!Array.isArray(props) || !props.length) {
+      box.innerHTML = `<p class="plist-msg">No properties yet — add one to data/properties.json.</p>`;
+      return;
+    }
+    box.innerHTML = props.map(p => propertyCard(p)).join("");
+    /* Wire the copy-link buttons AFTER the cards exist in the page */
+    box.querySelectorAll("[data-copylink]").forEach(b =>
+      b.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(b.dataset.copylink);
+          toast("Guest link copied");
+        } catch { toast("Couldn't copy — long-press the Preview link instead"); }
+      })
+    );
+  } catch (err) {
+    box.innerHTML = `<p class="plist-msg">Couldn't load data/properties.json — is the app running on a server (Live Server), not double-clicked?</p>`;
+  }
+}
+
+function propertyCard(p){
+  /* The guest link is relative to wherever the dashboard is hosted,
+     so it works locally AND on GitHub Pages without editing.        */
+  const guestUrl = new URL(`index.html?p=${encodeURIComponent(p.slug)}`, location.href).href;
+  const initial = (p.name || p.slug || "?").trim().charAt(0).toUpperCase();
+  return `<div class="pcard">
+    <div class="pcard__top">
+      <div class="pcard__badge">${esc(initial)}</div>
+      <div>
+        <div class="pcard__name">${esc(p.name || p.slug)}</div>
+        <div class="pcard__slug">${esc(p.slug)}</div>
+      </div>
+    </div>
+    <div class="pcard__acts">
+      <a class="pbtn pbtn--primary" href="builder.html?p=${encodeURIComponent(p.slug)}">✏️ Edit</a>
+      <a class="pbtn" href="${esc(guestUrl)}" target="_blank" rel="noopener">👁 Preview</a>
+      <button class="pbtn" data-copylink="${esc(guestUrl)}">🔗 Copy link</button>
+      <a class="pbtn" href="generator.html" target="_blank" rel="noopener">🎫 Guest link…</a>
+    </div>
+  </div>`;
+}
+
+/* "New property" — in Phase 0 this opens the blank builder.
+   Saving still means: download JSON -> put in data/ -> add a line to
+   properties.json. Phase 1 makes this one click.                    */
+$("addBtn").addEventListener("click", () => { location.href = "builder.html"; });
+
+/* ---------- boot ---------- */
+showScreen();
+</script>
+</body>
+</html>

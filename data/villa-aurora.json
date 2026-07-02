@@ -1,0 +1,802 @@
+{
+  "meta": {
+    "name": "Villa Aurora",
+    "brandLogo": "data/img/logo.svg",
+    "welcomeTitle": {
+      "en": "Welcome",
+      "el": "Καλώς ήρθατε"
+    },
+    "welcomeMessage": {
+      "en": "Dear guest, this guide has everything you need for a smooth, comfortable stay — door codes, WiFi, directions and our local favourites. On arrival, please fill in the online check-in form. We hope you have a wonderful time.",
+      "el": "Αγαπητέ επισκέπτη, σε αυτόν τον οδηγό θα βρείτε ό,τι χρειάζεστε για μια άνετη διαμονή — κωδικούς, WiFi, οδηγίες και τοπικές προτάσεις. Κατά την άφιξή σας, συμπληρώστε την online φόρμα check-in. Καλή διαμονή!"
+    },
+    "languages": [
+      "en",
+      "el"
+    ],
+    "heroImage": "data/img/hero.svg",
+    "coords": {
+      "lat": 37.0389,
+      "lng": 22.1142
+    },
+    "googleReviewUrl": "https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID",
+    "heroImages": [
+      "data/img/hero.svg"
+    ]
+  },
+  "contact": {
+    "phone": "+306906134633",
+    "whatsapp": "+306906134633",
+    "viber": "+306906134633"
+  },
+  "actions": [
+    {
+      "icon": "checkin",
+      "label": {
+        "en": "Check-in form",
+        "el": "Φόρμα Check-in"
+      },
+      "url": "https://forms.gle/your-checkin-form"
+    },
+    {
+      "icon": "phone",
+      "label": {
+        "en": "Contact",
+        "el": "Επικοινωνία"
+      },
+      "url": "tel:+306906134633"
+    }
+  ],
+  "sections": [
+    {
+      "id": "arrival",
+      "icon": "arrival",
+      "title": {
+        "en": "On your arrival",
+        "el": "Κατά την άφιξή σας"
+      },
+      "cards": [
+        {
+          "image": "data/img/location.svg",
+          "title": {
+            "en": "Location",
+            "el": "Τοποθεσία"
+          },
+          "body": {
+            "en": "If you are arriving with your own transport, tap below to see our location on the map.",
+            "el": "Εάν έρχεστε με δικό σας μεταφορικό μέσο, πατήστε για δείτε την τοποθεσία μας στον χάρτη."
+          },
+          "mapUrl": "https://maps.google.com/?q=Poros+Greece",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "image": "data/img/building.svg",
+          "title": {
+            "en": "The building",
+            "el": "Το κτίριο"
+          },
+          "body": {
+            "en": "When you arrive, you'll see this building / entrance — look for it to find us.",
+            "el": "Όταν φτάσετε, θα δείτε αυτό το κτίριο / είσοδο — αναζητήστε το για να μας βρείτε."
+          }
+        },
+        {
+          "image": "data/img/garage.svg",
+          "title": {
+            "en": "Garage door",
+            "el": "Πόρτα γκαράζ"
+          },
+          "body": {
+            "en": "Use the code below to open the garage door. (Replace with the exact instructions.)",
+            "el": "Χρησιμοποιήστε τον κωδικό παρακάτω για να ανοίξετε την πόρτα του γκαράζ. (Αντικαταστήστε με τις ακριβείς οδηγίες.)"
+          },
+          "code": "0000",
+          "image2": "data/img/garage2.svg"
+        },
+        {
+          "image": "data/img/parking.svg",
+          "title": {
+            "en": "Parking",
+            "el": "Πάρκινγκ"
+          },
+          "body": {
+            "en": "Parking is free on the street, so you can park wherever suits you. If there is no space in front of the property, you can park on the parallel street at the rear.",
+            "el": "Το πάρκινγκ είναι ελεύθερο στον δρόμο, οπότε μπορείτε να παρκάρετε όπου σας βολεύει. Αν δεν βρείτε θέση μπροστά από το κατάλυμα, μπορείτε να παρκάρετε στον παράλληλο δρόμο από την πίσω πλευρά."
+          }
+        },
+        {
+          "image": "data/img/keylocker.svg",
+          "title": {
+            "en": "Key locker",
+            "el": "Key locker"
+          },
+          "body": {
+            "en": "Find the keys in the locker shown in the photo. The code will be sent to you before arrival.",
+            "el": "Βρείτε τα κλειδιά στο locker της φωτογραφίας. Θα σας σταλεί ο κωδικός πριν την άφιξη."
+          }
+        },
+        {
+          "image": "data/img/carrental.svg",
+          "title": {
+            "en": "Car rental",
+            "el": "Ενοικίαση αυτοκινήτου"
+          },
+          "body": {
+            "en": "We arrange car rental to suit your needs. Once you choose the car you want, you can pick it up as soon as you land at the airport.",
+            "el": "Κανονίζουμε την ενοικίαση σύμφωνα με τις ανάγκες σας. Αφού επιλέξετε το αυτοκίνητο που επιθυμείτε, θα μπορείτε να το παραλάβετε αμέσως μόλις προσγειωθείτε στο αεροδρόμιο."
+          }
+        },
+        {
+          "image": "data/img/contact.svg",
+          "title": {
+            "en": "Contact",
+            "el": "Επικοινωνία"
+          },
+          "body": {
+            "en": "For anything you need, you can reach us daily from 07:00 to 23:00 at 0030 690 613 46 33, or send us a WhatsApp message using the button at the bottom of the page.",
+            "el": "Για οτιδήποτε χρειαστείτε, μπορείτε να επικοινωνείτε καθημερινά από τις 07:00 έως τις 23:00 στο 0030 690 613 46 33 ή, εναλλακτικά, να μας στείλετε μήνυμα μέσω WhatsApp πατώντας το αντίστοιχο κουμπί στο κάτω μέρος της σελίδας."
+          }
+        },
+        {
+          "image": "data/img/arrival.svg",
+          "title": {
+            "en": "Arrival time",
+            "el": "Ώρα άφιξης"
+          },
+          "body": {
+            "en": "We recommend letting us know your estimated arrival time so we can serve you better.",
+            "el": "Σας προτείνουμε να μας ενημερώσετε για την εκτιμώμενη ώρα άφιξής σας ώστε να σας εξυπηρετήσουμε καλύτερα."
+          }
+        },
+        {
+          "image": "data/img/checkin.svg",
+          "title": {
+            "en": "Check-in after 15:00",
+            "el": "Check-in μετά τις 15:00"
+          },
+          "body": {
+            "en": "We welcome you in person. Early check-in is possible upon arrangement and availability.",
+            "el": "Σας υποδεχόμαστε εμείς | Υπάρχει η δυνατότητα για early check-in κατόπιν συνεννόησης και διαθεσιμότητας."
+          }
+        },
+        {
+          "image": "data/img/welcome.svg",
+          "title": {
+            "en": "Early check-in",
+            "el": "Early check-in"
+          },
+          "body": {
+            "en": "Early check-in is possible, depending on availability at the time of your arrival.",
+            "el": "Υπάρχει δυνατότητα για early check-in, ανάλογα με τη διαθεσιμότητα τη στιγμή της άφιξής σας."
+          }
+        },
+        {
+          "image": "data/img/luggage.svg",
+          "title": {
+            "en": "Luggage storage",
+            "el": "Αποθήκευση αποσκευών"
+          },
+          "body": {
+            "en": "If you arrive earlier than your scheduled check-in time, you can leave your luggage with us until the room is ready. The same option is available after check-out.",
+            "el": "Σε περίπτωση που φτάσετε νωρίτερα από την προγραμματισμένη ώρα check-in, μπορείτε να αφήσετε τις αποσκευές σας για φύλαξη μέχρι να είναι έτοιμο το δωμάτιο. Αντίστοιχα, παρέχεται η ίδια δυνατότητα και μετά το check-out."
+          }
+        }
+      ],
+      "subtitle": {
+        "en": "Access instructions",
+        "el": "Οδηγίες πρόσβασης"
+      }
+    },
+    {
+      "id": "property",
+      "icon": "property",
+      "title": {
+        "en": "Property guide",
+        "el": "Οδηγός σπιτιού"
+      },
+      "groups": [
+        {
+          "label": {
+            "en": "Useful information",
+            "el": "Χρήσιμες πληροφορίες"
+          },
+          "cards": [
+            {
+              "image": "data/img/ac.svg",
+              "title": {
+                "en": "Air conditioning",
+                "el": "Κλιματισμός"
+              },
+              "body": {
+                "en": "For the villa to cool properly, all doors and windows must be closed. The A/C is controlled centrally from the panel next to the main entrance. The ideal temperature to avoid catching a cold while you sleep is 25 °C.",
+                "el": "Για τον σωστό κλιματισμό της βίλας θα πρέπει όλα οι πόρτες και τα παράθυρα να είναι κλειστά. Ο κλιματισμός ελέγχεται κεντρικά από το πάνελ δίπλα στην κεντρική είσοδο. Η ιδανική θερμοκρασία για την αποφυγή κρυολογήματος όταν κοιμάστε είναι 25 °C."
+              }
+            },
+            {
+              "image": "data/img/coffee.svg",
+              "title": {
+                "en": "Coffee machine",
+                "el": "Καφετιέρα"
+              },
+              "body": {
+                "en": "Filter / Nespresso (see more)",
+                "el": "Filter / Nespresso (δείτε περισσότερα)"
+              }
+            },
+            {
+              "image": "data/img/bbq.svg",
+              "title": {
+                "en": "BBQ Charcoal/Gas",
+                "el": "BBQ Charcoal/Gas"
+              },
+              "body": {
+                "en": "Open the lid first, then the gas bottle. Light the burner with the switch and adjust the temperature with the control knobs. After cooking, close the bottle first and then the burners. Always use the BBQ outdoors in a well-ventilated area and never leave it unattended.",
+                "el": "Ανοίξτε πρώτα το καπάκι και στη συνέχεια τη φιάλη αερίου. Ανάψτε τον καυστήρα από τον διακόπτη και ρυθμίστε τη θερμοκρασία με τα κουμπιά ελέγχου. Μετά το ψήσιμο, κλείστε πρώτα τη φιάλη και έπειτα τους καυστήρες. Χρησιμοποιείτε πάντα το BBQ σε εξωτερικό χώρο με καλό αερισμό και μην το αφήνετε χωρίς επίβλεψη."
+              }
+            },
+            {
+              "image": "data/img/gym.svg",
+              "title": {
+                "en": "Gym equipment",
+                "el": "Όργανα γυμναστηρίου"
+              },
+              "body": {
+                "en": "The gym in the yard shed includes the basic exercise equipment. Please return the equipment to its place after use.",
+                "el": "Το γυμναστήριο στο υπόστεγο της αυλής περιλαμβάνει τα βασικά όργανα γυμναστικής. Παρακαλούμε, μετά την χρήση των οργάνων τοποθετήστε τα στην θέση τους."
+              }
+            },
+            {
+              "image": "data/img/cleaning.svg",
+              "title": {
+                "en": "Cleaning service",
+                "el": "Υπηρεσία καθαριότητας"
+              },
+              "body": {
+                "en": "Cleaning services are provided on request and at an extra charge.",
+                "el": "Οι υπηρεσίες καθαριότητας πραγματοποιούνται κατόπιν αιτήματός σας και με επιπλέον χρέωση."
+              }
+            },
+            {
+              "image": "data/img/contactus.svg",
+              "title": {
+                "en": "Contact us",
+                "el": "Επικοινωνήστε μαζί μας"
+              },
+              "body": {
+                "en": "For anything you need, you can reach us daily from 07:00 to 23:00 at 0030 690 613 46 33, or send us a WhatsApp message using the button at the bottom of the page.",
+                "el": "Για οτιδήποτε χρειαστείτε, μπορείτε να επικοινωνείτε καθημερινά από τις 07:00 έως τις 23:00 στο 0030 690 613 46 33 ή, εναλλακτικά, να μας στείλετε μήνυμα μέσω WhatsApp πατώντας το αντίστοιχο κουμπί στο κάτω μέρος της σελίδας."
+              }
+            },
+            {
+              "image": "data/img/tapwater.svg",
+              "title": {
+                "en": "Tap water",
+                "el": "Νερό βρύσης"
+              },
+              "body": {
+                "en": "Tap water is not recommended for drinking. However, it is suitable for cooking, as well as for bathing and personal hygiene.",
+                "el": "Το νερό της βρύσης δεν συνιστάται για πόση. Ωστόσο, είναι κατάλληλο για μαγείρεμα, καθώς και για μπάνιο και προσωπική υγιεινή."
+              }
+            },
+            {
+              "image": "data/img/hotwater.svg",
+              "title": {
+                "en": "Hot water",
+                "el": "Ζεστό νερό"
+              },
+              "body": {
+                "en": "Available 24/7 from the solar water heater. On cloudy days, flip the switch shown in the photo. IMPORTANT! AFTER 20 MINUTES TURN IT BACK TO THE OFF POSITION.",
+                "el": "Όλο το 24ωρο από ηλιακό θερμοσίφωνα. Σε περίπτωση συνεφιάς σηκώστε τον διακόπτη της φωτογραφίας. ΣΗΜΑΝΤΙΚΟ! ΜΕΤΑ ΑΠΟ 20' ΞΑΝΑΓΥΡΙΣΤΕ ΤΟΝ ΣΤΗΝ ΘΕΣΗ OFF"
+              }
+            },
+            {
+              "image": "data/img/boardgames.svg",
+              "title": {
+                "en": "Board games",
+                "el": "Επιτραπέζια παιχνίδια"
+              },
+              "body": {
+                "en": "You will find board games for the whole family in the living room cabinet.",
+                "el": "Θα βρείτε επιτραπέζια παιχνίδια για όλη την οικογένεια στο ντουλάπι του σαλονιού."
+              }
+            },
+            {
+              "image": "data/img/backup.svg",
+              "title": {
+                "en": "Backup power",
+                "el": "Εφεδρική τροφοδοσία"
+              },
+              "body": {
+                "en": "In the event of a power cut, the system powers the house automatically, with autonomy of about two hours.",
+                "el": "Σε περίπτωση διακοπής ρεύματος, το σύστημα τροφοδοτεί το σπίτι αυτόματα, με αυτονομία περίπου δύο ωρών."
+              }
+            }
+          ]
+        },
+        {
+          "label": {
+            "en": "Rules",
+            "el": "Κανονισμοί"
+          },
+          "cards": [
+            {
+              "image": "data/img/garbage.svg",
+              "title": {
+                "en": "Garbage",
+                "el": "Σκουπίδια"
+              },
+              "body": {
+                "en": "Please leave your rubbish in the bins outside the property. Recycling bins are next to them.",
+                "el": "Παρακαλούμε αφήνετε τα σκουπίδια στους κάδους έξω από το κατάλυμα. Οι κάδοι ανακύκλωσης βρίσκονται δίπλα."
+              }
+            },
+            {
+              "image": "data/img/party.svg",
+              "title": {
+                "en": "Parties",
+                "el": "Διοργάνωση πάρτι"
+              },
+              "body": {
+                "en": "Parties are not allowed at this property.",
+                "el": "Απαγορεύεται η διοργάνωση πάρτι σε αυτό το κατάλυμα."
+              }
+            },
+            {
+              "image": "data/img/pool.svg",
+              "title": {
+                "en": "Pool",
+                "el": "Πισίνα"
+              },
+              "body": {
+                "en": "See the rules.",
+                "el": "Δείτε τους κανονισμούς"
+              }
+            },
+            {
+              "image": "data/img/cushions.svg",
+              "title": {
+                "en": "Pool cushions",
+                "el": "Μαξιλάρια πισίνας"
+              },
+              "body": {
+                "en": "Please place all pool cushions in the veranda shed in case of rain.",
+                "el": "Παρακαλούμε τοποθετήστε όλα τα μαξιλάρια της πισίνας στο υπόστεγο της βεράντας σε περίπτωση βροχής."
+              }
+            },
+            {
+              "image": "data/img/smoking.svg",
+              "title": {
+                "en": "Smoking",
+                "el": "Κάπνισμα"
+              },
+              "body": {
+                "en": "Not allowed inside the house.",
+                "el": "Απαγορεύεται εντός τις οικείας."
+              }
+            },
+            {
+              "image": "data/img/lighting.svg",
+              "title": {
+                "en": "Lighting",
+                "el": "Φωτισμός"
+              },
+              "body": {
+                "en": "Please switch off the outdoor and decorative lights when you go to sleep or leave the house.",
+                "el": "Παρακαλούμε σβήνετε τα εξωτερικά και διακοσμητικά φώτα όταν κοιμάστε ή φεύγετε από το σπίτι."
+              }
+            }
+          ],
+          "key": "rules"
+        }
+      ],
+      "subtitle": {
+        "en": "Amenities & guide",
+        "el": "Παροχές & οδηγίες"
+      }
+    },
+    {
+      "id": "wifi",
+      "icon": "wifi",
+      "title": {
+        "en": "Wi-Fi",
+        "el": "Wi-Fi"
+      },
+      "subtitle": {
+        "en": "Connection code",
+        "el": "Κωδικός σύνδεσης"
+      },
+      "cards": [
+        {
+          "image": "data/img/wifi.svg",
+          "title": {
+            "en": "Wi-Fi",
+            "el": "Wi-Fi"
+          },
+          "wifi": {
+            "network": "Archipelagos",
+            "password": "123456789"
+          }
+        }
+      ]
+    },
+    {
+      "id": "checkout",
+      "icon": "checkout",
+      "title": {
+        "en": "Check-out",
+        "el": "Check-out"
+      },
+      "subtitle": {
+        "en": "Departure",
+        "el": "Αναχώρηση"
+      },
+      "cards": [
+        {
+          "image": "data/img/checkout.svg",
+          "title": {
+            "en": "Check-out",
+            "el": "Check-out"
+          },
+          "body": {
+            "en": "For the smooth running of the property, please complete check-out by 11:00 am. | Late check-out — at an extra charge — subject to availability.",
+            "el": "Για την ομαλή λειτουργία του καταλύματος παρακαλούμε το check out να έχει πραγματοποιηθεί ως τις 11:00 πμ. | Late check-out - Με επιπλέον χρέωση - κατόπιν διαθεσιμότητας"
+          }
+        }
+      ]
+    },
+    {
+      "id": "neighbourhood",
+      "icon": "neighbourhood",
+      "title": {
+        "en": "The neighbourhood",
+        "el": "Η γειτονιά"
+      },
+      "intro": {
+        "en": "Our area is close to Nafplio, and you'll find everything you need for daily essentials a short distance away.",
+        "el": "Η περιοχή μας βρίσκεται κοντά στο Ναύπλιο και θα βρείτε ότι χρειαστείτε από είδη πρώτης ανάγκης σε κοντινή απόσταση."
+      },
+      "cards": [
+        {
+          "image": "data/img/minimarket.svg",
+          "title": {
+            "en": "Mini market",
+            "el": "Μίνι μάρκετ"
+          },
+          "body": {
+            "en": "For essentials, visit the mini market in the village square, about 2 minutes by car. It has basic products, tobacco and some greengrocer items.",
+            "el": "Για είδη πρώτης ανάγκης μπορείτε να επισκεφθείτε το μίνι μάρκετ στην πλατεία του χωριού, περίπου 2 λεπτά με το αυτοκίνητο. Διαθέτει βασικά προϊόντα, είδη καπνού και ορισμένα είδη μαναβικής."
+          }
+        },
+        {
+          "image": "data/img/pharmacy.svg",
+          "title": {
+            "en": "Pharmacy",
+            "el": "Φαρμακείο"
+          },
+          "body": {
+            "en": "The nearest pharmacy is in the village, about a 5-minute drive. Ask us about the on-duty pharmacy at night.",
+            "el": "Το πλησιέστερο φαρμακείο βρίσκεται στο χωριό, περίπου 5 λεπτά με το αυτοκίνητο. Ρωτήστε μας για το εφημερεύον φαρμακείο τη νύχτα."
+          }
+        }
+      ],
+      "area": true,
+      "subtitle": {
+        "en": "Beaches & sights",
+        "el": "Παραλίες & σημεία"
+      }
+    },
+    {
+      "id": "beaches",
+      "icon": "beaches",
+      "title": {
+        "en": "Nearby beaches",
+        "el": "Κοντινές παραλίες"
+      },
+      "cards": [
+        {
+          "image": "data/img/beach.svg",
+          "title": {
+            "en": "Ritsa Beach",
+            "el": "Παραλία Ρίτσα"
+          },
+          "body": {
+            "en": "Pebble beach, calm water, shade in the morning. A 4-minute walk away.",
+            "el": "Παραλία με βότσαλα, ήρεμα νερά, σκιά το πρωί. 4 λεπτά με τα πόδια."
+          },
+          "mapUrl": "https://maps.google.com/?q=beach+Poros",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        }
+      ],
+      "subtitle": {
+        "en": "Nearby coastline",
+        "el": "Κοντινές παραλίες"
+      },
+      "area": true
+    },
+    {
+      "id": "sights",
+      "icon": "sights",
+      "title": {
+        "en": "Sights",
+        "el": "Αξιοθέατα"
+      },
+      "intro": {
+        "en": "The Nafplio area, and Argolida as a whole, has unique sights including three UNESCO monuments. We've put together a guide to the best of what's worth visiting.",
+        "el": "Η περιοχή του Ναυπλίου, και συνολικά η Αργολίδα, διαθέτει μοναδικά αξιοθέατα συμπεριλαμβανομένων τριών μνημείων UNESCO. Δημιουργήσαμε έναν οδηγό με τα καλύτερα που αξίζει να επισκεφτείτε."
+      },
+      "groups": [
+        {
+          "label": {
+            "en": "Sights of Nafplio",
+            "el": "Αξιοθέατα Ναυπλίου"
+          },
+          "cards": [
+            {
+              "image": "data/img/palamidi.svg",
+              "title": {
+                "en": "Palamidi Fortress",
+                "el": "Φρούριο Παλαμήδι"
+              },
+              "body": {
+                "en": "The most beautiful castle in Greece.",
+                "el": "Το ομορφότερο κάστρο της Ελλάδας"
+              },
+              "mapUrl": "https://maps.google.com/?q=Palamidi+Nafplio",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "image": "data/img/oldtown.svg",
+              "title": {
+                "en": "Nafplio Old Town",
+                "el": "Παλιά Πόλη Ναυπλίου"
+              },
+              "body": {
+                "en": "Wander the marble alleys, Syntagma Square and the seafront — ideal at sunset.",
+                "el": "Περπατήστε στα μαρμάρινα σοκάκια, την πλατεία Συντάγματος και την παραλία — ιδανικά το ηλιοβασίλεμα."
+              },
+              "mapUrl": "https://maps.google.com/?q=Nafplio+Old+Town",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            }
+          ]
+        }
+      ],
+      "area": true,
+      "subtitle": {
+        "en": "Local highlights",
+        "el": "Τοπικά αξιοθέατα"
+      }
+    },
+    {
+      "id": "restaurants",
+      "icon": "restaurants",
+      "title": {
+        "en": "Restaurants",
+        "el": "Εστιατόρια"
+      },
+      "cards": [
+        {
+          "image": "data/img/restaurant.svg",
+          "title": {
+            "en": "Lola Taverna",
+            "el": "Ταβέρνα Λόλα"
+          },
+          "body": {
+            "en": "Family-run taverna by the sea. Order the grilled octopus.",
+            "el": "Οικογενειακή ταβέρνα δίπλα στη θάλασσα. Δοκιμάστε το χταπόδι σχάρας."
+          },
+          "mapUrl": "https://maps.google.com/?q=taverna+Poros",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        }
+      ],
+      "subtitle": {
+        "en": "Our suggestions",
+        "el": "Οι προτάσεις μας"
+      },
+      "area": true
+    },
+    {
+      "id": "activities",
+      "icon": "activities",
+      "title": {
+        "en": "Activities",
+        "el": "Δραστηριότητες"
+      },
+      "intro": {
+        "en": "In our area you can do plenty of activities and discover its beautiful nature and cultural wealth. We've selected reliable, excellent partners and recommend them to you.",
+        "el": "Στην περιοχή μας μπορείτε να κάνετε αρκετές δραστηριότητες και να ανακαλύψετε την όμορφη φύση αλλά και τον πολιτιστικό της πλούτο. Επιλέξαμε για εσάς και σας προτείνουμε αξιόπιστους και εξαιρετικούς συνεργάτες."
+      },
+      "cards": [
+        {
+          "image": "data/img/cruise.svg",
+          "title": {
+            "en": "Day cruise — Hydra & Spetses",
+            "el": "Μονοήμερη κρουαζιέρα Ύδρα & Σπέτσες"
+          },
+          "body": {
+            "en": "Departure is early in the morning. We handle the ticket booking — contact us.",
+            "el": "Η αναχώρηση γίνεται νωρίς το πρωί | Αναλαμβάνουμε την κράτηση εισιτηρίων, επικοινωνήστε μαζί μας."
+          }
+        },
+        {
+          "image": "data/img/sailing.svg",
+          "title": {
+            "en": "Sailing — Private cruises in the Argolic Gulf",
+            "el": "Sailing - Ιδιωτικές κρουαζιέρες στον Αργολικό"
+          },
+          "body": {
+            "en": "For information and bookings, contact us.",
+            "el": "Για πληροφορίες / κρατήσεις επικοινωνήστε μαζί μας."
+          }
+        },
+        {
+          "image": "data/img/fishing.svg",
+          "title": {
+            "en": "Tolo Fishing Trips",
+            "el": "Tolo Fishing Trips"
+          },
+          "body": {
+            "en": "For information and bookings, contact us.",
+            "el": "Για πληροφορίες / κρατήσεις επικοινωνήστε μαζί μας."
+          }
+        }
+      ],
+      "subtitle": {
+        "en": "What to see & do",
+        "el": "Τι να δείτε"
+      },
+      "area": true
+    },
+    {
+      "id": "transfers",
+      "icon": "transfers",
+      "title": {
+        "en": "Transfers",
+        "el": "Μεταφορές"
+      },
+      "cards": [
+        {
+          "image": "data/img/carrental.svg",
+          "title": {
+            "en": "Local taxi",
+            "el": "Τοπικό ταξί"
+          },
+          "body": {
+            "en": "Reliable driver for the airport or day trips. Message us on WhatsApp and we'll arrange it.",
+            "el": "Αξιόπιστος οδηγός για αεροδρόμιο ή εκδρομές. Στείλτε μήνυμα στο WhatsApp και θα το κανονίσουμε."
+          }
+        }
+      ],
+      "area": true,
+      "subtitle": {
+        "en": "Airport & taxis",
+        "el": "Αεροδρόμιο & ταξί"
+      }
+    }
+  ],
+  "home": [
+    {
+      "icon": "arrival",
+      "title": {
+        "en": "Arrival",
+        "el": "Άφιξη"
+      },
+      "subtitle": {
+        "en": "Access instructions",
+        "el": "Οδηγίες πρόσβασης"
+      },
+      "section": "arrival"
+    },
+    {
+      "icon": "property",
+      "title": {
+        "en": "House guide",
+        "el": "Οδηγός σπιτιού"
+      },
+      "subtitle": {
+        "en": "Amenities & guide",
+        "el": "Παροχές & οδηγίες"
+      },
+      "section": "property"
+    },
+    {
+      "icon": "wifi",
+      "title": {
+        "en": "Wi-Fi",
+        "el": "Wi-Fi"
+      },
+      "subtitle": {
+        "en": "Connection code",
+        "el": "Κωδικός σύνδεσης"
+      },
+      "section": "wifi"
+    },
+    {
+      "icon": "rules",
+      "title": {
+        "en": "Rules",
+        "el": "Κανόνες"
+      },
+      "subtitle": {
+        "en": "House rules",
+        "el": "Όροι διαμονής"
+      },
+      "section": "property",
+      "cardMatch": "rules"
+    },
+    {
+      "icon": "checkout",
+      "title": {
+        "en": "Check-out",
+        "el": "Check-out"
+      },
+      "subtitle": {
+        "en": "Departure",
+        "el": "Αναχώρηση"
+      },
+      "section": "checkout"
+    },
+    {
+      "icon": "navarea",
+      "title": {
+        "en": "Area",
+        "el": "Περιοχή"
+      },
+      "subtitle": {
+        "en": "Beaches & sights",
+        "el": "Παραλίες & σημεία"
+      },
+      "tab": "area"
+    },
+    {
+      "icon": "restaurants",
+      "title": {
+        "en": "Restaurants",
+        "el": "Εστιατόρια"
+      },
+      "subtitle": {
+        "en": "Our suggestions",
+        "el": "Οι προτάσεις μας"
+      },
+      "section": "restaurants"
+    },
+    {
+      "icon": "sights",
+      "title": {
+        "en": "Sights",
+        "el": "Αξιοθέατα"
+      },
+      "subtitle": {
+        "en": "What to see",
+        "el": "Τι να δείτε"
+      },
+      "section": "sights"
+    },
+    {
+      "icon": "navcontact",
+      "title": {
+        "en": "Contact",
+        "el": "Επικοινωνία"
+      },
+      "subtitle": {
+        "en": "We're here for you",
+        "el": "Είμαστε εδώ για εσάς"
+      },
+      "tab": "contact"
+    }
+  ]
+}

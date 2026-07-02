@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a4a2f"/><stop offset="1" stop-color="#8f8f5b"/></linearGradient></defs>
+<rect width="1200" height="760" fill="url(#g)"/>
+<g fill="#ffffff" opacity="0.92">
+<text x="50%" y="48%" text-anchor="middle" font-family="Georgia, serif" font-size="40">Backup power</text>
+<text x="50%" y="56%" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" opacity="0.8">replace in data/img/</text>
+</g></svg>

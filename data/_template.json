@@ -1,0 +1,327 @@
+{
+  "_howto": "Copy to data/<slug>.json, fill in, share index.html?p=<slug>. Any text can be a string OR {\"en\":\"...\",\"el\":\"...\"}. Images go in data/img/ (jpg/png/svg) and are referenced by path. Delete sections/cards you don't need. Remove _ comment fields before publishing.",
+  "meta": {
+    "name": "",
+    "brandLogo": "data/img/logo.svg",
+    "welcomeTitle": {
+      "en": "Welcome!",
+      "el": "Καλωσήρθατε!"
+    },
+    "welcomeMessage": {
+      "en": "",
+      "el": ""
+    },
+    "languages": [
+      "en",
+      "el"
+    ],
+    "heroImages": [],
+    "coords": {
+      "lat": null,
+      "lng": null
+    },
+    "googleReviewUrl": "",
+    "searchAliases": {}
+  },
+  "_languages": "supported flags: en, el, fr, de, it",
+  "_new_home_screen": "Optional fields for the new home screen — all optional, safe to delete: meta.heroImages (array of photos for a swipeable hero, falls back to heroImage), meta.coords {lat,lng} (shows a live weather badge on the hero card, no API key needed), meta.googleReviewUrl (a 5-star tap opens this), section.subtitle (small line under a tile's title), section.area:true (tags a section to appear on the Area tab). The top-level 'home' array controls exactly which tiles show on the home screen, in order — each tile points to a section ('section'), optionally jumps straight to one card/group inside it ('cardMatch', matched against that card's or group's 'key'), or opens a bottom-nav tab directly ('tab': 'area'|'contact'|'guide'). Delete the whole 'home' array to fall back to one tile per section automatically.",
+  "_search": "The home search bar searches ALL card content (titles, text, wifi, codes, checklists) — not just tile labels — and understands synonyms (e.g. 'internet' finds Wi-Fi). A microphone button appears for voice search where the browser supports it (Chrome, Android, iOS Safari; follows the guide's language). Add property-specific synonyms via meta.searchAliases, e.g. {\"internet\":[\"wifi\"],\"aircon\":[\"air conditioning\"]}.",
+  "contact": {
+    "phone": "",
+    "whatsapp": ""
+  },
+  "actions": [
+    {
+      "icon": "checkin",
+      "label": {
+        "en": "Check-in form",
+        "el": "Φόρμα Check-in"
+      },
+      "url": ""
+    },
+    {
+      "icon": "massage",
+      "label": {
+        "en": "Request a massage",
+        "el": "Αίτημα μασάζ"
+      },
+      "url": ""
+    }
+  ],
+  "_section_icons": "arrival, property, neighborhood, beaches, sights, restaurants, activities, transfers, spa, shopping, info, wifi, rules, checkout",
+  "_card_fields": "image, title, body, mapUrl+mapLabel (button), code+codeLabel (tap-to-copy chip), wifi:{network,password}, key (stable id used by home.cardMatch)",
+  "sections": [
+    {
+      "id": "arrival",
+      "icon": "arrival",
+      "title": {
+        "en": "On your arrival",
+        "el": "Κατά την άφιξή σας"
+      },
+      "subtitle": {
+        "en": "Access instructions",
+        "el": "Οδηγίες πρόσβασης"
+      },
+      "cards": [
+        {
+          "image": "",
+          "title": {
+            "en": "",
+            "el": ""
+          },
+          "body": {
+            "en": "",
+            "el": ""
+          },
+          "mapUrl": "",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "image": "",
+          "title": {
+            "en": "",
+            "el": ""
+          },
+          "body": {
+            "en": "",
+            "el": ""
+          },
+          "code": "",
+          "codeLabel": {
+            "en": "Lockbox code",
+            "el": "Κωδικός κουτιού"
+          }
+        }
+      ]
+    },
+    {
+      "id": "property",
+      "icon": "property",
+      "title": {
+        "en": "Property guide",
+        "el": "Οδηγός σπιτιού"
+      },
+      "subtitle": {
+        "en": "Amenities & guide",
+        "el": "Παροχές & οδηγίες"
+      },
+      "groups": [
+        {
+          "key": "rules",
+          "label": {
+            "en": "Rules",
+            "el": "Κανονισμοί"
+          },
+          "cards": [
+            {
+              "title": {
+                "en": "Smoking",
+                "el": "Κάπνισμα"
+              },
+              "body": {
+                "en": "",
+                "el": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wifi",
+      "icon": "wifi",
+      "title": {
+        "en": "Wi-Fi",
+        "el": "Wi-Fi"
+      },
+      "subtitle": {
+        "en": "Connection code",
+        "el": "Κωδικός σύνδεσης"
+      },
+      "cards": [
+        {
+          "title": {
+            "en": "Wi-Fi",
+            "el": "Wi-Fi"
+          },
+          "body": {
+            "en": "Connect using the network and password below.",
+            "el": "Συνδεθείτε με το δίκτυο και τον κωδικό παρακάτω."
+          },
+          "wifi": {
+            "network": "",
+            "password": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "checkout",
+      "icon": "checkout",
+      "title": {
+        "en": "Check-out",
+        "el": "Check-out"
+      },
+      "subtitle": {
+        "en": "Departure",
+        "el": "Αναχώρηση"
+      },
+      "cards": [
+        {
+          "title": {
+            "en": "Check-out",
+            "el": "Check-out"
+          },
+          "body": {
+            "en": "",
+            "el": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "restaurants",
+      "icon": "restaurants",
+      "title": {
+        "en": "Restaurants",
+        "el": "Εστιατόρια"
+      },
+      "subtitle": {
+        "en": "Our suggestions",
+        "el": "Οι προτάσεις μας"
+      },
+      "area": true,
+      "cards": []
+    },
+    {
+      "id": "sights",
+      "icon": "sights",
+      "title": {
+        "en": "Sights",
+        "el": "Αξιοθέατα"
+      },
+      "subtitle": {
+        "en": "What to see",
+        "el": "Τι να δείτε"
+      },
+      "area": true,
+      "cards": []
+    }
+  ],
+  "home": [
+    {
+      "icon": "arrival",
+      "title": {
+        "en": "Arrival",
+        "el": "Άφιξη"
+      },
+      "subtitle": {
+        "en": "Access instructions",
+        "el": "Οδηγίες πρόσβασης"
+      },
+      "section": "arrival"
+    },
+    {
+      "icon": "property",
+      "title": {
+        "en": "House guide",
+        "el": "Οδηγός σπιτιού"
+      },
+      "subtitle": {
+        "en": "Amenities & guide",
+        "el": "Παροχές & οδηγίες"
+      },
+      "section": "property"
+    },
+    {
+      "icon": "wifi",
+      "title": {
+        "en": "Wi-Fi",
+        "el": "Wi-Fi"
+      },
+      "subtitle": {
+        "en": "Connection code",
+        "el": "Κωδικός σύνδεσης"
+      },
+      "section": "property",
+      "cardMatch": "wifi"
+    },
+    {
+      "icon": "rules",
+      "title": {
+        "en": "Rules",
+        "el": "Κανόνες"
+      },
+      "subtitle": {
+        "en": "House rules",
+        "el": "Όροι διαμονής"
+      },
+      "section": "property",
+      "cardMatch": "rules"
+    },
+    {
+      "icon": "checkout",
+      "title": {
+        "en": "Check-out",
+        "el": "Check-out"
+      },
+      "subtitle": {
+        "en": "Departure",
+        "el": "Αναχώρηση"
+      },
+      "section": "property",
+      "cardMatch": "checkout"
+    },
+    {
+      "icon": "navarea",
+      "title": {
+        "en": "Area",
+        "el": "Περιοχή"
+      },
+      "subtitle": {
+        "en": "Beaches & sights",
+        "el": "Παραλίες & σημεία"
+      },
+      "tab": "area"
+    },
+    {
+      "icon": "restaurants",
+      "title": {
+        "en": "Restaurants",
+        "el": "Εστιατόρια"
+      },
+      "subtitle": {
+        "en": "Our suggestions",
+        "el": "Οι προτάσεις μας"
+      },
+      "section": "restaurants"
+    },
+    {
+      "icon": "sights",
+      "title": {
+        "en": "Sights",
+        "el": "Αξιοθέατα"
+      },
+      "subtitle": {
+        "en": "What to see",
+        "el": "Τι να δείτε"
+      },
+      "section": "sights"
+    },
+    {
+      "icon": "navcontact",
+      "title": {
+        "en": "Contact",
+        "el": "Επικοινωνία"
+      },
+      "subtitle": {
+        "en": "We're here for you",
+        "el": "Είμαστε εδώ για εσάς"
+      },
+      "tab": "contact"
+    }
+  ]
+}

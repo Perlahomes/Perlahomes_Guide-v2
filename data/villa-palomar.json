@@ -1,0 +1,336 @@
+{
+  "meta": {
+    "name": "Villa Palomar",
+    "brandLogo": "data/img/villa-palomar-logo.jpg",
+    "heroImage": "data/img/villa-palomar-hero.jpg",
+    "welcomeTitle": {
+      "en": "Welcome",
+      "el": "Καλώς ήρθατε"
+    },
+    "welcomeMessage": {
+      "en": "Dear guest, this guide has everything you need for a smooth, comfortable stay — door codes, WiFi, directions and our local favourites. We hope you have a wonderful time.",
+      "el": "Αγαπητέ επισκέπτη, σε αυτόν τον οδηγό θα βρείτε ό,τι χρειάζεστε για μια άνετη διαμονή — κωδικούς, WiFi, οδηγίες και τοπικές προτάσεις. Καλή διαμονή!"
+    },
+    "languages": [
+      "en",
+      "el"
+    ]
+  },
+  "contact": {
+    "phone": "+306936581570",
+    "whatsapp": "+306936581570",
+    "viber": "+306936581570"
+  },
+  "actions": [
+    {
+      "icon": "checkin",
+      "label": {
+        "en": "www.perlahomes.gr",
+        "el": "www.perlahomes.gr"
+      },
+      "url": "https://perlahomes.gr/"
+    },
+    {
+      "icon": "phone",
+      "label": {
+        "en": "Contact",
+        "el": "Επικοινωνία"
+      },
+      "url": "tel:+306936581570"
+    }
+  ],
+  "sections": [
+    {
+      "id": "arrival",
+      "icon": "arrival",
+      "title": {
+        "en": "On your arrival",
+        "el": "Κατά την άφιξή σας"
+      },
+      "cards": [
+        {
+          "image": "data/img/villa-palomar-location.jpg",
+          "title": {
+            "en": "Location",
+            "el": "Τοποθεσία"
+          },
+          "body": {
+            "en": "If you are arriving with your own transport, tap below to see our location on the map.",
+            "el": "Εάν έρχεστε με δικό σας μεταφορικό μέσο, πατήστε για δείτε την τοποθεσία μας στον χάρτη."
+          },
+          "mapUrl": "https://maps.app.goo.gl/zYsiBewfgN3P4o8g9",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "image": "data/img/villa-palomar-the-building.jpg",
+          "title": {
+            "en": "The building",
+            "el": "Το κτίριο"
+          },
+          "body": {
+            "en": "When you arrive, you'll see this building / entrance",
+            "el": "Όταν φτάσετε, θα δείτε αυτό το κτίριο / είσοδο "
+          }
+        },
+        {
+          "image": "data/img/villa-palomar-garage-door.jpg",
+          "title": {
+            "en": "Garage door",
+            "el": "Πόρτα γκαράζ"
+          },
+          "body": {
+            "en": "Use the code below to open the garage door.",
+            "el": "Χρησιμοποιήστε τον κωδικό παρακάτω για να ανοίξετε την πόρτα."
+          },
+          "code": "6767#",
+          "codeLabel": {
+            "en": "Code",
+            "el": "Κωδικός"
+          }
+        },
+        {
+          "image": "data/img/villa-palomar-parking.jpg",
+          "title": {
+            "en": "Parking",
+            "el": "Πάρκινγκ"
+          },
+          "body": {
+            "en": "The villa features private on-site parking within the property.\n\n\n\n",
+            "el": "Η βίλα διαθέτει ιδιωτικό χώρο στάθμευσης εντός της ιδιοκτησίας.\n"
+          }
+        },
+        {
+          "image": "data/img/villa-palomar-key-locker.jpg",
+          "title": {
+            "en": "Key locker",
+            "el": "Key locker"
+          },
+          "body": {
+            "en": "Find the keys in the locker shown in the photo. The code will be sent to you before arrival.",
+            "el": "Βρείτε τα κλειδιά στο locker της φωτογραφίας. Θα σας σταλεί ο κωδικός πριν την άφιξη."
+          },
+          "code": "5448",
+          "codeLabel": {
+            "en": "Code",
+            "el": "Κωδικός"
+          }
+        },
+        {
+          "image": "data/img/villa-palomar-new-card-2.jpg",
+          "title": {
+            "en": "Key Card Power Switch",
+            "el": "Καρτοδιακόπτης ηλεκτρικού ρεύματος"
+          },
+          "body": {
+            "en": "Please insert the key card into the wall holder to activate the electricity in the villa. When leaving the villa, please remove the card to switch the electricity off.",
+            "el": "Παρακαλούμε τοποθετήστε την κάρτα-κλειδί στην ειδική υποδοχή στον τοίχο για να ενεργοποιηθεί η ηλεκτροδότηση της βίλας. Κατά την αναχώρησή σας, παρακαλούμε αφαιρέστε την κάρτα ώστε να απενεργοποιηθεί το ηλεκτρικό ρεύμα.\n"
+          }
+        },
+        {
+          "image": "data/img/villa-palomar-new-card.jpg",
+          "title": {
+            "en": "Alarm system",
+            "el": "Σύστημα συναγερμού"
+          },
+          "body": {
+            "en": "To disarm the alarm, place the black round key fob on the blue-lit square of the alarm panel and hold it there until you hear a beep. Once it beeps, the alarm is disarmed successfully.",
+            "el": "Για να απενεργοποιήσετε τον συναγερμό, τοποθετήστε το μαύρο στρογγυλό μπρελόκ (key fob) πάνω στο τετράγωνο σημείο του πίνακα συναγερμού που φωτίζεται με μπλε χρώμα και κρατήστε το εκεί μέχρι να ακούσετε ένα ηχητικό σήμα (μπιπ). Μόλις ακουστεί το μπιπ, ο συναγερμός έχει απενεργοποιηθεί επιτυχώς.\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "property",
+      "icon": "property",
+      "title": {
+        "en": "Property guide",
+        "el": "Οδηγός σπιτιού"
+      },
+      "groups": [
+        {
+          "label": {
+            "en": "Useful information",
+            "el": "Χρήσιμες πληροφορίες"
+          },
+          "cards": [
+            {
+              "image": "data/img/villa-palomar-wi-fi.jpg",
+              "title": {
+                "en": "Wi-Fi",
+                "el": "Wi-Fi"
+              },
+              "wifi": {
+                "network": "Home_WIfi",
+                "password": "88888888"
+              }
+            },
+            {
+              "image": "data/img/villa-palomar-air-conditioning.jpg",
+              "title": {
+                "en": "Air conditioning",
+                "el": "Κλιματισμός"
+              },
+              "body": {
+                "en": "For the villa to cool properly, all doors and windows must remain closed while the air conditioning is operating.\n\nThe villa is equipped with a centrally controlled air-conditioning system. Control panels are located in the living room and in each bedroom, allowing you to adjust the temperature and settings throughout the villa.\n",
+                "el": "Για τη βέλτιστη απόδοση του συστήματος κλιματισμού, παρακαλούμε να διατηρείτε όλες τις πόρτες και τα παράθυρα κλειστά κατά τη λειτουργία του.\n\nΗ βίλα διαθέτει κεντρικά ελεγχόμενο σύστημα κλιματισμού. Τα χειριστήρια του συστήματος βρίσκονται στο καθιστικό καθώς και σε κάθε υπνοδωμάτιο, επιτρέποντας την εύκολη ρύθμιση της θερμοκρασίας και των λειτουργιών του κλιματισμού.\n"
+              }
+            },
+            {
+              "image": "data/img/villa-palomar-hot-water.jpg",
+              "title": {
+                "en": "Hot water",
+                "el": "Ζεστό νερό"
+              },
+              "body": {
+                "en": "Hot water is normally available 24/7 through the solar water heating system.\n\nIf there is insufficient hot water, please activate the water heater by pressing the timer switch as shown in the photo. The water should be heated within approximately 30 minutes.\n\n**Note:** The timer will switch off automatically after approximately 30 minutes, so no further action is required.\n\n\n**Important:** After 20 minutes, please ensure that the timer/switch returns to the OFF position.\n",
+                "el": "Ζεστό νερό είναι διαθέσιμο όλο το 24ωρο μέσω του ηλιακού θερμοσίφωνα.\n\nΣε περίπτωση που δεν υπάρχει επαρκές ζεστό νερό, παρακαλούμε ενεργοποιήστε τον θερμοσίφωνα πατώντας τον χρονοδιακόπτη (timer), όπως φαίνεται στη φωτογραφία. Το νερό θα ζεσταθεί σε περίπου 30 λεπτά.\n\n**Σημείωση:** Ο χρονοδιακόπτης απενεργοποιείται αυτόματα μετά από περίπου 30 λεπτά, επομένως δεν απαιτείται κάποια επιπλέον ενέργεια.\n"
+              }
+            }
+          ]
+        },
+        {
+          "label": {
+            "en": "Rules",
+            "el": "Κανονισμοί"
+          },
+          "cards": [
+            {
+              "image": "data/img/villa-palomar-pool.jpg",
+              "title": {
+                "en": "Pool",
+                "el": "Πισίνα"
+              },
+              "body": {
+                "en": "See the rules.",
+                "el": "Δείτε τους κανονισμούς"
+              }
+            },
+            {
+              "image": "data/img/villa-palomar-lighting.jpg",
+              "title": {
+                "en": "Pool Lighting",
+                "el": "Φωτισμός Πισίνας"
+              },
+              "body": {
+                "en": "To turn on the pool lights, use the top-right switch shown in the photo.",
+                "el": "Για να ενεργοποιήσετε τον φωτισμό της πισίνας, χρησιμοποιήστε τον επάνω δεξιό διακόπτη, όπως φαίνεται στη φωτογραφία."
+              }
+            },
+            {
+              "image": "data/img/villa-palomar-smoking.jpg",
+              "title": {
+                "en": "Smoking",
+                "el": "Κάπνισμα"
+              },
+              "body": {
+                "en": "Not allowed inside the house.",
+                "el": "Απαγορεύεται εντός τις οικείας."
+              }
+            },
+            {
+              "image": "data/img/villa-palomar-check-out.jpg",
+              "title": {
+                "en": "Check-out",
+                "el": "Check-out"
+              },
+              "body": {
+                "en": "As you will be checking out without our presence and the property may remain unattended until our team arrives, we kindly ask you to carefully follow the instructions below before your departure:\n• Ensure that all doors are fully closed and locked.\n• Ensure that all windows are completely closed and secured.\n• Turn off any unnecessary electrical appliances.\nThese measures are extremely important for the safety and protection of the villa.\nThank you for your cooperation and for helping us keep the property safe.\n",
+                "el": "Καθώς η αναχώρησή σας θα πραγματοποιηθεί χωρίς την παρουσία μέλους της ομάδας μας και το κατάλυμα ενδέχεται να παραμείνει χωρίς επίβλεψη μέχρι την άφιξη του προσωπικού μας, παρακαλούμε να δώσετε ιδιαίτερη προσοχή στα παρακάτω πριν την αναχώρησή σας:\n• Βεβαιωθείτε ότι όλες οι πόρτες είναι πλήρως κλειστές και κλειδωμένες.\n• Βεβαιωθείτε ότι όλα τα παράθυρα είναι πλήρως κλειστά και ασφαλισμένα.\n• Απενεργοποιήστε τυχόν ηλεκτρικές συσκευές που δεν είναι απαραίτητο να παραμείνουν σε λειτουργία.\n"
+              },
+              "checklist": [
+                {
+                  "en": "Close all windows",
+                  "el": "Κλείστε όλα τα παράθυρα"
+                },
+                {
+                  "en": "Turn off the lights & A/C",
+                  "el": "Σβήστε τα φώτα & το A/C"
+                },
+                {
+                  "en": "Leave the keys on the table",
+                  "el": "Αφήστε τα κλειδιά στο τραπέζι"
+                },
+                {
+                  "en": "Lock the door",
+                  "el": "Κλειδώστε την πόρτα"
+                },
+                {
+                  "en": "Have a safe trip!",
+                  "el": "Καλή επιστροφή!"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neighbourhood",
+      "icon": "neighbourhood",
+      "title": {
+        "en": "The neighbourhood",
+        "el": "Η γειτονιά"
+      },
+      "intro": {
+        "en": "The essentials close to the villa.",
+        "el": "Τα απαραίτητα κοντά στη βίλα."
+      },
+      "link": "https://messinia.mobi/el/article/katalumata/villas/villa-palomar-enoikiazomenes-billes/11417"
+    },
+    {
+      "id": "beaches",
+      "icon": "beaches",
+      "title": {
+        "en": "Nearby beaches",
+        "el": "Κοντινές παραλίες"
+      },
+      "intro": {
+        "en": "Long sandy beaches and quiet coves line this stretch of the Messinian coast — these are our favourites near the villa.",
+        "el": "Μεγάλες αμμώδεις παραλίες και ήσυχοι κολπίσκοι κατά μήκος της μεσσηνιακής ακτής — οι αγαπημένες μας κοντά στη βίλα."
+      },
+      "link": "https://messinia.mobi/el/article/katalumata/villas/villa-palomar-enoikiazomenes-billes/11417"
+    },
+    {
+      "id": "sights",
+      "icon": "sights",
+      "title": {
+        "en": "Sights",
+        "el": "Αξιοθέατα"
+      },
+      "intro": {
+        "en": "From Kyparissia's castle and old town to world-class ancient sites — here's the best to see nearby and on a day trip.",
+        "el": "Από το κάστρο και την παλιά πόλη της Κυπαρισσίας μέχρι κορυφαίους αρχαιολογικούς χώρους — δείτε τι αξίζει κοντά και σε εκδρομή."
+      },
+      "link": "https://messinia.mobi/el/article/katalumata/villas/villa-palomar-enoikiazomenes-billes/11417"
+    },
+    {
+      "id": "restaurants",
+      "icon": "restaurants",
+      "title": {
+        "en": "Restaurants",
+        "el": "Εστιατόρια"
+      },
+      "intro": {
+        "en": "Our favourite tavernas and restaurants in and around Kyparissia.",
+        "el": "Οι αγαπημένες μας ταβέρνες και εστιατόρια στην Κυπαρισσία και γύρω από αυτήν."
+      },
+      "link": "https://messinia.mobi/el/article/katalumata/villas/villa-palomar-enoikiazomenes-billes/11417"
+    },
+    {
+      "id": "activities",
+      "icon": "activities",
+      "title": {
+        "en": "Activities",
+        "el": "Δραστηριότητες"
+      },
+      "intro": {
+        "en": "In our area you can do plenty of activities and discover its beautiful nature and cultural wealth. We've selected reliable, excellent partners and recommend them to you.",
+        "el": "Στην περιοχή μας μπορείτε να κάνετε αρκετές δραστηριότητες και να ανακαλύψετε την όμορφη φύση αλλά και τον πολιτιστικό της πλούτο. Επιλέξαμε για εσάς και σας προτείνουμε αξιόπιστους και εξαιρετικούς συνεργάτες."
+      },
+      "link": "https://messinia.mobi/el/article/katalumata/villas/villa-palomar-enoikiazomenes-billes/11417"
+    }
+  ]
+}

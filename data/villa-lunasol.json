@@ -1,0 +1,787 @@
+{
+  "meta": {
+    "name": "Villa Luna Sol",
+    "brandLogo": "data/img/villa-palomar-logo.jpg",
+    "heroImage": "data/img/villa-palomar-hero.jpg",
+    "welcomeTitle": {
+      "en": "Welcome",
+      "el": "Καλώς ήρθατε"
+    },
+    "welcomeMessage": {
+      "en": "Dear guest, this guide has everything you need for a smooth, comfortable stay  door codes, WiFi, directions and our local favourites. We hope you have a wonderful time.",
+      "el": "Αγαπητέ επισκέπτη, σε αυτόν τον οδηγό θα βρείτε ό,τι χρειάζεστε για μια άνετη διαμονή  κωδικούς, WiFi, οδηγίες και τοπικές προτάσεις. Καλή διαμονή!"
+    },
+    "languages": [
+      "en",
+      "el"
+    ]
+  },
+  "contact": {
+    "phone": "+306936581570",
+    "whatsapp": "+306936581570",
+    "viber": "+306936581570"
+  },
+  "actions": [
+    {
+      "icon": "checkin",
+      "label": {
+        "en": "www.perlahomes.gr",
+        "el": "www.perlahomes.gr"
+      },
+      "url": "https://perlahomes.gr/"
+    },
+    {
+      "icon": "phone",
+      "label": {
+        "en": "Contact",
+        "el": "Επικοινωνία"
+      },
+      "url": "tel:+306936581570"
+    }
+  ],
+  "sections": [
+    {
+      "id": "arrival",
+      "icon": "arrival",
+      "title": {
+        "en": "On your arrival",
+        "el": "Κατά την άφιξή σας"
+      },
+      "cards": [
+        {
+          "image": "data/img/villa-palomar-location.jpg",
+          "title": {
+            "en": "Location",
+            "el": "Τοποθεσία"
+          },
+          "body": {
+            "en": "If you are arriving with your own transport, tap below to see our location on the map.",
+            "el": "Εάν έρχεστε με δικό σας μεταφορικό μέσο, πατήστε για δείτε την τοποθεσία μας στον χάρτη."
+          },
+          "mapUrl": "https://maps.app.goo.gl/zYsiBewfgN3P4o8g9",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "image": "data/img/villa-luna-sol-the-building.jpg",
+          "title": {
+            "en": "The building",
+            "el": "Το κτίριο"
+          },
+          "body": {
+            "en": "When you arrive, you'll see this building / entrance",
+            "el": "Όταν φτάσετε, θα δείτε αυτό το κτίριο / είσοδο "
+          }
+        },
+        {
+          "image": "data/img/villa-luna-sol-garage-door.jpg",
+          "image2": "data/img/villa-luna-sol-garage-door-2.jpg",
+          "title": {
+            "en": "Garage door",
+            "el": "Πόρτα γκαράζ"
+          },
+          "body": {
+            "en": "Use the code below to open the garage door.",
+            "el": "Χρησιμοποιήστε τον κωδικό παρακάτω για να ανοίξετε την πόρτα."
+          },
+          "code": "2525#",
+          "codeLabel": {
+            "en": "Code",
+            "el": "Κωδικός"
+          }
+        },
+        {
+          "image": "data/img/villa-luna-sol-parking.jpg",
+          "title": {
+            "en": "Parking",
+            "el": "Πάρκινγκ"
+          },
+          "body": {
+            "en": "The villa features private on-site parking within the property.\n\n\n\n",
+            "el": "Η βίλα διαθέτει ιδιωτικό χώρο στάθμευσης εντός της ιδιοκτησίας.\n"
+          }
+        },
+        {
+          "image": "data/img/villa-palomar-key-locker.jpg",
+          "title": {
+            "en": "Key locker",
+            "el": "Key locker"
+          },
+          "body": {
+            "en": "Find the keys in the locker shown in the photo. The code will be sent to you before arrival.",
+            "el": "Βρείτε τα κλειδιά στο locker της φωτογραφίας. Θα σας σταλεί ο κωδικός πριν την άφιξη."
+          },
+          "code": "6558",
+          "codeLabel": {
+            "en": "Code",
+            "el": "Κωδικός"
+          }
+        },
+        {
+          "image": "data/img/villa-palomar-new-card-2.jpg",
+          "title": {
+            "en": "Key Card Power Switch",
+            "el": "Καρτοδιακόπτης ηλεκτρικού ρεύματος"
+          },
+          "body": {
+            "en": "Please insert the key card into the wall holder to activate the electricity in the villa. When leaving the villa, please remove the card to switch the electricity off.",
+            "el": "Παρακαλούμε τοποθετήστε την κάρτα-κλειδί στην ειδική υποδοχή στον τοίχο για να ενεργοποιηθεί η ηλεκτροδότηση της βίλας. Κατά την αναχώρησή σας, παρακαλούμε αφαιρέστε την κάρτα ώστε να απενεργοποιηθεί το ηλεκτρικό ρεύμα.\n"
+          }
+        },
+        {
+          "image": "data/img/villa-palomar-new-card.jpg",
+          "title": {
+            "en": "Alarm system",
+            "el": "Σύστημα συναγερμού"
+          },
+          "body": {
+            "en": "To disarm the alarm, place the black round key fob on the blue-lit square of the alarm panel and hold it there until you hear a beep. Once it beeps, the alarm is disarmed successfully.",
+            "el": "Για να απενεργοποιήσετε τον συναγερμό, τοποθετήστε το μαύρο στρογγυλό μπρελόκ (key fob) πάνω στο τετράγωνο σημείο του πίνακα συναγερμού που φωτίζεται με μπλε χρώμα και κρατήστε το εκεί μέχρι να ακούσετε ένα ηχητικό σήμα (μπιπ). Μόλις ακουστεί το μπιπ, ο συναγερμός έχει απενεργοποιηθεί επιτυχώς.\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": "property",
+      "icon": "property",
+      "title": {
+        "en": "Property guide",
+        "el": "Οδηγός σπιτιού"
+      },
+      "groups": [
+        {
+          "label": {
+            "en": "Useful information",
+            "el": "Χρήσιμες πληροφορίες"
+          },
+          "cards": [
+            {
+              "image": "data/img/villa-palomar-wi-fi.jpg",
+              "title": {
+                "en": "Wi-Fi",
+                "el": "Wi-Fi"
+              },
+              "wifi": {
+                "network": "Home_WIfi",
+                "password": "88888888"
+              }
+            },
+            {
+              "image": "data/img/villa-palomar-air-conditioning.jpg",
+              "title": {
+                "en": "Air conditioning",
+                "el": "Κλιματισμός"
+              },
+              "body": {
+                "en": "For the villa to cool properly, all doors and windows must remain closed while the air conditioning is operating.\n\nThe villa is equipped with a centrally controlled air-conditioning system. Control panels are located in the living room and in each bedroom, allowing you to adjust the temperature and settings throughout the villa.\n",
+                "el": "Για τη βέλτιστη απόδοση του συστήματος κλιματισμού, παρακαλούμε να διατηρείτε όλες τις πόρτες και τα παράθυρα κλειστά κατά τη λειτουργία του.\n\nΗ βίλα διαθέτει κεντρικά ελεγχόμενο σύστημα κλιματισμού. Τα χειριστήρια του συστήματος βρίσκονται στο καθιστικό καθώς και σε κάθε υπνοδωμάτιο, επιτρέποντας την εύκολη ρύθμιση της θερμοκρασίας και των λειτουργιών του κλιματισμού.\n"
+              }
+            },
+            {
+              "image": "data/img/villa-palomar-hot-water.jpg",
+              "title": {
+                "en": "Hot water",
+                "el": "Ζεστό νερό"
+              },
+              "body": {
+                "en": "Hot water is normally available 24/7 through the solar water heating system.\n\nIf there is insufficient hot water, please activate the water heater by pressing the timer switch as shown in the photo. The water should be heated within approximately 30 minutes.\n\n**Note:** The timer will switch off automatically after approximately 30 minutes, so no further action is required.\n\n\n**Important:** After 20 minutes, please ensure that the timer/switch returns to the OFF position.\n",
+                "el": "Ζεστό νερό είναι διαθέσιμο όλο το 24ωρο μέσω του ηλιακού θερμοσίφωνα.\n\nΣε περίπτωση που δεν υπάρχει επαρκές ζεστό νερό, παρακαλούμε ενεργοποιήστε τον θερμοσίφωνα πατώντας τον χρονοδιακόπτη (timer), όπως φαίνεται στη φωτογραφία. Το νερό θα ζεσταθεί σε περίπου 30 λεπτά.\n\n**Σημείωση:** Ο χρονοδιακόπτης απενεργοποιείται αυτόματα μετά από περίπου 30 λεπτά, επομένως δεν απαιτείται κάποια επιπλέον ενέργεια.\n"
+              }
+            }
+          ]
+        },
+        {
+          "label": {
+            "en": "Rules",
+            "el": "Κανονισμοί"
+          },
+          "cards": [
+            {
+              "image": "data/img/villa-palomar-pool.jpg",
+              "title": {
+                "en": "Pool",
+                "el": "Πισίνα"
+              },
+              "body": {
+                "en": "See the rules.",
+                "el": "Δείτε τους κανονισμούς"
+              }
+            },
+            {
+              "image": "data/img/villa-palomar-lighting.jpg",
+              "title": {
+                "en": "Pool Lighting",
+                "el": "Φωτισμός Πισίνας"
+              },
+              "body": {
+                "en": "To turn on the pool lights, use the top-right switch shown in the photo.",
+                "el": "Για να ενεργοποιήσετε τον φωτισμό της πισίνας, χρησιμοποιήστε τον επάνω δεξιό διακόπτη, όπως φαίνεται στη φωτογραφία."
+              }
+            },
+            {
+              "image": "data/img/villa-palomar-smoking.jpg",
+              "title": {
+                "en": "Smoking",
+                "el": "Κάπνισμα"
+              },
+              "body": {
+                "en": "Not allowed inside the house.",
+                "el": "Απαγορεύεται εντός τις οικείας."
+              }
+            },
+            {
+              "image": "data/img/villa-palomar-check-out.jpg",
+              "title": {
+                "en": "Check-out",
+                "el": "Check-out"
+              },
+              "checklist": [
+                {
+                  "en": "Close all windows",
+                  "el": "Κλείστε όλα τα παράθυρα"
+                },
+                {
+                  "en": "Turn off the lights & A/C",
+                  "el": "Σβήστε τα φώτα & το A/C"
+                },
+                {
+                  "en": "Close the door",
+                  "el": "Κλειδώστε την πόρτα"
+                },
+                {
+                  "en": "Leave the keys in the KeyLock",
+                  "el": "Αφήστε τα κλειδιά στην κλειδοθήκη"
+                },
+                {
+                  "en": "Have a safe trip!",
+                  "el": "Καλή επιστροφή!"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "beaches",
+      "icon": "beaches",
+      "title": {
+        "en": "Nearby beaches",
+        "el": "Κοντινές παραλίες"
+      },
+      "cards": [
+        {
+          "title": {
+            "en": "Kyparissia Beach",
+            "el": "Παραλία Κυπαρισσίας"
+          },
+          "body": {
+            "en": "The long main beach by the marina, with cafés and tavernas a short stroll away.",
+            "el": "Η μεγάλη κεντρική παραλία δίπλα στη μαρίνα, με καφέ και ταβέρνες σε κοντινή απόσταση."
+          },
+          "mapUrl": "https://www.google.com/maps?q=37.25508,21.667617",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "Ai-Lagoudi Beach",
+            "el": "Παραλία Αη-Λαγούδη"
+          },
+          "body": {
+            "en": "A quieter local beach just north of Kyparissia, good for a relaxed swim.",
+            "el": "Μια πιο ήσυχη τοπική παραλία λίγο βόρεια της Κυπαρισσίας, ιδανική για χαλαρό μπάνιο."
+          },
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Paralia%20Ai%20Lagoudi%20Kyparissia",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "Kartelas Beach",
+            "el": "Παραλία Καρτελάς"
+          },
+          "body": {
+            "en": "Long sandy stretch along the coast, usually uncrowded.",
+            "el": "Μεγάλη αμμώδης παραλία κατά μήκος της ακτής, συνήθως χωρίς κόσμο."
+          },
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kartelas%20beach%20Kyparissia",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "Sani Beach",
+            "el": "Παραλία Σανί"
+          },
+          "body": {
+            "en": "Sandy beach south of Kyparissia, part of the long protected coastline.",
+            "el": "Αμμώδης παραλία νότια της Κυπαρισσίας, μέρος της μεγάλης προστατευόμενης ακτής."
+          },
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Paralia%20Sani%20Kyparissia",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "Kalo Nero",
+            "el": "Καλό Νερό"
+          },
+          "body": {
+            "en": "A long, laid-back sandy beach with seaside tavernas; a loggerhead-turtle nesting area, so wonderfully natural.",
+            "el": "Μεγάλη, χαλαρή αμμώδης παραλία με παραθαλάσσιες ταβέρνες· περιοχή ωοτοκίας της χελώνας caretta-caretta."
+          },
+          "mapUrl": "https://www.google.com/maps?q=37.299524,21.694994",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "Stomio Beach",
+            "el": "Παραλία Στόμιο"
+          },
+          "body": {
+            "en": "Quiet beach where a small river meets the sea, near Kalo Nero.",
+            "el": "Ήσυχη παραλία όπου ένα μικρό ποτάμι συναντά τη θάλασσα, κοντά στο Καλό Νερό."
+          },
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Stomio%20beach%20Kyparissia",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sights",
+      "icon": "sights",
+      "title": {
+        "en": "Sights",
+        "el": "Αξιοθέατα"
+      },
+      "intro": {
+        "en": "From Kyparissia's castle and old town to world-class ancient sites — here's the best to see nearby and on a day trip.",
+        "el": "Από το κάστρο και την παλιά πόλη της Κυπαρισσίας μέχρι κορυφαίους αρχαιολογικούς χώρους — δείτε τι αξίζει κοντά και σε εκδρομή."
+      },
+      "groups": [
+        {
+          "label": {
+            "en": "Close by",
+            "el": "Κοντά μας"
+          },
+          "cards": [
+            {
+              "title": {
+                "en": "Kyparissia Castle & Old Town",
+                "el": "Κάστρο & Παλιά Πόλη Κυπαρισσίας"
+              },
+              "body": {
+                "en": "Byzantine/Frankish castle with sweeping views and a charming old-town square with cafés below.",
+                "el": "Βυζαντινό/φράγκικο κάστρο με υπέροχη θέα και γραφική πλατεία της παλιάς πόλης με καφέ από κάτω."
+              },
+              "mapUrl": "https://www.google.com/maps?q=37.250135,21.678709",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Old Watermill, Kyparissia",
+                "el": "Παλιός Νερόμυλος Κυπαρισσίας"
+              },
+              "body": {
+                "en": "A beautifully restored old watermill with a green garden and views over the town.",
+                "el": "Όμορφα αναστηλωμένος παλιός νερόμυλος με καταπράσινο κήπο και θέα στην πόλη."
+              },
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Palios%20Neromylos%20Kyparissia",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Peristeria Archaeological Site",
+                "el": "Αρχαιολογικός χώρος Περιστεριάς"
+              },
+              "body": {
+                "en": "Important Mycenaean tholos tombs — sometimes called the 'Mycenae of the western Peloponnese'.",
+                "el": "Σημαντικοί μυκηναϊκοί θολωτοί τάφοι — οι «Μυκήνες της δυτικής Πελοποννήσου»."
+              },
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Peristeria%20archaeological%20site%20Messinia",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Peristeria Gorge (Neraidorema)",
+                "el": "Φαράγγι Περιστεριάς (Νεραϊδόρεμα)"
+              },
+              "body": {
+                "en": "A green gorge with running water and small waterfalls — lovely for a nature walk.",
+                "el": "Καταπράσινο φαράγγι με τρεχούμενο νερό και μικρούς καταρράκτες — ιδανικό για περπάτημα στη φύση."
+              },
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Faraggi%20Peristerias%20Neraidorema",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Paramythia Castle",
+                "el": "Κάστρο Παραμυθιάς"
+              },
+              "body": {
+                "en": "A small hilltop castle in the area, with a view worth the short trip.",
+                "el": "Μικρό κάστρο σε λόφο της περιοχής, με θέα που αξίζει τη μικρή διαδρομή."
+              },
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kastro%20Paramythion%20Messinia",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            }
+          ]
+        },
+        {
+          "label": {
+            "en": "Day trips",
+            "el": "Εκδρομές"
+          },
+          "cards": [
+            {
+              "title": {
+                "en": "Ancient Messene",
+                "el": "Αρχαία Μεσσήνη"
+              },
+              "body": {
+                "en": "A vast, beautifully preserved ancient city (theatre, stadium) — a regional highlight.",
+                "el": "Εκτεταμένη, άριστα διατηρημένη αρχαία πόλη (θέατρο, στάδιο) — από τα κορυφαία της περιοχής."
+              },
+              "mapUrl": "https://www.google.com/maps?q=37.178774,21.918369",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Palace of Nestor",
+                "el": "Ανάκτορο του Νέστορα"
+              },
+              "body": {
+                "en": "One of the best-preserved Mycenaean palaces in Greece, near Pylos.",
+                "el": "Ένα από τα καλύτερα διατηρημένα μυκηναϊκά ανάκτορα στην Ελλάδα, κοντά στην Πύλο."
+              },
+              "mapUrl": "https://www.google.com/maps?q=37.027225,21.694736",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Voidokilia Beach",
+                "el": "Παραλία Βοϊδοκοιλιά"
+              },
+              "body": {
+                "en": "The famous crescent-shaped beach near Pylos — one of Greece's most photographed.",
+                "el": "Η διάσημη ημικυκλική παραλία κοντά στην Πύλο — από τις πιο φωτογραφημένες της Ελλάδας."
+              },
+              "mapUrl": "https://www.google.com/maps?q=36.963623,21.662762",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Temple of Epicurean Apollo (Bassae)",
+                "el": "Ναός Επικούριου Απόλλωνα (Βάσσες)"
+              },
+              "body": {
+                "en": "A UNESCO-listed ancient temple high in the mountains.",
+                "el": "Αρχαίος ναός, μνημείο της UNESCO, ψηλά στα βουνά."
+              },
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Temple%20of%20Epicurean%20Apollo%20Bassae",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Polylimnio Waterfalls",
+                "el": "Καταρράκτες Πολυλίμνιο"
+              },
+              "body": {
+                "en": "Emerald pools and waterfalls along a scenic trail (good shoes needed).",
+                "el": "Σμαραγδένιες λιμνούλες και καταρράκτες σε γραφικό μονοπάτι (χρειάζονται καλά παπούτσια)."
+              },
+              "mapUrl": "https://www.google.com/maps?q=36.983698,21.853968",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Ancient Olympia",
+                "el": "Αρχαία Ολυμπία"
+              },
+              "body": {
+                "en": "Birthplace of the Olympic Games — a major archaeological site and museum.",
+                "el": "Γενέτειρα των Ολυμπιακών Αγώνων — σπουδαίος αρχαιολογικός χώρος και μουσείο."
+              },
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ancient%20Olympia%20Greece",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Mystras",
+                "el": "Μυστράς"
+              },
+              "body": {
+                "en": "A stunning Byzantine castle-town near Sparta (UNESCO).",
+                "el": "Εντυπωσιακή βυζαντινή καστροπολιτεία κοντά στη Σπάρτη (UNESCO)."
+              },
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Mystras%20Greece",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Diros Caves",
+                "el": "Σπήλαιο Διρού"
+              },
+              "body": {
+                "en": "Spectacular sea caves in the Mani, explored by boat.",
+                "el": "Εντυπωσιακά θαλάσσια σπήλαια στη Μάνη, με βαρκάδα."
+              },
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Diros%20Caves%20Mani",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Mycenae",
+                "el": "Μυκήνες"
+              },
+              "body": {
+                "en": "The legendary Bronze-Age citadel and Lion Gate (UNESCO).",
+                "el": "Η θρυλική ακρόπολη της Εποχής του Χαλκού και η Πύλη των Λεόντων (UNESCO)."
+              },
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Mycenae%20Greece",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Epidaurus Theatre",
+                "el": "Θέατρο Επιδαύρου"
+              },
+              "body": {
+                "en": "The ancient theatre famed for its perfect acoustics (UNESCO).",
+                "el": "Το αρχαίο θέατρο, ξακουστό για την τέλεια ακουστική του (UNESCO)."
+              },
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Epidaurus%20Theatre%20Greece",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "title": {
+                "en": "Monemvasia",
+                "el": "Μονεμβασιά"
+              },
+              "body": {
+                "en": "A breathtaking medieval town built into a sea rock.",
+                "el": "Μια εκπληκτική μεσαιωνική καστροπολιτεία χτισμένη πάνω σε βράχο της θάλασσας."
+              },
+              "mapUrl": "https://www.google.com/maps/search/?api=1&query=Monemvasia%20Greece",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "restaurants",
+      "icon": "restaurants",
+      "title": {
+        "en": "Restaurants",
+        "el": "Εστιατόρια"
+      },
+      "intro": {
+        "en": "Our favourite tavernas and restaurants in and around Kyparissia.",
+        "el": "Οι αγαπημένες μας ταβέρνες και εστιατόρια στην Κυπαρισσία και γύρω από αυτήν."
+      },
+      "cards": [
+        {
+          "title": {
+            "en": "Palia Agora",
+            "el": "Παλιά Αγορά"
+          },
+          "body": {
+            "en": "Superb food with a sea view — one of the area's best (book ahead).",
+            "el": "Εξαιρετικό φαγητό με θέα στη θάλασσα — από τα καλύτερα της περιοχής (κλείστε τραπέζι)."
+          },
+          "mapUrl": "https://www.google.com/maps?q=37.247429,21.678339",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "Symposion",
+            "el": "Συμπόσιον"
+          },
+          "body": {
+            "en": "Well-loved restaurant in Kyparissia with Greek dishes.",
+            "el": "Αγαπημένο εστιατόριο στην Κυπαρισσία με ελληνικές γεύσεις."
+          },
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Symposion%20restaurant%20Kyparissia",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "To Magheriko tis Agoras",
+            "el": "Το Μαγέρικο της Αγοράς"
+          },
+          "body": {
+            "en": "Excellent home-style cooked lunch, great value (daytime).",
+            "el": "Εξαιρετικό σπιτικό μαγειρευτό μεσημεριανό, πολύ καλή τιμή (ημέρα)."
+          },
+          "mapUrl": "https://www.google.com/maps?q=37.249686,21.671124",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "Neo Kentrikon",
+            "el": "Νέο Κεντρικόν"
+          },
+          "body": {
+            "en": "Cosy, authentic spot for brunch, lunch and dinner.",
+            "el": "Ζεστό, αυθεντικό στέκι για brunch, μεσημεριανό και βραδινό."
+          },
+          "mapUrl": "https://www.google.com/maps?q=37.250722,21.67002",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "Paramithaki",
+            "el": "Παραμυθάκι"
+          },
+          "body": {
+            "en": "Traditional family taverna with home cooking and a warm welcome.",
+            "el": "Παραδοσιακή οικογενειακή ταβέρνα με σπιτικό φαγητό και ζεστή φιλοξενία."
+          },
+          "mapUrl": "https://www.google.com/maps?q=37.25186,21.667182",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "Karnagio",
+            "el": "Καρνάγιο"
+          },
+          "body": {
+            "en": "Fresh fish and seafood with marina views.",
+            "el": "Φρέσκο ψάρι και θαλασσινά με θέα στη μαρίνα."
+          },
+          "mapUrl": "https://www.google.com/maps?q=37.254625,21.664227",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "En Plo",
+            "el": "Εν Πλω"
+          },
+          "body": {
+            "en": "Seaside restaurant by the marina, lovely at sunset.",
+            "el": "Παραθαλάσσιο εστιατόριο δίπλα στη μαρίνα, υπέροχο στο ηλιοβασίλεμα."
+          },
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=En%20Plo%20restaurant%20Kyparissia",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "Ammos Restaurant Bar",
+            "el": "Ammos Restaurant Bar"
+          },
+          "body": {
+            "en": "Relaxed beach-side restaurant and bar.",
+            "el": "Χαλαρό παραθαλάσσιο εστιατόριο και μπαρ."
+          },
+          "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ammos%20restaurant%20bar%20Kyparissia",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "title": {
+            "en": "Athenolia Wine Bar",
+            "el": "Athenolia Wine Bar"
+          },
+          "body": {
+            "en": "Rooftop with castle & sunset views and a great wine list (evenings).",
+            "el": "Ταράτσα με θέα στο κάστρο και το ηλιοβασίλεμα, με μεγάλη λίστα κρασιών (βραδινά)."
+          },
+          "mapUrl": "https://www.google.com/maps?q=37.259391,21.675415",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1287 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/><meta name="theme-color" content="#1f3a5f"/><title>Villa Aurora · Perlahomes (mockup)</title><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet"/><style>/* =========================================================
+   Perlahomes Guest Guide — hub & spoke
+   Brand theme lives in :root.
+   ========================================================= */
+:root {
+  --bg:        #f3f3f1;
+  --card:      #ffffff;
+  --ink:       #18222e;
+  --muted:     #687180;
+  --accent:    #2f6fd0;   /* azure — icons, links, bottom bar */
+  --accent-dk: #1f3a5f;   /* deep navy — headings/chrome */
+  --tint:      #eaf1fb;
+  --line:      rgba(24, 34, 46, 0.09);
+  --shadow:    0 1px 2px rgba(24,34,46,.05), 0 10px 30px rgba(24,34,46,.07);
+  --radius:    20px;
+  --radius-sm: 13px;
+  --maxw:      480px;
+  --bar-h:     76px;
+  --serif: "Playfair Display", Georgia, serif;
+  --sans:  "Mulish", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+
+#app { max-width: var(--maxw); margin: 0 auto; min-height: 100vh; background: var(--bg);
+  padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom)); }
+.loading { padding: 42vh 24px; text-align: center; color: var(--muted); }
+
+.error { padding: 16vh 28px; text-align: center; }
+.error h1 { font-family: var(--serif); font-size: 1.5rem; margin-bottom: 10px; }
+.error code { background: var(--tint); padding: 2px 7px; border-radius: 6px; font-size: .85em; }
+.expired { max-width: var(--maxw); margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; padding: 40px 28px; gap: 4px; }
+.expired__logo { width: 110px; border-radius: 12px; margin-bottom: 18px; }
+.expired h1 { font-family: var(--serif); font-weight: 700; font-size: 1.6rem; color: var(--ink); }
+.expired p { color: var(--muted); font-size: 1rem; max-width: 320px; margin-top: 6px; }
+.expired__btns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px; }
+.exp-btn { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; font-weight: 700;
+  font-size: .92rem; padding: 12px 18px; border-radius: 999px; color: #fff; }
+.exp-btn svg { width: 17px; height: 17px; }
+.exp-call { background: var(--accent-dk); } .exp-wa { background: #25d366; } .exp-vb { background: #7360f2; }
+img { display: block; max-width: 100%; }
+
+/* ---------- top bar (flag picker / back) ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; gap: 10px;
+  padding: calc(8px + env(safe-area-inset-top)) 14px 8px;
+  background: rgba(243,243,241,.86); backdrop-filter: blur(10px);
+}
+.topbar.is-home { background: transparent; position: absolute; left: 0; right: 0; }
+.topbar__title { flex: 1; text-align: center; font-family: var(--serif); font-weight: 600;
+  font-size: 1.18rem; letter-spacing: .14em; color: var(--accent-dk); text-transform: uppercase; }
+.iconbtn {
+  width: 40px; height: 40px; flex: none; border: 0; cursor: pointer;
+  background: rgba(255,255,255,.85); border-radius: 12px; box-shadow: var(--shadow);
+  display: grid; place-items: center; color: var(--ink);
+}
+.is-home .iconbtn { background: rgba(255,255,255,.92); }
+.iconbtn svg { width: 20px; height: 20px; }
+.spacer { width: 40px; flex: none; }
+
+/* language picker */
+.lang { position: relative; }
+.lang__btn {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border: 0;
+  background: rgba(255,255,255,.9); border-radius: 12px; box-shadow: var(--shadow);
+  padding: 7px 9px; font: inherit; color: var(--ink);
+}
+.lang__btn .flag { width: 26px; height: 18px; border-radius: 3px; overflow: hidden; flex: none; }
+.lang__btn svg { width: 15px; height: 15px; color: var(--muted); }
+.lang__menu {
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 40;
+  background: var(--card); border-radius: 12px; box-shadow: var(--shadow);
+  padding: 5px; min-width: 132px; display: none;
+}
+.lang__menu.open { display: block; }
+.lang__menu button {
+  width: 100%; display: flex; align-items: center; gap: 9px; border: 0; cursor: pointer;
+  background: none; font: inherit; color: var(--ink); padding: 9px 10px; border-radius: 8px; text-align: left;
+}
+.lang__menu button:hover { background: var(--tint); }
+.lang__menu .flag { width: 24px; height: 16px; border-radius: 3px; overflow: hidden; flex: none; }
+
+/* ---------- HOME: hero ---------- */
+.hero { position: relative; min-height: 56vh; display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 20px 20px 26px; color: #fff; background: var(--accent-dk);
+  background-size: cover; background-position: center; overflow: hidden; }
+.hero::before { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(12,20,30,.10) 30%, rgba(12,20,30,.62) 100%); }
+.hero__logo { position: relative; z-index: 2; width: 116px; height: auto; border-radius: 12px;
+  background: #fff; padding: 10px; box-shadow: var(--shadow); margin-bottom: 16px; }
+.hero__welcome { position: relative; z-index: 2; font-family: var(--serif); font-weight: 700;
+  font-size: clamp(2.2rem, 11vw, 3.1rem); line-height: 1.02; }
+
+/* welcome message card */
+.welcome-card { margin: -28px 16px 0; position: relative; z-index: 5;
+  background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 18px; }
+.welcome-card p { color: var(--ink); font-size: 1rem; }
+.welcome-card p.clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.readmore { margin-top: 12px; border: 0; background: none; cursor: pointer; font: inherit;
+  font-weight: 700; color: var(--accent); display: inline-flex; align-items: center; gap: 5px; padding: 0; }
+.readmore svg { width: 16px; height: 16px; transition: transform .2s; }
+.readmore.open svg { transform: rotate(180deg); }
+
+/* ---------- HOME: GUIDE grid ---------- */
+.guide-label { text-align: center; font-family: var(--serif); font-weight: 600; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--accent-dk); font-size: 1.05rem; margin: 26px 0 4px;
+  display: flex; align-items: center; gap: 14px; justify-content: center; }
+.guide-label::before, .guide-label::after { content: ""; height: 1px; width: 42px; background: var(--line); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px; }
+.tile { background: var(--card); border: 0; cursor: pointer; border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 26px 14px 20px; display: flex; flex-direction: column;
+  align-items: center; gap: 16px; font: inherit; color: var(--ink); min-height: 150px;
+  justify-content: center; transition: transform .06s; text-decoration: none; }
+.tile:active { transform: scale(.98); }
+.tile svg { width: 40px; height: 40px; stroke-width: 1.5; color: var(--ink); }
+.tile span { font-size: 1.02rem; font-weight: 600; text-align: center; line-height: 1.25; }
+
+/* ---------- CATEGORY page ---------- */
+.page-title { font-family: var(--serif); font-weight: 700; text-transform: uppercase;
+  font-size: clamp(1.7rem, 7.5vw, 2.3rem); line-height: 1.08; color: var(--ink);
+  padding: 8px 18px 4px; letter-spacing: .01em; }
+.group-label { font-family: var(--serif); font-weight: 600; text-transform: uppercase;
+  letter-spacing: .12em; color: var(--ink); font-size: 1.16rem; padding: 22px 18px 2px; }
+.page-intro { color: var(--ink); font-size: 1rem; line-height: 1.5; padding: 2px 18px 6px; opacity: .9; }
+.cards { padding: 14px 16px 4px; display: flex; flex-direction: column; gap: 18px; }
+.card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.card--tap { cursor: pointer; transition: transform .06s; }
+.card--tap:active { transform: scale(.992); }
+.card__imgwrap { position: relative; }
+.card__expand { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 9px;
+  background: rgba(24,34,46,.55); color: #fff; display: grid; place-items: center; backdrop-filter: blur(4px); }
+.card__expand svg { width: 16px; height: 16px; }
+.card__multi { position: absolute; left: 10px; bottom: 10px; background: rgba(24,34,46,.78); color: #fff;
+  font-size: .76rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; display: inline-flex;
+  align-items: center; gap: 4px; }
+.card__multi::before { content: "▦"; font-size: .8em; }
+.distpill { display: inline-flex; align-items: center; gap: 4px; margin-bottom: 8px;
+  background: var(--tint); color: var(--accent-dk); font-size: .76rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 999px; }
+.distpill svg { width: 13px; height: 13px; }
+.checklist { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.checklist li { margin: 0; }
+.chk { display: flex; align-items: flex-start; gap: 12px; width: 100%; text-align: left; background: none;
+  border: 0; cursor: pointer; padding: 9px 6px; font: inherit; color: var(--ink); border-radius: 10px; }
+.chk:hover { background: var(--tint); }
+.chk .box { flex: none; width: 22px; height: 22px; border: 2px solid var(--accent); border-radius: 6px;
+  display: grid; place-items: center; margin-top: 1px; transition: background .12s, border-color .12s; }
+.chk .box::after { content: ""; width: 11px; height: 6px; border-left: 2.5px solid #fff; border-bottom: 2.5px solid #fff;
+  transform: rotate(-45deg) translateY(-1px); opacity: 0; transition: opacity .12s; }
+.chk.done .box { background: var(--accent); border-color: var(--accent); }
+.chk.done .box::after { opacity: 1; }
+.chk__t { font-size: 1rem; line-height: 1.4; font-weight: 500; }
+.chk.done .chk__t { text-decoration: line-through; color: var(--muted); }
+.card__img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: var(--tint); }
+.card__pad { padding: 16px 18px 19px; }
+.card__title { font-weight: 700; font-size: 1.16rem; color: var(--ink); margin-bottom: 7px; }
+.card__body { color: var(--ink); font-size: .98rem; }
+.card__body--clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* ---------- swipeable detail ---------- */
+.detail { position: fixed; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: var(--maxw); z-index: 50; background: var(--bg);
+  display: flex; flex-direction: column; }
+.detail__bar { display: flex; align-items: center; gap: 10px;
+  padding: calc(8px + env(safe-area-inset-top)) 14px 8px; }
+.detail__count { flex: 1; text-align: center; font-weight: 700; color: var(--muted); font-size: .92rem;
+  font-variant-numeric: tabular-nums; }
+.swiper { flex: 1; display: flex; overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.swiper::-webkit-scrollbar { display: none; }
+.slide { flex: 0 0 86%; scroll-snap-align: center; overflow-y: auto; padding: 4px 7px calc(20px + env(safe-area-inset-bottom)); }
+.slide__card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.slide__img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--tint); }
+.slide__pad { padding: 18px 18px 22px; }
+.slide__title { font-family: var(--serif); font-weight: 700; font-size: 1.5rem; color: var(--ink); margin-bottom: 10px; }
+.slide__body { color: var(--ink); font-size: 1.02rem; }
+.navarrow { position: absolute; top: 46%; transform: translateY(-50%); z-index: 2;
+  width: 42px; height: 42px; border: 0; cursor: pointer; border-radius: 50%;
+  background: var(--card); box-shadow: var(--shadow); color: var(--ink); display: grid; place-items: center; }
+.navarrow svg { width: 20px; height: 20px; }
+.navarrow--l { left: 8px; } .navarrow--r { right: 8px; }
+@media (hover: none) { .navarrow { display: none; } }  /* touch devices swipe instead */
+
+/* position indicator: dots for few cards, a progress bar for many */
+.dots { display: flex; gap: 7px; justify-content: center; flex-wrap: wrap;
+  padding: 12px 16px calc(14px + env(safe-area-inset-bottom)); }
+.dot { width: 7px; height: 7px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+  background: #cdd3da; transition: width .2s, background .2s; }
+.dot.active { background: var(--accent); width: 20px; border-radius: 4px; }
+.swbar { height: 4px; margin: 14px 18px calc(16px + env(safe-area-inset-bottom));
+  background: #e3e6ea; border-radius: 2px; overflow: hidden; }
+.swbar__fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 2px; transition: width .12s linear; }
+
+/* one-time swipe hint */
+.swipehint { position: absolute; left: 50%; bottom: 70px; transform: translateX(-50%); z-index: 3;
+  background: rgba(24,34,46,.86); color: #fff; font-weight: 600; font-size: .85rem;
+  padding: 9px 15px; border-radius: 999px; display: flex; align-items: center; gap: 8px;
+  pointer-events: none; opacity: 1; transition: opacity .45s; }
+.swipehint.hide { opacity: 0; }
+.swipehint svg { width: 18px; height: 18px; animation: swipenudge 1.3s ease-in-out infinite; }
+@keyframes swipenudge { 0%,100% { transform: translateX(-3px); } 50% { transform: translateX(3px); } }
+@media (prefers-reduced-motion: reduce) { .swipehint svg { animation: none; } }
+
+/* code chip */
+.codebox { margin-top: 14px; display: inline-flex; align-items: center; gap: 12px; cursor: pointer;
+  background: var(--tint); border: 0; border-radius: var(--radius-sm); padding: 11px 13px; font: inherit; color: inherit; }
+.codebox__l { font-size: .74rem; color: var(--accent-dk); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; display: block; }
+.codebox__v { font-size: 1.4rem; font-weight: 800; letter-spacing: .05em; color: var(--accent-dk); font-variant-numeric: tabular-nums; }
+.codebox__c { margin-left: 4px; display: inline-flex; color: var(--accent); }
+.codebox__c svg { width: 18px; height: 18px; }
+
+/* wifi pair */
+.wifirow { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.wifirow .codebox { width: 100%; justify-content: space-between; gap: 8px; margin: 0; }
+.wifirow .codebox__v { font-size: 1.04rem; word-break: break-all; }
+@media (max-width: 360px) { .wifirow { grid-template-columns: 1fr; } }
+
+/* map button */
+.mapbtn { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; text-decoration: none;
+  background: #fff; color: var(--ink); font-weight: 700; font-size: .9rem; padding: 10px 15px 10px 12px;
+  border-radius: 999px; border: 1px solid var(--line); box-shadow: 0 2px 8px rgba(24,34,46,.10);
+  transition: transform .06s, box-shadow .15s; }
+.mapbtn:hover { box-shadow: 0 4px 14px rgba(24,34,46,.16); }
+.mapbtn:active { transform: scale(.98); }
+.mapbtn svg { width: 18px; height: 18px; color: #ea4335; flex: none; }
+
+/* ---------- bottom bar ---------- */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; background: var(--card);
+  border-top: 1px solid var(--line); display: flex; justify-content: center;
+  padding-bottom: env(safe-area-inset-bottom); }
+.bar__inner { display: flex; width: 100%; max-width: var(--maxw); }
+.bar a { flex: 1; text-decoration: none; display: flex; flex-direction: column; align-items: center;
+  gap: 5px; padding: 12px 8px; color: var(--accent); font-weight: 600; font-size: .82rem; text-align: center; }
+.bar a svg { width: 24px; height: 24px; stroke-width: 1.6; }
+
+/* ---------- floating WhatsApp ---------- */
+/* ---------- floating contact buttons (Viber + WhatsApp) ---------- */
+.fabs { position: fixed; right: 16px; bottom: calc(var(--bar-h) + 14px + env(safe-area-inset-bottom));
+  z-index: 26; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.fab { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+  text-decoration: none; box-shadow: 0 6px 18px rgba(0,0,0,.22); }
+.fab svg { width: 30px; height: 30px; color: #fff; }
+.fab--wa { background: #25d366; }
+.fab--viber { background: #7360f2; }
+.fab__x { position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.2); border: 0; cursor: pointer; color: var(--muted);
+  display: grid; place-items: center; font-size: 12px; line-height: 1; z-index: 2; }
+.fabs.hidden { display: none; }
+
+/* ---------- a11y / motion ---------- */
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ---------- toast ---------- */
+.toast { position: fixed; left: 50%; bottom: calc(var(--bar-h) + 26px + env(safe-area-inset-bottom));
+  z-index: 40; background: var(--ink); color: #fff; font-weight: 600; font-size: .88rem;
+  padding: 11px 18px; border-radius: 999px; box-shadow: var(--shadow);
+  opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; transform: translateX(-50%) translateY(12px); }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style></head><body><main id="app"><div class="loading">Loading…</div></main><div id="toast" class="toast"></div><script>window.__PERLA_DATA = {
+  "meta": {
+    "name": "Villa Aurora",
+    "brandLogo": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MjAiIGhlaWdodD0iNDIwIiB2aWV3Qm94PSIwIDAgNDIwIDQyMCI+CjxyZWN0IHdpZHRoPSI0MjAiIGhlaWdodD0iNDIwIiBmaWxsPSIjZmZmZmZmIi8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzlhN2IzZiIgc3Ryb2tlLXdpZHRoPSI2Ij4KPGNpcmNsZSBjeD0iMjEwIiBjeT0iMTgwIiByPSI3MCIvPgo8cGF0aCBkPSJNMjEwIDExMCB2MTQwIE0xNDAgMTgwIGgxNDAgTTE2MCAxMzAgbDEwMCAxMDAgTTI2MCAxMzAgbC0xMDAgMTAwIi8+CjwvZz4KPHRleHQgeD0iMjEwIiB5PSIzMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSIzNCIgbGV0dGVyLXNwYWNpbmc9IjMiIGZpbGw9IiM5YTdiM2YiPlBFUkxBSE9NRVM8L3RleHQ+Cjx0ZXh0IHg9IjIxMCIgeT0iMzM1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGxldHRlci1zcGFjaW5nPSI2IiBmaWxsPSIjYjlhMDZhIj5MVVhVUlkgU1RBWVM8L3RleHQ+Cjwvc3ZnPg==",
+    "welcomeTitle": {
+      "en": "Welcome",
+      "el": "Καλώς ήρθατε"
+    },
+    "welcomeMessage": {
+      "en": "Dear guest, this guide has everything you need for a smooth, comfortable stay — door codes, WiFi, directions and our local favourites. On arrival, please fill in the online check-in form. We hope you have a wonderful time.",
+      "el": "Αγαπητέ επισκέπτη, σε αυτόν τον οδηγό θα βρείτε ό,τι χρειάζεστε για μια άνετη διαμονή — κωδικούς, WiFi, οδηγίες και τοπικές προτάσεις. Κατά την άφιξή σας, συμπληρώστε την online φόρμα check-in. Καλή διαμονή!"
+    },
+    "languages": [
+      "en",
+      "el"
+    ],
+    "heroImage": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzFmM2E1ZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzNmNmZhMyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPgo8cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz4KPGcgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC45MiI+Cjx0ZXh0IHg9IjUwJSIgeT0iNDglIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtc2l6ZT0iNDAiPkhlcm8gcGhvdG8g4oCUIGludGVyaW9yIC8gdmlldzwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg=="
+  },
+  "contact": {
+    "phone": "+306906134633",
+    "whatsapp": "+306906134633",
+    "viber": "+306906134633"
+  },
+  "actions": [
+    {
+      "icon": "checkin",
+      "label": {
+        "en": "Check-in form",
+        "el": "Φόρμα Check-in"
+      },
+      "url": "https://forms.gle/your-checkin-form"
+    },
+    {
+      "icon": "phone",
+      "label": {
+        "en": "Contact",
+        "el": "Επικοινωνία"
+      },
+      "url": "tel:+306906134633"
+    }
+  ],
+  "sections": [
+    {
+      "id": "arrival",
+      "icon": "arrival",
+      "title": {
+        "en": "On your arrival",
+        "el": "Κατά την άφιξή σας"
+      },
+      "cards": [
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMmI2ZTU3Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNWFhMTdlIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+TG9jYXRpb24gbWFwIC8gcm91dGU8L3RleHQ+Cjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+CjwvZz48L3N2Zz4=",
+          "title": {
+            "en": "Location",
+            "el": "Τοποθεσία"
+          },
+          "body": {
+            "en": "If you are arriving with your own transport, tap below to see our location on the map.",
+            "el": "Εάν έρχεστε με δικό σας μεταφορικό μέσο, πατήστε για δείτε την τοποθεσία μας στον χάρτη."
+          },
+          "mapUrl": "https://maps.google.com/?q=Poros+Greece",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM1YTZiN2EiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM4ZmEzYjUiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz48ZyBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjkyIj48dGV4dCB4PSI1MCUiIHk9IjQ4JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjQwIj5CdWlsZGluZyAvIGVudHJhbmNlPC90ZXh0Pjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+PC9nPjwvc3ZnPg==",
+          "title": {
+            "en": "The building",
+            "el": "Το κτίριο"
+          },
+          "body": {
+            "en": "When you arrive, you'll see this building / entrance — look for it to find us.",
+            "el": "Όταν φτάσετε, θα δείτε αυτό το κτίριο / είσοδο — αναζητήστε το για να μας βρείτε."
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0YTU1NjAiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3Yjg3OTQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz48ZyBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjkyIj48dGV4dCB4PSI1MCUiIHk9IjQ4JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjQwIj5HYXJhZ2UgZG9vcjwvdGV4dD48dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0PjwvZz48L3N2Zz4=",
+          "title": {
+            "en": "Garage door",
+            "el": "Πόρτα γκαράζ"
+          },
+          "body": {
+            "en": "Use the code below to open the garage door. (Replace with the exact instructions.)",
+            "el": "Χρησιμοποιήστε τον κωδικό παρακάτω για να ανοίξετε την πόρτα του γκαράζ. (Αντικαταστήστε με τις ακριβείς οδηγίες.)"
+          },
+          "code": "0000",
+          "image2": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzZjQ4NTMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM2Yzc4ODQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz48ZyBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjkyIj48dGV4dCB4PSI1MCUiIHk9IjQ4JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjQwIj5HYXJhZ2UgZG9vciDigJQgc3RlcCAyPC90ZXh0Pjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+PC9nPjwvc3ZnPg=="
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNWE1ZTJiIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOWFhMTVhIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+UGFya2luZyDigJQgc2F0ZWxsaXRlICsgbWFya2VyPC90ZXh0Pgo8dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0Pgo8L2c+PC9zdmc+",
+          "title": {
+            "en": "Parking",
+            "el": "Πάρκινγκ"
+          },
+          "body": {
+            "en": "Parking is free on the street, so you can park wherever suits you. If there is no space in front of the property, you can park on the parallel street at the rear.",
+            "el": "Το πάρκινγκ είναι ελεύθερο στον δρόμο, οπότε μπορείτε να παρκάρετε όπου σας βολεύει. Αν δεν βρείτε θέση μπροστά από το κατάλυμα, μπορείτε να παρκάρετε στον παράλληλο δρόμο από την πίσω πλευρά."
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNGEzZjZiIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjODQ3NWI3Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+S2V5IGxvY2tlciBwaG90bzwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+          "title": {
+            "en": "Key locker",
+            "el": "Key locker"
+          },
+          "body": {
+            "en": "Find the keys in the locker shown in the photo. The code will be sent to you before arrival.",
+            "el": "Βρείτε τα κλειδιά στο locker της φωτογραφίας. Θα σας σταλεί ο κωδικός πριν την άφιξη."
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMzM0MTRmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNWI2YjdhIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+Q2FyIHJlbnRhbCAvIHRyYW5zZmVyPC90ZXh0Pgo8dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0Pgo8L2c+PC9zdmc+",
+          "title": {
+            "en": "Car rental",
+            "el": "Ενοικίαση αυτοκινήτου"
+          },
+          "body": {
+            "en": "We arrange car rental to suit your needs. Once you choose the car you want, you can pick it up as soon as you land at the airport.",
+            "el": "Κανονίζουμε την ενοικίαση σύμφωνα με τις ανάγκες σας. Αφού επιλέξετε το αυτοκίνητο που επιθυμείτε, θα μπορείτε να το παραλάβετε αμέσως μόλις προσγειωθείτε στο αεροδρόμιο."
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWY0ZTc5Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjM2Y3YmIzIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+Q29udGFjdDwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+          "title": {
+            "en": "Contact",
+            "el": "Επικοινωνία"
+          },
+          "body": {
+            "en": "For anything you need, you can reach us daily from 07:00 to 23:00 at 0030 690 613 46 33, or send us a WhatsApp message using the button at the bottom of the page.",
+            "el": "Για οτιδήποτε χρειαστείτε, μπορείτε να επικοινωνείτε καθημερινά από τις 07:00 έως τις 23:00 στο 0030 690 613 46 33 ή, εναλλακτικά, να μας στείλετε μήνυμα μέσω WhatsApp πατώντας το αντίστοιχο κουμπί στο κάτω μέρος της σελίδας."
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2E2YTFmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYzJhODNlIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+QWlycG9ydCBhcnJpdmFsczwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+          "title": {
+            "en": "Arrival time",
+            "el": "Ώρα άφιξης"
+          },
+          "body": {
+            "en": "We recommend letting us know your estimated arrival time so we can serve you better.",
+            "el": "Σας προτείνουμε να μας ενημερώσετε για την εκτιμώμενη ώρα άφιξής σας ώστε να σας εξυπηρετήσουμε καλύτερα."
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNGEyZjZiIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjN2Q1YmIwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+Q2hlY2staW48L3RleHQ+Cjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+CjwvZz48L3N2Zz4=",
+          "title": {
+            "en": "Check-in after 15:00",
+            "el": "Check-in μετά τις 15:00"
+          },
+          "body": {
+            "en": "We welcome you in person. Early check-in is possible upon arrangement and availability.",
+            "el": "Σας υποδεχόμαστε εμείς | Υπάρχει η δυνατότητα για early check-in κατόπιν συνεννόησης και διαθεσιμότητας."
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNmI0YTJmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjA3ZDViIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+V2VsY29tZSAvIHJlY2VwdGlvbiBiZWxsPC90ZXh0Pgo8dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0Pgo8L2c+PC9zdmc+",
+          "title": {
+            "en": "Early check-in",
+            "el": "Early check-in"
+          },
+          "body": {
+            "en": "Early check-in is possible, depending on availability at the time of your arrival.",
+            "el": "Υπάρχει δυνατότητα για early check-in, ανάλογα με τη διαθεσιμότητα τη στιγμή της άφιξής σας."
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjOGYyYjZlIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjY2Y1YWExIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+THVnZ2FnZSBzdG9yYWdlPC90ZXh0Pgo8dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0Pgo8L2c+PC9zdmc+",
+          "title": {
+            "en": "Luggage storage",
+            "el": "Αποθήκευση αποσκευών"
+          },
+          "body": {
+            "en": "If you arrive earlier than your scheduled check-in time, you can leave your luggage with us until the room is ready. The same option is available after check-out.",
+            "el": "Σε περίπτωση που φτάσετε νωρίτερα από την προγραμματισμένη ώρα check-in, μπορείτε να αφήσετε τις αποσκευές σας για φύλαξη μέχρι να είναι έτοιμο το δωμάτιο. Αντίστοιχα, παρέχεται η ίδια δυνατότητα και μετά το check-out."
+          }
+        }
+      ]
+    },
+    {
+      "id": "property",
+      "icon": "property",
+      "title": {
+        "en": "Property guide",
+        "el": "Οδηγός σπιτιού"
+      },
+      "groups": [
+        {
+          "label": {
+            "en": "Useful information",
+            "el": "Χρήσιμες πληροφορίες"
+          },
+          "cards": [
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTUyNDNhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMmE0YTdhIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+V2lGaTwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Wi-Fi",
+                "el": "Wi-Fi"
+              },
+              "wifi": {
+                "network": "Archipelagos",
+                "password": "123456789"
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjM2E1NTYwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNmI4ZjljIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+QWlyIGNvbmRpdGlvbmluZzwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Air conditioning",
+                "el": "Κλιματισμός"
+              },
+              "body": {
+                "en": "For the villa to cool properly, all doors and windows must be closed. The A/C is controlled centrally from the panel next to the main entrance. The ideal temperature to avoid catching a cold while you sleep is 25 °C.",
+                "el": "Για τον σωστό κλιματισμό της βίλας θα πρέπει όλα οι πόρτες και τα παράθυρα να είναι κλειστά. Ο κλιματισμός ελέγχεται κεντρικά από το πάνελ δίπλα στην κεντρική είσοδο. Η ιδανική θερμοκρασία για την αποφυγή κρυολογήματος όταν κοιμάστε είναι 25 °C."
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNGE0YTRhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjN2Q3ZDdkIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+Q29mZmVlIG1hY2hpbmU8L3RleHQ+Cjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+CjwvZz48L3N2Zz4=",
+              "title": {
+                "en": "Coffee machine",
+                "el": "Καφετιέρα"
+              },
+              "body": {
+                "en": "Filter / Nespresso (see more)",
+                "el": "Filter / Nespresso (δείτε περισσότερα)"
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNmIzYTFmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjA2YjNmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+QkJRPC90ZXh0Pgo8dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0Pgo8L2c+PC9zdmc+",
+              "title": {
+                "en": "BBQ Charcoal/Gas",
+                "el": "BBQ Charcoal/Gas"
+              },
+              "body": {
+                "en": "Open the lid first, then the gas bottle. Light the burner with the switch and adjust the temperature with the control knobs. After cooking, close the bottle first and then the burners. Always use the BBQ outdoors in a well-ventilated area and never leave it unattended.",
+                "el": "Ανοίξτε πρώτα το καπάκι και στη συνέχεια τη φιάλη αερίου. Ανάψτε τον καυστήρα από τον διακόπτη και ρυθμίστε τη θερμοκρασία με τα κουμπιά ελέγχου. Μετά το ψήσιμο, κλείστε πρώτα τη φιάλη και έπειτα τους καυστήρες. Χρησιμοποιείτε πάντα το BBQ σε εξωτερικό χώρο με καλό αερισμό και μην το αφήνετε χωρίς επίβλεψη."
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMmY0YTRhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNWI4ZjhmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+R3ltIGVxdWlwbWVudDwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Gym equipment",
+                "el": "Όργανα γυμναστηρίου"
+              },
+              "body": {
+                "en": "The gym in the yard shed includes the basic exercise equipment. Please return the equipment to its place after use.",
+                "el": "Το γυμναστήριο στο υπόστεγο της αυλής περιλαμβάνει τα βασικά όργανα γυμναστικής. Παρακαλούμε, μετά την χρήση των οργάνων τοποθετήστε τα στην θέση τους."
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjM2E1YTZiIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNmI5Y2IwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+Q2xlYW5pbmcgc2VydmljZTwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Cleaning service",
+                "el": "Υπηρεσία καθαριότητας"
+              },
+              "body": {
+                "en": "Cleaning services are provided on request and at an extra charge.",
+                "el": "Οι υπηρεσίες καθαριότητας πραγματοποιούνται κατόπιν αιτήματός σας και με επιπλέον χρέωση."
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2E2YTFmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYzJhODNlIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+Q29udGFjdCB1czwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Contact us",
+                "el": "Επικοινωνήστε μαζί μας"
+              },
+              "body": {
+                "en": "For anything you need, you can reach us daily from 07:00 to 23:00 at 0030 690 613 46 33, or send us a WhatsApp message using the button at the bottom of the page.",
+                "el": "Για οτιδήποτε χρειαστείτε, μπορείτε να επικοινωνείτε καθημερινά από τις 07:00 έως τις 23:00 στο 0030 690 613 46 33 ή, εναλλακτικά, να μας στείλετε μήνυμα μέσω WhatsApp πατώντας το αντίστοιχο κουμπί στο κάτω μέρος της σελίδας."
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWY1ZjZiIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjM2ZiMGIwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+VGFwIHdhdGVyPC90ZXh0Pgo8dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0Pgo8L2c+PC9zdmc+",
+              "title": {
+                "en": "Tap water",
+                "el": "Νερό βρύσης"
+              },
+              "body": {
+                "en": "Tap water is not recommended for drinking. However, it is suitable for cooking, as well as for bathing and personal hygiene.",
+                "el": "Το νερό της βρύσης δεν συνιστάται για πόση. Ωστόσο, είναι κατάλληλο για μαγείρεμα, καθώς και για μπάνιο και προσωπική υγιεινή."
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNmIyZjJmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjA1YjViIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+SG90IHdhdGVyIHN3aXRjaDwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Hot water",
+                "el": "Ζεστό νερό"
+              },
+              "body": {
+                "en": "Available 24/7 from the solar water heater. On cloudy days, flip the switch shown in the photo. IMPORTANT! AFTER 20 MINUTES TURN IT BACK TO THE OFF POSITION.",
+                "el": "Όλο το 24ωρο από ηλιακό θερμοσίφωνα. Σε περίπτωση συνεφιάς σηκώστε τον διακόπτη της φωτογραφίας. ΣΗΜΑΝΤΙΚΟ! ΜΕΤΑ ΑΠΟ 20' ΞΑΝΑΓΥΡΙΣΤΕ ΤΟΝ ΣΤΗΝ ΘΕΣΗ OFF"
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMmY2YjNhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNWJiMDZiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+Qm9hcmQgZ2FtZXM8L3RleHQ+Cjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+CjwvZz48L3N2Zz4=",
+              "title": {
+                "en": "Board games",
+                "el": "Επιτραπέζια παιχνίδια"
+              },
+              "body": {
+                "en": "You will find board games for the whole family in the living room cabinet.",
+                "el": "Θα βρείτε επιτραπέζια παιχνίδια για όλη την οικογένεια στο ντουλάπι του σαλονιού."
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNGE0YTJmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOGY4ZjViIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+QmFja3VwIHBvd2VyPC90ZXh0Pgo8dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0Pgo8L2c+PC9zdmc+",
+              "title": {
+                "en": "Backup power",
+                "el": "Εφεδρική τροφοδοσία"
+              },
+              "body": {
+                "en": "In the event of a power cut, the system powers the house automatically, with autonomy of about two hours.",
+                "el": "Σε περίπτωση διακοπής ρεύματος, το σύστημα τροφοδοτεί το σπίτι αυτόματα, με αυτονομία περίπου δύο ωρών."
+              }
+            },
+            {
+              "title": {
+                "en": "Check-out",
+                "el": "Αναχώρηση"
+              },
+              "body": {
+                "en": "Check-out is by 11:00. A quick checklist before you go:",
+                "el": "Η αναχώρηση είναι έως τις 11:00. Μια γρήγορη λίστα πριν φύγετε:"
+              },
+              "checklist": [
+                {
+                  "en": "Close all windows",
+                  "el": "Κλείστε όλα τα παράθυρα"
+                },
+                {
+                  "en": "Turn off the lights & A/C",
+                  "el": "Σβήστε τα φώτα & το A/C"
+                },
+                {
+                  "en": "Leave the keys on the table",
+                  "el": "Αφήστε τα κλειδιά στο τραπέζι"
+                },
+                {
+                  "en": "Lock the door",
+                  "el": "Κλειδώστε την πόρτα"
+                },
+                {
+                  "en": "Have a safe trip!",
+                  "el": "Καλή επιστροφή!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": {
+            "en": "Rules",
+            "el": "Κανονισμοί"
+          },
+          "cards": [
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNWEzYTFmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOWE2YjNmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+Q2hlY2stb3V0PC90ZXh0Pgo8dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0Pgo8L2c+PC9zdmc+",
+              "title": {
+                "en": "Check-out",
+                "el": "Check-out"
+              },
+              "body": {
+                "en": "For the smooth running of the property, please complete check-out by 11:00 am. | Late check-out — at an extra charge — subject to availability.",
+                "el": "Για την ομαλή λειτουργία του καταλύματος παρακαλούμε το check out να έχει πραγματοποιηθεί ως τις 11:00 πμ. | Late check-out - Με επιπλέον χρέωση - κατόπιν διαθεσιμότητας"
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjM2E0YTJmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNmI4ZjViIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+R2FyYmFnZSAvIHJlY3ljbGluZzwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Garbage",
+                "el": "Σκουπίδια"
+              },
+              "body": {
+                "en": "Please leave your rubbish in the bins outside the property. Recycling bins are next to them.",
+                "el": "Παρακαλούμε αφήνετε τα σκουπίδια στους κάδους έξω από το κατάλυμα. Οι κάδοι ανακύκλωσης βρίσκονται δίπλα."
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNWEyZjVhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOWE1YjlhIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+UGFydGllczwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Parties",
+                "el": "Διοργάνωση πάρτι"
+              },
+              "body": {
+                "en": "Parties are not allowed at this property.",
+                "el": "Απαγορεύεται η διοργάνωση πάρτι σε αυτό το κατάλυμα."
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWY2YjhmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjM2ZiMGQwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+UG9vbDwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Pool",
+                "el": "Πισίνα"
+              },
+              "body": {
+                "en": "See the rules.",
+                "el": "Δείτε τους κανονισμούς"
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjM2E1YTNhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNmI5YzZiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+UG9vbCBjdXNoaW9uczwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Pool cushions",
+                "el": "Μαξιλάρια πισίνας"
+              },
+              "body": {
+                "en": "Please place all pool cushions in the veranda shed in case of rain.",
+                "el": "Παρακαλούμε τοποθετήστε όλα τα μαξιλάρια της πισίνας στο υπόστεγο της βεράντας σε περίπτωση βροχής."
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNmIxZjFmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjAzZjNmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+Tm8gc21va2luZzwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Smoking",
+                "el": "Κάπνισμα"
+              },
+              "body": {
+                "en": "Not allowed inside the house.",
+                "el": "Απαγορεύεται εντός τις οικείας."
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNWE0YTFmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOWE4ZjNmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+TGlnaHRpbmc8L3RleHQ+Cjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+CjwvZz48L3N2Zz4=",
+              "title": {
+                "en": "Lighting",
+                "el": "Φωτισμός"
+              },
+              "body": {
+                "en": "Please switch off the outdoor and decorative lights when you go to sleep or leave the house.",
+                "el": "Παρακαλούμε σβήνετε τα εξωτερικά και διακοσμητικά φώτα όταν κοιμάστε ή φεύγετε από το σπίτι."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neighbourhood",
+      "icon": "neighbourhood",
+      "title": {
+        "en": "The neighbourhood",
+        "el": "Η γειτονιά"
+      },
+      "intro": {
+        "en": "Our area is close to Nafplio, and you'll find everything you need for daily essentials a short distance away.",
+        "el": "Η περιοχή μας βρίσκεται κοντά στο Ναύπλιο και θα βρείτε ότι χρειαστείτε από είδη πρώτης ανάγκης σε κοντινή απόσταση."
+      },
+      "cards": [
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMyZjVhOGYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM1YjhmYzIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz48ZyBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjkyIj48dGV4dCB4PSI1MCUiIHk9IjQ4JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjQwIj5NaW5pIG1hcmtldDwvdGV4dD48dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0PjwvZz48L3N2Zz4=",
+          "title": {
+            "en": "Mini market",
+            "el": "Μίνι μάρκετ"
+          },
+          "body": {
+            "en": "For essentials, visit the mini market in the village square, about 2 minutes by car. It has basic products, tobacco and some greengrocer items.",
+            "el": "Για είδη πρώτης ανάγκης μπορείτε να επισκεφθείτε το μίνι μάρκετ στην πλατεία του χωριού, περίπου 2 λεπτά με το αυτοκίνητο. Διαθέτει βασικά προϊόντα, είδη καπνού και ορισμένα είδη μαναβικής."
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMyZjdhNWEiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM1YmIwOGYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz48ZyBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjkyIj48dGV4dCB4PSI1MCUiIHk9IjQ4JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjQwIj5QaGFybWFjeSAvIGVzc2VudGlhbHM8L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD48L2c+PC9zdmc+",
+          "title": {
+            "en": "Pharmacy",
+            "el": "Φαρμακείο"
+          },
+          "body": {
+            "en": "The nearest pharmacy is in the village, about a 5-minute drive. Ask us about the on-duty pharmacy at night.",
+            "el": "Το πλησιέστερο φαρμακείο βρίσκεται στο χωριό, περίπου 5 λεπτά με το αυτοκίνητο. Ρωτήστε μας για το εφημερεύον φαρμακείο τη νύχτα."
+          }
+        }
+      ]
+    },
+    {
+      "id": "beaches",
+      "icon": "beaches",
+      "title": {
+        "en": "Nearby beaches",
+        "el": "Κοντινές παραλίες"
+      },
+      "cards": [
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzFmNmY4ZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzRmYjNjZiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPgo8cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz4KPGcgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC45MiI+Cjx0ZXh0IHg9IjUwJSIgeT0iNDglIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtc2l6ZT0iNDAiPk5lYXJieSBiZWFjaDwvdGV4dD4KPHRleHQgeD0iNTAlIiB5PSI1NiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgb3BhY2l0eT0iMC44Ij5yZXBsYWNlIGluIGRhdGEvaW1nLzwvdGV4dD4KPC9nPjwvc3ZnPg==",
+          "title": {
+            "en": "Ritsa Beach",
+            "el": "Παραλία Ρίτσα"
+          },
+          "body": {
+            "en": "Pebble beach, calm water, shade in the morning. A 4-minute walk away.",
+            "el": "Παραλία με βότσαλα, ήρεμα νερά, σκιά το πρωί. 4 λεπτά με τα πόδια."
+          },
+          "mapUrl": "https://maps.google.com/?q=beach+Poros",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sights",
+      "icon": "sights",
+      "title": {
+        "en": "Sights",
+        "el": "Αξιοθέατα"
+      },
+      "intro": {
+        "en": "The Nafplio area, and Argolida as a whole, has unique sights including three UNESCO monuments. We've put together a guide to the best of what's worth visiting.",
+        "el": "Η περιοχή του Ναυπλίου, και συνολικά η Αργολίδα, διαθέτει μοναδικά αξιοθέατα συμπεριλαμβανομένων τριών μνημείων UNESCO. Δημιουργήσαμε έναν οδηγό με τα καλύτερα που αξίζει να επισκεφτείτε."
+      },
+      "groups": [
+        {
+          "label": {
+            "en": "Sights of Nafplio",
+            "el": "Αξιοθέατα Ναυπλίου"
+          },
+          "cards": [
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM3YTZhM2YiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjMmE4NmIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz48ZyBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjkyIj48dGV4dCB4PSI1MCUiIHk9IjQ4JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjQwIj5QYWxhbWlkaSBmb3J0cmVzczwvdGV4dD48dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0PjwvZz48L3N2Zz4=",
+              "title": {
+                "en": "Palamidi Fortress",
+                "el": "Φρούριο Παλαμήδι"
+              },
+              "body": {
+                "en": "The most beautiful castle in Greece.",
+                "el": "Το ομορφότερο κάστρο της Ελλάδας"
+              },
+              "mapUrl": "https://maps.google.com/?q=Palamidi+Nafplio",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM2YjVhOGYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM5YzhmYzIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz48ZyBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjkyIj48dGV4dCB4PSI1MCUiIHk9IjQ4JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjQwIj5PbGQgdG93biBOYWZwbGlvPC90ZXh0Pjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+PC9nPjwvc3ZnPg==",
+              "title": {
+                "en": "Nafplio Old Town",
+                "el": "Παλιά Πόλη Ναυπλίου"
+              },
+              "body": {
+                "en": "Wander the marble alleys, Syntagma Square and the seafront — ideal at sunset.",
+                "el": "Περπατήστε στα μαρμάρινα σοκάκια, την πλατεία Συντάγματος και την παραλία — ιδανικά το ηλιοβασίλεμα."
+              },
+              "mapUrl": "https://maps.google.com/?q=Nafplio+Old+Town",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "restaurants",
+      "icon": "restaurants",
+      "title": {
+        "en": "Restaurants",
+        "el": "Εστιατόρια"
+      },
+      "cards": [
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzhmNGEyYiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NmN2Y0ZiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPgo8cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz4KPGcgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC45MiI+Cjx0ZXh0IHg9IjUwJSIgeT0iNDglIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtc2l6ZT0iNDAiPlJlc3RhdXJhbnQ8L3RleHQ+Cjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+CjwvZz48L3N2Zz4=",
+          "title": {
+            "en": "Lola Taverna",
+            "el": "Ταβέρνα Λόλα"
+          },
+          "body": {
+            "en": "Family-run taverna by the sea. Order the grilled octopus.",
+            "el": "Οικογενειακή ταβέρνα δίπλα στη θάλασσα. Δοκιμάστε το χταπόδι σχάρας."
+          },
+          "mapUrl": "https://maps.google.com/?q=taverna+Poros",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        }
+      ]
+    },
+    {
+      "id": "activities",
+      "icon": "activities",
+      "title": {
+        "en": "Activities",
+        "el": "Δραστηριότητες"
+      },
+      "intro": {
+        "en": "In our area you can do plenty of activities and discover its beautiful nature and cultural wealth. We've selected reliable, excellent partners and recommend them to you.",
+        "el": "Στην περιοχή μας μπορείτε να κάνετε αρκετές δραστηριότητες και να ανακαλύψετε την όμορφη φύση αλλά και τον πολιτιστικό της πλούτο. Επιλέξαμε για εσάς και σας προτείνουμε αξιόπιστους και εξαιρετικούς συνεργάτες."
+      },
+      "cards": [
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxZjZmOWYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0ZmIwZDgiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz48ZyBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjkyIj48dGV4dCB4PSI1MCUiIHk9IjQ4JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjQwIj5EYXkgY3J1aXNlPC90ZXh0Pjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+PC9nPjwvc3ZnPg==",
+          "title": {
+            "en": "Day cruise — Hydra & Spetses",
+            "el": "Μονοήμερη κρουαζιέρα Ύδρα & Σπέτσες"
+          },
+          "body": {
+            "en": "Departure is early in the morning. We handle the ticket booking — contact us.",
+            "el": "Η αναχώρηση γίνεται νωρίς το πρωί | Αναλαμβάνουμε την κράτηση εισιτηρίων, επικοινωνήστε μαζί μας."
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMyZjVhOGYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM1YjlmZDAiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz48ZyBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjkyIj48dGV4dCB4PSI1MCUiIHk9IjQ4JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjQwIj5TYWlsaW5nIHRyaXBzPC90ZXh0Pjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+PC9nPjwvc3ZnPg==",
+          "title": {
+            "en": "Sailing — Private cruises in the Argolic Gulf",
+            "el": "Sailing - Ιδιωτικές κρουαζιέρες στον Αργολικό"
+          },
+          "body": {
+            "en": "For information and bookings, contact us.",
+            "el": "Για πληροφορίες / κρατήσεις επικοινωνήστε μαζί μας."
+          }
+        },
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxZjZiN2EiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMzZmE4YjAiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI3NjAiIGZpbGw9InVybCgjZykiLz48ZyBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjkyIj48dGV4dCB4PSI1MCUiIHk9IjQ4JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjQwIj5GaXNoaW5nIHRyaXBzPC90ZXh0Pjx0ZXh0IHg9IjUwJSIgeT0iNTYlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIG9wYWNpdHk9IjAuOCI+cmVwbGFjZSBpbiBkYXRhL2ltZy88L3RleHQ+PC9nPjwvc3ZnPg==",
+          "title": {
+            "en": "Tolo Fishing Trips",
+            "el": "Tolo Fishing Trips"
+          },
+          "body": {
+            "en": "For information and bookings, contact us.",
+            "el": "Για πληροφορίες / κρατήσεις επικοινωνήστε μαζί μας."
+          }
+        }
+      ]
+    },
+    {
+      "id": "transfers",
+      "icon": "transfers",
+      "title": {
+        "en": "Transfers",
+        "el": "Μεταφορές"
+      },
+      "cards": [
+        {
+          "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgdmlld0JveD0iMCAwIDEyMDAgNzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMzM0MTRmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNWI2YjdhIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijc2MCIgZmlsbD0idXJsKCNnKSIvPgo8ZyBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjkyIj4KPHRleHQgeD0iNTAlIiB5PSI0OCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI0MCI+Q2FyIHJlbnRhbCAvIHRyYW5zZmVyPC90ZXh0Pgo8dGV4dCB4PSI1MCUiIHk9IjU2JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBvcGFjaXR5PSIwLjgiPnJlcGxhY2UgaW4gZGF0YS9pbWcvPC90ZXh0Pgo8L2c+PC9zdmc+",
+          "title": {
+            "en": "Local taxi",
+            "el": "Τοπικό ταξί"
+          },
+          "body": {
+            "en": "Reliable driver for the airport or day trips. Message us on WhatsApp and we'll arrange it.",
+            "el": "Αξιόπιστος οδηγός για αεροδρόμιο ή εκδρομές. Στείλτε μήνυμα στο WhatsApp και θα το κανονίσουμε."
+          }
+        }
+      ]
+    },
+    {
+      "id": "rateus",
+      "icon": "rateus",
+      "title": {
+        "en": "Rate us",
+        "el": "Αξιολογήστε μας"
+      },
+      "link": "https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID"
+    }
+  ]
+};</script><script>/* =========================================================
+   Perlahomes Guest Guide — hub & spoke renderer
+   Loads data/<slug>.json (?p=<slug>) and renders a home hub
+   plus per-category pages. No build step. Plain JS.
+   ========================================================= */
+(() => {
+  "use strict";
+  const app = document.getElementById("app");
+  const toastEl = document.getElementById("toast");
+  const params = new URLSearchParams(location.search);
+  const slug = (params.get("p") || "villa-aurora").replace(/[^a-z0-9_-]/gi, "");
+
+  let DATA = null, LANG = "en", waHidden = false;
+
+  // Soft expiry: a link like ?p=slug&until=2026-07-05 stops working after that day.
+  const until = params.get("until");
+  function isExpired(u){ if(!u) return false; const d = new Date(u + "T23:59:59"); if (isNaN(d.getTime())) return false; return Date.now() > d.getTime(); }
+  const EXPIRED = isExpired(until);
+
+  const t = (v) => v == null ? "" : (typeof v === "string" ? v : (v[LANG] ?? v.en ?? Object.values(v)[0] ?? ""));
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c]));
+  const digits = (s) => String(s).replace(/[^\d]/g, "");
+
+  const FLAGS = {
+    en: '<svg viewBox="0 0 60 40"><rect width="60" height="40" fill="#012169"/><path d="M0 0l60 40M60 0L0 40" stroke="#fff" stroke-width="8"/><path d="M0 0l60 40M60 0L0 40" stroke="#C8102E" stroke-width="4"/><path d="M30 0v40M0 20h60" stroke="#fff" stroke-width="13"/><path d="M30 0v40M0 20h60" stroke="#C8102E" stroke-width="8"/></svg>',
+    el: '<svg viewBox="0 0 60 40"><rect width="60" height="40" fill="#0d5eaf"/><g fill="#fff"><rect y="4.4" width="60" height="4.4"/><rect y="13.3" width="60" height="4.4"/><rect y="22.2" width="60" height="4.4"/><rect y="31.1" width="60" height="4.4"/></g><rect width="22.2" height="22.2" fill="#0d5eaf"/><g fill="#fff"><rect x="8.9" width="4.4" height="22.2"/><rect y="8.9" width="22.2" height="4.4"/></g></svg>',
+    fr: '<svg viewBox="0 0 60 40"><rect width="20" height="40" fill="#0055A4"/><rect x="20" width="20" height="40" fill="#fff"/><rect x="40" width="20" height="40" fill="#EF4135"/></svg>',
+    de: '<svg viewBox="0 0 60 40"><rect width="60" height="13.3" fill="#000"/><rect y="13.3" width="60" height="13.3" fill="#D00"/><rect y="26.6" width="60" height="13.4" fill="#FFCE00"/></svg>',
+    it: '<svg viewBox="0 0 60 40"><rect width="20" height="40" fill="#009246"/><rect x="20" width="20" height="40" fill="#fff"/><rect x="40" width="20" height="40" fill="#CE2B37"/></svg>'
+  };
+  const LANGNAME = { en: "English", el: "Ελληνικά", fr: "Français", de: "Deutsch", it: "Italiano" };
+
+  const I = {
+    arrival:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11Z"/><path d="m9.5 10.5 1.8 1.8 3.2-3.4"/></svg>',
+    property:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m14 7 5-5 3 3-5 5"/><path d="m17 5 2 2"/><circle cx="8.5" cy="15.5" r="5"/><path d="m11.5 12 3.5-3.5"/></svg>',
+    neighborhood:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="7" r="3"/><path d="M6 21v-2a6 6 0 0 1 12 0v2"/><path d="M4 13l-2 2M20 13l2 2"/></svg>',
+    beaches:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="17" cy="6" r="3"/><path d="M3 20h18M5 20c2-6 9-9 13-7M12 13c-1-3 1-6 4-7"/></svg>',
+    sights:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>',
+    restaurants:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 3v8a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 0-3 2-3 5s1 4 3 4m0 0v9"/></svg>',
+    activities:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>',
+    transfers: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><path d="M4 11h16v6H4zM7 17v2M17 17v2"/><circle cx="7.5" cy="14" r="1"/><circle cx="16.5" cy="14" r="1"/></svg>',
+    spa:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21c-4-2-7-5-7-9 3 0 6 2 7 5 1-3 4-5 7-5 0 4-3 7-7 9Z"/><path d="M12 17V9"/></svg>',
+    shopping:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>',
+    info:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>',
+    neighbourhood: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l5-3 5 3v13M9 21v-4h2v4M19 21V11l-4-2.4"/></svg>',
+    sights:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="14" height="11" rx="2"/><path d="M17 10l4-2v8l-4-2"/><circle cx="9" cy="12" r="2.2"/></svg>',
+    activities:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6-2 6 2 6-2v12l-6 2-6-2-6 2z"/><path d="M9 5v12M15 7v12"/></svg>',
+    wellness:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c5-2 8-6 8-10 0-2-3 0-4 2 0-3-2-6-4-8-2 2-4 5-4 8-1-2-4-4-4-2 0 4 3 8 8 10Z"/></svg>',
+    shopping:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>',
+    rateus:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l2.3 4.7 5.2.8-3.8 3.7.9 5.1L12 16l-4.6 2.4.9-5.1L4.5 9.5l5.2-.8L12 4Z"/></svg>',
+    checkin:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15l2 2 4-4"/></svg>',
+    massage:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="8" cy="6" r="2"/><path d="M3 19c1-3 4-5 8-5h3a4 4 0 0 1 4 4M11 14l3-2"/></svg>',
+    back:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+    right:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
+    expand:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5"/></svg>',
+    swipe:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7l-4 5 4 5M15 7l4 5-4 5"/></svg>',
+    chev:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>',
+    map:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 4 6 2 5-2v14l-5 2-6-2-5 2V6l5-2Z"/><path d="M9 4v14M15 6v14"/></svg>',
+    pin:       '<svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M12 2a7 7 0 0 0-7 7c0 4.9 5.4 11.4 6.6 12.8a.6.6 0 0 0 .9 0C13.6 20.4 19 13.9 19 9a7 7 0 0 0-7-7Zm0 4.4A2.6 2.6 0 1 0 12 11.6 2.6 2.6 0 0 0 12 6.4Z"/></svg>',
+    copy:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
+    wa:        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.4A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.7-1.2-4.5-4-4.6-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.3.5-.4.6-.6.9-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.6 1.6.3.1.5.1.7-.1.2-.2.7-.9.9-1.1.2-.3.4-.2.7-.1.3.1 1.7.8 1.9.9.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>',
+    viber:     '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c-5 0-8.7 3.2-8.7 7.4 0 2.2 1 4.1 2.8 5.5l-.6 3.3c-.05.27.24.48.48.34l3.1-1.7c.95.2 1.9.2 2.9.2 5 0 8.7-3.2 8.7-7.4S17 2.2 12 2.2Zm3.9 10.2c-.2.5-.9 1-1.5 1.1-.4.05-.9.1-2.7-.7-2.3-1-3.7-3.3-3.8-3.5-.1-.15-.9-1.2-.9-2.3 0-1.1.6-1.6.8-1.85.2-.2.45-.27.6-.27h.45c.15 0 .33-.03.5.4.2.5.65 1.7.7 1.8.05.1.08.25.02.4-.27.55-.55.6-.75.85-.1.12-.2.25-.1.45.1.2.55.95 1.2 1.5.85.7 1.5.95 1.7 1.05.15.08.3.06.42-.08.17-.18.62-.72.79-.97.12-.18.27-.13.45-.07.2.07 1.25.6 1.45.7.2.1.34.15.4.23.05.1.05.6-.15 1.07Z"/></svg>',
+    phone:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>',
+  };
+
+  let toastTimer;
+  function toast(msg){ toastEl.textContent = msg; toastEl.classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(()=>toastEl.classList.remove("show"),1600); }
+  async function copy(text, what){ try{ await navigator.clipboard.writeText(text); toast((LANG==="el"?"Αντιγράφηκε: ":"Copied: ")+what); }catch{ toast(LANG==="el"?"Δεν ήταν δυνατή η αντιγραφή":"Couldn’t copy"); } }
+
+  /* ---- shared chrome ---- */
+  function langPicker(){
+    const langs = (DATA.meta && DATA.meta.languages) || ["en"];
+    if (langs.length < 2) return "";
+    return `<div class="lang">
+      <button class="lang__btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+        <span class="flag">${FLAGS[LANG]||""}</span>${I.chev}
+      </button>
+      <div class="lang__menu" id="langMenu" role="menu">
+        ${langs.map(l=>`<button data-setlang="${l}" role="menuitem"><span class="flag">${FLAGS[l]||""}</span>${esc(LANGNAME[l]||l.toUpperCase())}</button>`).join("")}
+      </div>
+    </div>`;
+  }
+  function bottomBar(){
+    const acts = DATA.actions || [];
+    if (!acts.length) return "";
+    return `<nav class="bar"><div class="bar__inner">${acts.map(a=>
+      `<a href="${esc(a.url||"#")}" target="_blank" rel="noopener">${I[a.icon]||I.info}<span>${esc(t(a.label))}</span></a>`).join("")}</div></nav>`;
+  }
+  function waButton(){
+    const c = DATA.contact || {};
+    if (waHidden || (!c.whatsapp && !c.viber)) return "";
+    let items = "";
+    if (c.viber) items += `<a class="fab fab--viber" href="viber://chat?number=${encodeURIComponent("+"+digits(c.viber))}" aria-label="Viber">${I.viber}</a>`;
+    if (c.whatsapp) items += `<a class="fab fab--wa" href="https://wa.me/${digits(c.whatsapp)}" target="_blank" rel="noopener" aria-label="WhatsApp">${I.wa}</a>`;
+    return `<div class="fabs"><button class="fab__x" id="waX" aria-label="Hide">✕</button>${items}</div>`;
+  }
+
+  /* ---- views ---- */
+  function homeView(){
+    const m = DATA.meta || {};
+    const heroStyle = m.heroImage ? ` style="background-image:url('${esc(m.heroImage)}')"` : "";
+    const sections = DATA.sections || [];
+    return `
+      <div class="topbar is-home">${langPicker()||'<span class="spacer"></span>'}<span style="flex:1"></span></div>
+      <header class="hero"${heroStyle}>
+        ${m.brandLogo ? `<img class="hero__logo" src="${esc(m.brandLogo)}" alt="">` : ""}
+        <h1 class="hero__welcome">${esc(t(m.welcomeTitle)||"Welcome")}</h1>
+      </header>
+      ${m.welcomeMessage ? `<div class="welcome-card">
+        <p class="clamp" id="welcomeMsg">${esc(t(m.welcomeMessage))}</p>
+        <button class="readmore" id="readmore">${LANG==="el"?"Περισσότερα":"Read more"} ${I.chev}</button>
+      </div>` : ""}
+      <div class="guide-label">${LANG==="el"?"Οδηγός":"Guide"}</div>
+      <div class="grid">
+        ${sections.map((s,i)=> s.link
+          ? `<a class="tile" href="${esc(t(s.link))}" target="_blank" rel="noopener">${I[s.icon]||I.info}<span>${esc(t(s.title))}</span></a>`
+          : `<button class="tile" data-go="${i}">${I[s.icon]||I.info}<span>${esc(t(s.title))}</span></button>`).join("")}
+      </div>
+      ${bottomBar()}${waButton()}`;
+  }
+
+  function imgs(c){
+    if (Array.isArray(c.images)) return c.images.filter(Boolean);
+    return [c.image, c.image2].filter(Boolean);
+  }
+  function checklistHTML(c){
+    if (!Array.isArray(c.checklist) || !c.checklist.length) return "";
+    return `<ul class="checklist">` + c.checklist.map(it =>
+      `<li><button type="button" class="chk"><span class="box"></span><span class="chk__t">${esc(t(it))}</span></button></li>`
+    ).join("") + `</ul>`;
+  }
+  function chipsHTML(c){
+    if (c.wifi){
+      return `<div class="wifirow">
+        <button class="codebox" data-copy="${esc(c.wifi.network)}" data-what="WiFi"><span><span class="codebox__l">WiFi</span><span class="codebox__v">${esc(c.wifi.network)}</span></span><span class="codebox__c">${I.copy}</span></button>
+        <button class="codebox" data-copy="${esc(c.wifi.password)}" data-what="${LANG==="el"?"Κωδικός":"Password"}"><span><span class="codebox__l">${LANG==="el"?"Κωδικός":"Password"}</span><span class="codebox__v">${esc(c.wifi.password)}</span></span><span class="codebox__c">${I.copy}</span></button>
+      </div>`;
+    }
+    if (c.code){
+      return `<button class="codebox" data-copy="${esc(digits(c.code)||c.code)}" data-what="${esc(t(c.codeLabel)||t(c.title))}">
+        <span><span class="codebox__l">${esc(t(c.codeLabel)||(LANG==="el"?"Κωδικός":"Code"))}</span><span class="codebox__v">${esc(c.code)}</span></span><span class="codebox__c">${I.copy}</span></button>`;
+    }
+    return "";
+  }
+
+  function cardHTML(c, idx){
+    const list = imgs(c);
+    const mapb = c.mapUrl ? `<a class="mapbtn" href="${esc(c.mapUrl)}" target="_blank" rel="noopener">${I.pin}${esc(t(c.mapLabel)||(LANG==="el"?"Άνοιγμα στον χάρτη":"Open in Maps"))}</a>` : "";
+    const open = (idx==null) ? "" : ` data-open="${idx}" role="button" tabindex="0"`;
+    return `<article class="card${idx==null?"":" card--tap"}"${open}>
+      ${list[0] ? `<div class="card__imgwrap"><img class="card__img" src="${esc(list[0])}" alt="" loading="lazy">${idx==null?"":`<span class="card__expand">${I.expand}</span>`}${list.length>1?`<span class="card__multi">+${list.length-1}</span>`:""}</div>` : ""}
+      <div class="card__pad">
+        ${c.distance ? `<span class="distpill">${I.pin}${esc(t(c.distance))}</span>` : ""}
+        ${c.title ? `<h2 class="card__title">${esc(t(c.title))}</h2>` : ""}
+        ${c.body ? `<p class="card__body card__body--clamp">${esc(t(c.body))}</p>` : ""}
+        ${checklistHTML(c)}
+        ${chipsHTML(c)}
+        ${mapb}
+      </div>
+    </article>`;
+  }
+
+  // flatten a section's cards (across groups) so the carousel can page through all of them
+  function flatCards(sec){
+    if (sec.groups && sec.groups.length) return sec.groups.reduce((a,g)=>a.concat(g.cards||[]),[]);
+    return sec.cards || [];
+  }
+
+  function detailCardHTML(c){
+    const list = imgs(c);
+    const mapb = c.mapUrl ? `<a class="mapbtn" href="${esc(c.mapUrl)}" target="_blank" rel="noopener">${I.pin}${esc(t(c.mapLabel)||(LANG==="el"?"Άνοιγμα στον χάρτη":"Open in Maps"))}</a>` : "";
+    return `<div class="slide">
+      <div class="slide__card">
+        ${list.map(src=>`<img class="slide__img" src="${esc(src)}" alt="">`).join("")}
+        <div class="slide__pad">
+          ${c.distance ? `<span class="distpill">${I.pin}${esc(t(c.distance))}</span>` : ""}
+          ${c.title ? `<h2 class="slide__title">${esc(t(c.title))}</h2>` : ""}
+          ${c.body ? `<p class="slide__body">${esc(t(c.body))}</p>` : ""}
+          ${checklistHTML(c)}${chipsHTML(c)}${mapb}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function detailView(sec, idx){
+    const cards = flatCards(sec);
+    idx = Math.max(0, Math.min(idx, cards.length - 1));
+    const indicator = cards.length <= 10
+      ? `<div class="dots" id="dots">${cards.map((_,i)=>`<button class="dot${i===idx?" active":""}" data-dot="${i}" aria-label="Card ${i+1}"></button>`).join("")}</div>`
+      : `<div class="swbar"><span class="swbar__fill" id="swfill"></span></div>`;
+    return `
+      <div class="detail" id="detail" data-section="${esc(sec.id)}">
+        <div class="detail__bar">
+          <button class="iconbtn" id="dback" aria-label="Back">${I.back}</button>
+          <span class="detail__count"><span id="dcur">${idx+1}</span> / ${cards.length}</span>
+          <span class="spacer"></span>
+        </div>
+        <div class="swiper" id="swiper">
+          ${cards.map(detailCardHTML).join("")}
+        </div>
+        <div class="swipehint hide" id="swipehint">${I.swipe}<span>${LANG==="el"?"Σύρετε":"Swipe"}</span></div>
+        ${indicator}
+        <button class="navarrow navarrow--l" id="dprev" aria-label="Previous">${I.back}</button>
+        <button class="navarrow navarrow--r" id="dnext" aria-label="Next">${I.right}</button>
+      </div>`;
+  }
+
+  function categoryView(sec){
+    const intro = sec.intro ? `<p class="page-intro">${esc(t(sec.intro))}</p>` : "";
+    let body;
+    if (sec.groups && sec.groups.length){
+      let n = 0;
+      body = `<h1 class="page-title">${esc(t(sec.title))}</h1>${intro}` + sec.groups.map(g=>
+        `<div class="group-label">${esc(t(g.label))}</div>
+         <div class="cards">${(g.cards||[]).map(c=>cardHTML(c, n++)).join("")}</div>`).join("");
+    } else {
+      body = `<h1 class="page-title">${esc(t(sec.title))}</h1>${intro}
+        <div class="cards">${(sec.cards||[]).map((c,i)=>cardHTML(c, i)).join("")}</div>`;
+    }
+    return `
+      <div class="topbar"><button class="iconbtn" id="back" aria-label="Back">${I.back}</button>
+        <span style="flex:1"></span>
+        ${langPicker()||'<span class="spacer"></span>'}</div>
+      ${body}
+      ${bottomBar()}${waButton()}`;
+  }
+
+  /* ---- routing ---- */
+  function parseHash(){
+    const raw = location.hash.replace(/^#/, "");
+    if (!raw) return { id: null, idx: null };
+    const parts = raw.split("/");
+    return { id: parts[0], idx: parts[1] != null ? parseInt(parts[1], 10) : null };
+  }
+  function sectionById(id){ return (DATA.sections||[]).find(s => s.id === id); }
+
+  function expiredView(){
+    const m = (DATA && DATA.meta) || {}, c = (DATA && DATA.contact) || {};
+    const phone = c.phone ? `<a class="exp-btn exp-call" href="tel:${esc(c.phone)}">${I.phone}${LANG==="el"?"Κλήση":"Call"}</a>` : "";
+    const wa = c.whatsapp ? `<a class="exp-btn exp-wa" href="https://wa.me/${digits(c.whatsapp)}" target="_blank" rel="noopener">${I.wa}WhatsApp</a>` : "";
+    const vb = c.viber ? `<a class="exp-btn exp-vb" href="viber://chat?number=${encodeURIComponent("+"+digits(c.viber))}">${I.viber}Viber</a>` : "";
+    return `<div class="expired">
+      ${m.brandLogo ? `<img class="expired__logo" src="${esc(m.brandLogo)}" alt="">` : ""}
+      <h1>${LANG==="el" ? "Ο οδηγός δεν είναι πλέον ενεργός" : "This guide is no longer active"}</h1>
+      <p>${LANG==="el" ? "Η διαμονή σας έχει ολοκληρωθεί. Αν χρειάζεστε οτιδήποτε, επικοινωνήστε μαζί μας." : "Your stay has ended. If you need anything, please get in touch."}</p>
+      ${(phone||wa||vb) ? `<div class="expired__btns">${phone}${wa}${vb}</div>` : ""}
+    </div>`;
+  }
+
+  function render(){
+    if (EXPIRED){ app.innerHTML = expiredView(); window.scrollTo(0,0); return; }
+    const { id, idx } = parseHash();
+    const sec = id ? sectionById(id) : null;
+    if (sec && idx != null && !Number.isNaN(idx)) app.innerHTML = detailView(sec, idx);
+    else if (sec) app.innerHTML = categoryView(sec);
+    else app.innerHTML = homeView();
+    window.scrollTo(0, 0);
+    wire();
+  }
+  function wire(){
+    app.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>{
+      const s = DATA.sections[+b.dataset.go]; if (s){ location.hash = s.id; }
+    }));
+    const back = app.querySelector("#back"); if (back) back.addEventListener("click",()=>{ location.hash = ""; });
+
+    // open a card -> swipeable detail at that index
+    app.querySelectorAll(".chk").forEach(b=>{
+      b.addEventListener("click",(e)=>{ e.stopPropagation(); b.classList.toggle("done"); });
+    });
+    app.querySelectorAll("[data-open]").forEach(el=>{
+      const go = (e)=>{
+        if (e.target.closest("a,button")) return;   // let inner links/buttons work
+        const id = parseHash().id;
+        location.hash = `${id}/${el.dataset.open}`;
+      };
+      el.addEventListener("click", go);
+      el.addEventListener("keydown", e=>{ if (e.key==="Enter"||e.key===" "){ e.preventDefault(); go(e); } });
+    });
+
+    // detail view: back, arrows, dots/progress, swipe hint
+    const detail = app.querySelector("#detail");
+    if (detail){
+      const swiper = app.querySelector("#swiper");
+      const slides = Array.from(swiper.querySelectorAll(".slide"));
+      const cur = app.querySelector("#dcur");
+      const dotsWrap = app.querySelector("#dots");
+      const fill = app.querySelector("#swfill");
+      const startIdx = Math.max(0, Math.min(parseHash().idx||0, slides.length-1));
+      const centerOf = (i)=> slides[i].offsetLeft + slides[i].offsetWidth/2 - swiper.clientWidth/2;
+      const goTo = (i)=>{ i=Math.max(0,Math.min(i,slides.length-1)); swiper.scrollTo({ left: centerOf(i), behavior:"smooth" }); };
+      const indexNow = ()=>{ const c = swiper.scrollLeft + swiper.clientWidth/2; let best=0,bd=Infinity;
+        slides.forEach((s,i)=>{ const d=Math.abs((s.offsetLeft+s.offsetWidth/2)-c); if(d<bd){bd=d;best=i;} }); return best; };
+      requestAnimationFrame(()=>{ swiper.scrollLeft = centerOf(startIdx); });
+
+      app.querySelector("#dback").addEventListener("click",()=>{ location.hash = detail.dataset.section; });
+      app.querySelector("#dprev").addEventListener("click",()=>goTo(indexNow()-1));
+      app.querySelector("#dnext").addEventListener("click",()=>goTo(indexNow()+1));
+      if (dotsWrap) dotsWrap.querySelectorAll("[data-dot]").forEach(d=>d.addEventListener("click",()=>goTo(+d.dataset.dot)));
+
+      let raf;
+      swiper.addEventListener("scroll",()=>{ cancelAnimationFrame(raf); raf = requestAnimationFrame(()=>{
+        const i = indexNow();
+        if (cur) cur.textContent = i+1;
+        if (dotsWrap) dotsWrap.querySelectorAll(".dot").forEach((d,j)=>d.classList.toggle("active", j===i));
+        if (fill){ const max = swiper.scrollWidth - swiper.clientWidth; fill.style.width = (max>0 ? (swiper.scrollLeft/max*100) : 100) + "%"; }
+      }); });
+
+      // one-time "swipe" hint with a gentle nudge (only if there's more than one card)
+      const hint = app.querySelector("#swipehint");
+      let seen = false; try{ seen = !!localStorage.getItem("perla_swipehint"); }catch{}
+      if (hint && slides.length > 1 && !seen){
+        hint.classList.remove("hide");
+        const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!reduce){
+          setTimeout(()=>swiper.scrollBy({ left: 64, behavior:"smooth" }), 450);
+          setTimeout(()=>swiper.scrollBy({ left: -64, behavior:"smooth" }), 950);
+        }
+        setTimeout(()=>hint.classList.add("hide"), 2800);
+        try{ localStorage.setItem("perla_swipehint","1"); }catch{}
+      }
+    }
+
+    app.querySelectorAll(".codebox[data-copy]").forEach(b=>b.addEventListener("click",()=>copy(b.dataset.copy,b.dataset.what)));
+
+    const rm = app.querySelector("#readmore"), msg = app.querySelector("#welcomeMsg");
+    if (rm && msg) rm.addEventListener("click",()=>{ msg.classList.toggle("clamp"); rm.classList.toggle("open");
+      rm.firstChild.textContent = (msg.classList.contains("clamp") ? (LANG==="el"?"Περισσότερα ":"Read more ") : (LANG==="el"?"Λιγότερα ":"Show less ")); });
+
+    const lb = app.querySelector("#langBtn"), lm = app.querySelector("#langMenu");
+    if (lb && lm){
+      lb.addEventListener("click",e=>{ e.stopPropagation(); lm.classList.toggle("open"); lb.setAttribute("aria-expanded", lm.classList.contains("open")); });
+      document.addEventListener("click",()=>lm.classList.remove("open"), { once:true });
+      lm.querySelectorAll("[data-setlang]").forEach(b=>b.addEventListener("click",()=>{
+        LANG = b.dataset.setlang; try{ localStorage.setItem("perla_lang",LANG); }catch{} render();
+      }));
+    }
+    const wx = app.querySelector("#waX");
+    if (wx) wx.addEventListener("click",(e)=>{ e.preventDefault(); e.stopPropagation(); waHidden = true; render(); });
+  }
+
+  function renderError(){
+    app.innerHTML = `<div class="error"><h1>Guide not found</h1>
+      <p>We couldn’t load <code>data/${esc(slug)}.json</code>.</p></div>`;
+  }
+
+  try{ LANG = localStorage.getItem("perla_lang") || "en"; }catch{}
+  window.addEventListener("hashchange", render);
+
+  // Standalone mode: if data is embedded (e.g. mockup.html), use it and skip fetch.
+  if (window.__PERLA_DATA){
+    DATA = window.__PERLA_DATA;
+    const langs = (DATA.meta && DATA.meta.languages) || ["en"];
+    if (!langs.includes(LANG)) LANG = langs[0];
+    document.title = `${DATA.meta ? DATA.meta.name : "Guide"} · Perlahomes`;
+    render();
+    return;
+  }
+
+  fetch(`data/${slug}.json`, { cache:"no-cache" })
+    .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(d=>{ DATA = d;
+      const langs = (d.meta && d.meta.languages) || ["en"];
+      if (!langs.includes(LANG)) LANG = langs[0];
+      document.title = `${d.meta ? d.meta.name : "Guide"} · Perlahomes`;
+      render();
+    })
+    .catch(renderError);
+})();
+</script></body></html>

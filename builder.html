@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Perlahomes · Property Builder</title>
+<style>
+  :root{ --navy:#1f3a5f; --accent:#2f6fd0; --ink:#18222e; --muted:#687180; --line:#e3e6ea; --bg:#f3f4f6; --card:#fff; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  .bar{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 16px}
+  .bar h1{font-size:1rem;margin:0;font-weight:700;letter-spacing:.02em;flex:1;min-width:160px}
+  .bar button{font:inherit;font-weight:600;border:0;border-radius:9px;padding:9px 14px;cursor:pointer}
+  .btn-primary{background:#fff;color:var(--navy)}
+  .btn-ghost{background:rgba(255,255,255,.16);color:#fff}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 14px 80px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+  .panel>h2{margin:0 0 12px;font-size:1.15rem;color:var(--navy)}
+  .grouphead{margin:18px 0 8px;font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  label.fld{display:block;margin:9px 0}
+  label.fld>span{display:block;font-size:.78rem;font-weight:600;color:var(--muted);margin-bottom:3px}
+  input[type=text],textarea,select{width:100%;font:inherit;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:#fff}
+  textarea{min-height:64px;resize:vertical}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:520px){.row2{grid-template-columns:1fr}}
+  details.card{border:1px solid var(--line);border-radius:11px;margin:9px 0;overflow:hidden;background:#fff}
+  details.card>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:11px 13px;font-weight:600}
+  details.card>summary::-webkit-details-marker{display:none}
+  details.card[data-off="1"]>summary{opacity:.5}
+  details.card .inner{padding:4px 13px 14px;border-top:1px solid var(--line)}
+  .sw{position:relative;width:42px;height:24px;flex:none}
+  .sw input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+  .sw .track{position:absolute;inset:0;background:#cdd3da;border-radius:999px;transition:.15s}
+  .sw .knob{position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+  .sw input:checked+.track{background:var(--accent)}
+  .sw input:checked+.track+.knob{transform:translateX(18px)}
+  .card-title{flex:1}
+  .ord{display:flex;gap:4px}
+  .ordbtn{border:1px solid var(--line);background:#fff;border-radius:7px;width:28px;height:28px;cursor:pointer;font-size:15px;line-height:1;color:var(--muted);display:grid;place-items:center}
+  .ordbtn:hover{color:var(--accent);border-color:var(--accent)}
+  .more{margin-top:6px}
+  .more>summary{cursor:pointer;color:var(--accent);font-size:.85rem;font-weight:600;list-style:none}
+  .more>summary::-webkit-details-marker{display:none}
+  .addbtn{font:inherit;font-weight:600;color:var(--accent);background:#eaf1fb;border:1px dashed #b9cdec;border-radius:9px;padding:9px 12px;cursor:pointer;width:100%;margin-top:8px}
+  .del{font:inherit;color:#b03f3f;background:none;border:0;cursor:pointer;font-size:.82rem;font-weight:600;padding:4px 0;margin-top:6px}
+  .hint{font-size:.78rem;color:var(--muted);margin-top:4px}
+  .langs{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .langs label{display:inline-flex;gap:6px;align-items:center;font-weight:600}
+  pre{white-space:pre-wrap;word-break:break-word;background:#0e1c2b;color:#cfe3ff;padding:14px;border-radius:11px;font-size:.78rem;max-height:340px;overflow:auto}
+  .note{background:#eaf1fb;border:1px solid #cfe0f7;border-radius:11px;padding:12px 14px;font-size:.9rem;margin-bottom:16px}
+  .secthead{display:flex;align-items:center;gap:10px;margin-top:6px}
+  .secthead h2{flex:1}
+  .photo{display:flex;gap:10px;align-items:center}
+  .photo .col{flex:1}
+  .thumb{width:60px;height:60px;border-radius:9px;object-fit:cover;border:1px solid var(--line);background:#eef2f8;flex:none}
+  input[type=file]{font:inherit;font-size:.82rem;width:100%}
+  .photoname{margin-top:6px}
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1>Perlahomes · Property Builder</h1>
+  <button class="btn-ghost" id="btnPreview">Preview</button>
+  <button class="btn-ghost" id="btnCopy">Copy JSON</button>
+  <button class="btn-primary" id="btnDownload">Download ZIP</button>
+</div>
+<div class="wrap">
+  <div class="note">Fill in the property, then <b>turn off anything it doesn't have</b> (e.g. Pool, Parking). Add a <b>photo</b> to each card if you have one. Press <b>Download ZIP</b> — you'll get the property file plus a <code>data/img/</code> folder with all the photos, renamed and compressed, ready to drop straight into the project. The filename becomes the link: <code>index.html?p=<span id="slugEcho">villa-aurora</span></code>.</div>
+  <div id="form"></div>
+  <details class="panel"><summary style="cursor:pointer;font-weight:700;color:var(--navy)">Show / paste JSON</summary>
+    <p class="hint">This is the file that will be downloaded. You can also paste an existing property file here and press “Load” to edit it.</p>
+    <textarea id="jsonBox" style="min-height:160px"></textarea>
+    <button class="addbtn" id="btnLoad" style="border-style:solid">Load pasted JSON</button>
+    <pre id="jsonOut"></pre>
+  </details>
+</div>
+
+<script>
+const DEFAULTS = {
+  "meta": {
+    "name": "Villa Aurora",
+    "brandLogo": "data/img/logo.svg",
+    "welcomeTitle": {
+      "en": "Welcome",
+      "el": "Καλώς ήρθατε"
+    },
+    "welcomeMessage": {
+      "en": "Dear guest, this guide has everything you need for a smooth, comfortable stay — door codes, WiFi, directions and our local favourites. On arrival, please fill in the online check-in form. We hope you have a wonderful time.",
+      "el": "Αγαπητέ επισκέπτη, σε αυτόν τον οδηγό θα βρείτε ό,τι χρειάζεστε για μια άνετη διαμονή — κωδικούς, WiFi, οδηγίες και τοπικές προτάσεις. Κατά την άφιξή σας, συμπληρώστε την online φόρμα check-in. Καλή διαμονή!"
+    },
+    "languages": [
+      "en",
+      "el"
+    ],
+    "heroImage": "data/img/hero.svg"
+  },
+  "contact": {
+    "phone": "+306906134633",
+    "whatsapp": "+306906134633",
+    "viber": "+306906134633"
+  },
+  "actions": [
+    {
+      "icon": "checkin",
+      "label": {
+        "en": "Check-in form",
+        "el": "Φόρμα Check-in"
+      },
+      "url": "https://forms.gle/your-checkin-form"
+    },
+    {
+      "icon": "phone",
+      "label": {
+        "en": "Contact",
+        "el": "Επικοινωνία"
+      },
+      "url": "tel:+306906134633"
+    }
+  ],
+  "sections": [
+    {
+      "id": "arrival",
+      "icon": "arrival",
+      "title": {
+        "en": "On your arrival",
+        "el": "Κατά την άφιξή σας"
+      },
+      "cards": [
+        {
+          "image": "data/img/location.svg",
+          "title": {
+            "en": "Location",
+            "el": "Τοποθεσία"
+          },
+          "body": {
+            "en": "If you are arriving with your own transport, tap below to see our location on the map.",
+            "el": "Εάν έρχεστε με δικό σας μεταφορικό μέσο, πατήστε για δείτε την τοποθεσία μας στον χάρτη."
+          },
+          "mapUrl": "https://maps.google.com/?q=Poros+Greece",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "image": "data/img/building.svg",
+          "title": {
+            "en": "The building",
+            "el": "Το κτίριο"
+          },
+          "body": {
+            "en": "When you arrive, you'll see this building / entrance — look for it to find us.",
+            "el": "Όταν φτάσετε, θα δείτε αυτό το κτίριο / είσοδο — αναζητήστε το για να μας βρείτε."
+          }
+        },
+        {
+          "image": "data/img/garage.svg",
+          "title": {
+            "en": "Garage door",
+            "el": "Πόρτα γκαράζ"
+          },
+          "body": {
+            "en": "Use the code below to open the garage door. (Replace with the exact instructions.)",
+            "el": "Χρησιμοποιήστε τον κωδικό παρακάτω για να ανοίξετε την πόρτα του γκαράζ. (Αντικαταστήστε με τις ακριβείς οδηγίες.)"
+          },
+          "code": "0000",
+          "image2": "data/img/garage2.svg"
+        },
+        {
+          "image": "data/img/parking.svg",
+          "title": {
+            "en": "Parking",
+            "el": "Πάρκινγκ"
+          },
+          "body": {
+            "en": "Parking is free on the street, so you can park wherever suits you. If there is no space in front of the property, you can park on the parallel street at the rear.",
+            "el": "Το πάρκινγκ είναι ελεύθερο στον δρόμο, οπότε μπορείτε να παρκάρετε όπου σας βολεύει. Αν δεν βρείτε θέση μπροστά από το κατάλυμα, μπορείτε να παρκάρετε στον παράλληλο δρόμο από την πίσω πλευρά."
+          }
+        },
+        {
+          "image": "data/img/keylocker.svg",
+          "title": {
+            "en": "Key locker",
+            "el": "Key locker"
+          },
+          "body": {
+            "en": "Find the keys in the locker shown in the photo. The code will be sent to you before arrival.",
+            "el": "Βρείτε τα κλειδιά στο locker της φωτογραφίας. Θα σας σταλεί ο κωδικός πριν την άφιξη."
+          }
+        },
+        {
+          "image": "data/img/carrental.svg",
+          "title": {
+            "en": "Car rental",
+            "el": "Ενοικίαση αυτοκινήτου"
+          },
+          "body": {
+            "en": "We arrange car rental to suit your needs. Once you choose the car you want, you can pick it up as soon as you land at the airport.",
+            "el": "Κανονίζουμε την ενοικίαση σύμφωνα με τις ανάγκες σας. Αφού επιλέξετε το αυτοκίνητο που επιθυμείτε, θα μπορείτε να το παραλάβετε αμέσως μόλις προσγειωθείτε στο αεροδρόμιο."
+          }
+        },
+        {
+          "image": "data/img/contact.svg",
+          "title": {
+            "en": "Contact",
+            "el": "Επικοινωνία"
+          },
+          "body": {
+            "en": "For anything you need, you can reach us daily from 07:00 to 23:00 at 0030 690 613 46 33, or send us a WhatsApp message using the button at the bottom of the page.",
+            "el": "Για οτιδήποτε χρειαστείτε, μπορείτε να επικοινωνείτε καθημερινά από τις 07:00 έως τις 23:00 στο 0030 690 613 46 33 ή, εναλλακτικά, να μας στείλετε μήνυμα μέσω WhatsApp πατώντας το αντίστοιχο κουμπί στο κάτω μέρος της σελίδας."
+          }
+        },
+        {
+          "image": "data/img/arrival.svg",
+          "title": {
+            "en": "Arrival time",
+            "el": "Ώρα άφιξης"
+          },
+          "body": {
+            "en": "We recommend letting us know your estimated arrival time so we can serve you better.",
+            "el": "Σας προτείνουμε να μας ενημερώσετε για την εκτιμώμενη ώρα άφιξής σας ώστε να σας εξυπηρετήσουμε καλύτερα."
+          }
+        },
+        {
+          "image": "data/img/checkin.svg",
+          "title": {
+            "en": "Check-in after 15:00",
+            "el": "Check-in μετά τις 15:00"
+          },
+          "body": {
+            "en": "We welcome you in person. Early check-in is possible upon arrangement and availability.",
+            "el": "Σας υποδεχόμαστε εμείς | Υπάρχει η δυνατότητα για early check-in κατόπιν συνεννόησης και διαθεσιμότητας."
+          }
+        },
+        {
+          "image": "data/img/welcome.svg",
+          "title": {
+            "en": "Early check-in",
+            "el": "Early check-in"
+          },
+          "body": {
+            "en": "Early check-in is possible, depending on availability at the time of your arrival.",
+            "el": "Υπάρχει δυνατότητα για early check-in, ανάλογα με τη διαθεσιμότητα τη στιγμή της άφιξής σας."
+          }
+        },
+        {
+          "image": "data/img/luggage.svg",
+          "title": {
+            "en": "Luggage storage",
+            "el": "Αποθήκευση αποσκευών"
+          },
+          "body": {
+            "en": "If you arrive earlier than your scheduled check-in time, you can leave your luggage with us until the room is ready. The same option is available after check-out.",
+            "el": "Σε περίπτωση που φτάσετε νωρίτερα από την προγραμματισμένη ώρα check-in, μπορείτε να αφήσετε τις αποσκευές σας για φύλαξη μέχρι να είναι έτοιμο το δωμάτιο. Αντίστοιχα, παρέχεται η ίδια δυνατότητα και μετά το check-out."
+          }
+        }
+      ]
+    },
+    {
+      "id": "property",
+      "icon": "property",
+      "title": {
+        "en": "Property guide",
+        "el": "Οδηγός σπιτιού"
+      },
+      "groups": [
+        {
+          "label": {
+            "en": "Useful information",
+            "el": "Χρήσιμες πληροφορίες"
+          },
+          "cards": [
+            {
+              "image": "data/img/ac.svg",
+              "title": {
+                "en": "Air conditioning",
+                "el": "Κλιματισμός"
+              },
+              "body": {
+                "en": "For the villa to cool properly, all doors and windows must be closed. The A/C is controlled centrally from the panel next to the main entrance. The ideal temperature to avoid catching a cold while you sleep is 25 °C.",
+                "el": "Για τον σωστό κλιματισμό της βίλας θα πρέπει όλα οι πόρτες και τα παράθυρα να είναι κλειστά. Ο κλιματισμός ελέγχεται κεντρικά από το πάνελ δίπλα στην κεντρική είσοδο. Η ιδανική θερμοκρασία για την αποφυγή κρυολογήματος όταν κοιμάστε είναι 25 °C."
+              }
+            },
+            {
+              "image": "data/img/coffee.svg",
+              "title": {
+                "en": "Coffee machine",
+                "el": "Καφετιέρα"
+              },
+              "body": {
+                "en": "Filter / Nespresso (see more)",
+                "el": "Filter / Nespresso (δείτε περισσότερα)"
+              }
+            },
+            {
+              "image": "data/img/bbq.svg",
+              "title": {
+                "en": "BBQ Charcoal/Gas",
+                "el": "BBQ Charcoal/Gas"
+              },
+              "body": {
+                "en": "Open the lid first, then the gas bottle. Light the burner with the switch and adjust the temperature with the control knobs. After cooking, close the bottle first and then the burners. Always use the BBQ outdoors in a well-ventilated area and never leave it unattended.",
+                "el": "Ανοίξτε πρώτα το καπάκι και στη συνέχεια τη φιάλη αερίου. Ανάψτε τον καυστήρα από τον διακόπτη και ρυθμίστε τη θερμοκρασία με τα κουμπιά ελέγχου. Μετά το ψήσιμο, κλείστε πρώτα τη φιάλη και έπειτα τους καυστήρες. Χρησιμοποιείτε πάντα το BBQ σε εξωτερικό χώρο με καλό αερισμό και μην το αφήνετε χωρίς επίβλεψη."
+              }
+            },
+            {
+              "image": "data/img/gym.svg",
+              "title": {
+                "en": "Gym equipment",
+                "el": "Όργανα γυμναστηρίου"
+              },
+              "body": {
+                "en": "The gym in the yard shed includes the basic exercise equipment. Please return the equipment to its place after use.",
+                "el": "Το γυμναστήριο στο υπόστεγο της αυλής περιλαμβάνει τα βασικά όργανα γυμναστικής. Παρακαλούμε, μετά την χρήση των οργάνων τοποθετήστε τα στην θέση τους."
+              }
+            },
+            {
+              "image": "data/img/cleaning.svg",
+              "title": {
+                "en": "Cleaning service",
+                "el": "Υπηρεσία καθαριότητας"
+              },
+              "body": {
+                "en": "Cleaning services are provided on request and at an extra charge.",
+                "el": "Οι υπηρεσίες καθαριότητας πραγματοποιούνται κατόπιν αιτήματός σας και με επιπλέον χρέωση."
+              }
+            },
+            {
+              "image": "data/img/contactus.svg",
+              "title": {
+                "en": "Contact us",
+                "el": "Επικοινωνήστε μαζί μας"
+              },
+              "body": {
+                "en": "For anything you need, you can reach us daily from 07:00 to 23:00 at 0030 690 613 46 33, or send us a WhatsApp message using the button at the bottom of the page.",
+                "el": "Για οτιδήποτε χρειαστείτε, μπορείτε να επικοινωνείτε καθημερινά από τις 07:00 έως τις 23:00 στο 0030 690 613 46 33 ή, εναλλακτικά, να μας στείλετε μήνυμα μέσω WhatsApp πατώντας το αντίστοιχο κουμπί στο κάτω μέρος της σελίδας."
+              }
+            },
+            {
+              "image": "data/img/tapwater.svg",
+              "title": {
+                "en": "Tap water",
+                "el": "Νερό βρύσης"
+              },
+              "body": {
+                "en": "Tap water is not recommended for drinking. However, it is suitable for cooking, as well as for bathing and personal hygiene.",
+                "el": "Το νερό της βρύσης δεν συνιστάται για πόση. Ωστόσο, είναι κατάλληλο για μαγείρεμα, καθώς και για μπάνιο και προσωπική υγιεινή."
+              }
+            },
+            {
+              "image": "data/img/hotwater.svg",
+              "title": {
+                "en": "Hot water",
+                "el": "Ζεστό νερό"
+              },
+              "body": {
+                "en": "Available 24/7 from the solar water heater. On cloudy days, flip the switch shown in the photo. IMPORTANT! AFTER 20 MINUTES TURN IT BACK TO THE OFF POSITION.",
+                "el": "Όλο το 24ωρο από ηλιακό θερμοσίφωνα. Σε περίπτωση συνεφιάς σηκώστε τον διακόπτη της φωτογραφίας. ΣΗΜΑΝΤΙΚΟ! ΜΕΤΑ ΑΠΟ 20' ΞΑΝΑΓΥΡΙΣΤΕ ΤΟΝ ΣΤΗΝ ΘΕΣΗ OFF"
+              }
+            },
+            {
+              "image": "data/img/boardgames.svg",
+              "title": {
+                "en": "Board games",
+                "el": "Επιτραπέζια παιχνίδια"
+              },
+              "body": {
+                "en": "You will find board games for the whole family in the living room cabinet.",
+                "el": "Θα βρείτε επιτραπέζια παιχνίδια για όλη την οικογένεια στο ντουλάπι του σαλονιού."
+              }
+            },
+            {
+              "image": "data/img/backup.svg",
+              "title": {
+                "en": "Backup power",
+                "el": "Εφεδρική τροφοδοσία"
+              },
+              "body": {
+                "en": "In the event of a power cut, the system powers the house automatically, with autonomy of about two hours.",
+                "el": "Σε περίπτωση διακοπής ρεύματος, το σύστημα τροφοδοτεί το σπίτι αυτόματα, με αυτονομία περίπου δύο ωρών."
+              }
+            }
+          ]
+        },
+        {
+          "label": {
+            "en": "Rules",
+            "el": "Κανονισμοί"
+          },
+          "cards": [
+            {
+              "image": "data/img/garbage.svg",
+              "title": {
+                "en": "Garbage",
+                "el": "Σκουπίδια"
+              },
+              "body": {
+                "en": "Please leave your rubbish in the bins outside the property. Recycling bins are next to them.",
+                "el": "Παρακαλούμε αφήνετε τα σκουπίδια στους κάδους έξω από το κατάλυμα. Οι κάδοι ανακύκλωσης βρίσκονται δίπλα."
+              }
+            },
+            {
+              "image": "data/img/party.svg",
+              "title": {
+                "en": "Parties",
+                "el": "Διοργάνωση πάρτι"
+              },
+              "body": {
+                "en": "Parties are not allowed at this property.",
+                "el": "Απαγορεύεται η διοργάνωση πάρτι σε αυτό το κατάλυμα."
+              }
+            },
+            {
+              "image": "data/img/pool.svg",
+              "title": {
+                "en": "Pool",
+                "el": "Πισίνα"
+              },
+              "body": {
+                "en": "See the rules.",
+                "el": "Δείτε τους κανονισμούς"
+              }
+            },
+            {
+              "image": "data/img/cushions.svg",
+              "title": {
+                "en": "Pool cushions",
+                "el": "Μαξιλάρια πισίνας"
+              },
+              "body": {
+                "en": "Please place all pool cushions in the veranda shed in case of rain.",
+                "el": "Παρακαλούμε τοποθετήστε όλα τα μαξιλάρια της πισίνας στο υπόστεγο της βεράντας σε περίπτωση βροχής."
+              }
+            },
+            {
+              "image": "data/img/smoking.svg",
+              "title": {
+                "en": "Smoking",
+                "el": "Κάπνισμα"
+              },
+              "body": {
+                "en": "Not allowed inside the house.",
+                "el": "Απαγορεύεται εντός τις οικείας."
+              }
+            },
+            {
+              "image": "data/img/lighting.svg",
+              "title": {
+                "en": "Lighting",
+                "el": "Φωτισμός"
+              },
+              "body": {
+                "en": "Please switch off the outdoor and decorative lights when you go to sleep or leave the house.",
+                "el": "Παρακαλούμε σβήνετε τα εξωτερικά και διακοσμητικά φώτα όταν κοιμάστε ή φεύγετε από το σπίτι."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wifi",
+      "icon": "wifi",
+      "title": {
+        "en": "Wi-Fi",
+        "el": "Wi-Fi"
+      },
+      "subtitle": {
+        "en": "Connection code",
+        "el": "Κωδικός σύνδεσης"
+      },
+      "cards": [
+        {
+          "image": "data/img/wifi.svg",
+          "title": {
+            "en": "Wi-Fi",
+            "el": "Wi-Fi"
+          },
+          "wifi": {
+            "network": "Archipelagos",
+            "password": "123456789"
+          }
+        }
+      ]
+    },
+    {
+      "id": "checkout",
+      "icon": "checkout",
+      "title": {
+        "en": "Check-out",
+        "el": "Check-out"
+      },
+      "subtitle": {
+        "en": "Departure",
+        "el": "Αναχώρηση"
+      },
+      "cards": [
+        {
+          "title": {
+            "en": "Check-out",
+            "el": "Αναχώρηση"
+          },
+          "body": {
+            "en": "Check-out is by 11:00. A quick checklist before you go:",
+            "el": "Η αναχώρηση είναι έως τις 11:00. Μια γρήγορη λίστα πριν φύγετε:"
+          },
+          "checklist": [
+            {
+              "en": "Close all windows",
+              "el": "Κλείστε όλα τα παράθυρα"
+            },
+            {
+              "en": "Turn off the lights & A/C",
+              "el": "Σβήστε τα φώτα & το A/C"
+            },
+            {
+              "en": "Leave the keys on the table",
+              "el": "Αφήστε τα κλειδιά στο τραπέζι"
+            },
+            {
+              "en": "Lock the door",
+              "el": "Κλειδώστε την πόρτα"
+            },
+            {
+              "en": "Have a safe trip!",
+              "el": "Καλή επιστροφή!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neighbourhood",
+      "icon": "neighbourhood",
+      "title": {
+        "en": "The neighbourhood",
+        "el": "Η γειτονιά"
+      },
+      "intro": {
+        "en": "Our area is close to Nafplio, and you'll find everything you need for daily essentials a short distance away.",
+        "el": "Η περιοχή μας βρίσκεται κοντά στο Ναύπλιο και θα βρείτε ότι χρειαστείτε από είδη πρώτης ανάγκης σε κοντινή απόσταση."
+      },
+      "cards": [
+        {
+          "image": "data/img/minimarket.svg",
+          "title": {
+            "en": "Mini market",
+            "el": "Μίνι μάρκετ"
+          },
+          "body": {
+            "en": "For essentials, visit the mini market in the village square, about 2 minutes by car. It has basic products, tobacco and some greengrocer items.",
+            "el": "Για είδη πρώτης ανάγκης μπορείτε να επισκεφθείτε το μίνι μάρκετ στην πλατεία του χωριού, περίπου 2 λεπτά με το αυτοκίνητο. Διαθέτει βασικά προϊόντα, είδη καπνού και ορισμένα είδη μαναβικής."
+          }
+        },
+        {
+          "image": "data/img/pharmacy.svg",
+          "title": {
+            "en": "Pharmacy",
+            "el": "Φαρμακείο"
+          },
+          "body": {
+            "en": "The nearest pharmacy is in the village, about a 5-minute drive. Ask us about the on-duty pharmacy at night.",
+            "el": "Το πλησιέστερο φαρμακείο βρίσκεται στο χωριό, περίπου 5 λεπτά με το αυτοκίνητο. Ρωτήστε μας για το εφημερεύον φαρμακείο τη νύχτα."
+          }
+        }
+      ]
+    },
+    {
+      "id": "beaches",
+      "icon": "beaches",
+      "title": {
+        "en": "Nearby beaches",
+        "el": "Κοντινές παραλίες"
+      },
+      "cards": [
+        {
+          "image": "data/img/beach.svg",
+          "title": {
+            "en": "Ritsa Beach",
+            "el": "Παραλία Ρίτσα"
+          },
+          "body": {
+            "en": "Pebble beach, calm water, shade in the morning. A 4-minute walk away.",
+            "el": "Παραλία με βότσαλα, ήρεμα νερά, σκιά το πρωί. 4 λεπτά με τα πόδια."
+          },
+          "mapUrl": "https://maps.google.com/?q=beach+Poros",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sights",
+      "icon": "sights",
+      "title": {
+        "en": "Sights",
+        "el": "Αξιοθέατα"
+      },
+      "intro": {
+        "en": "The Nafplio area, and Argolida as a whole, has unique sights including three UNESCO monuments. We've put together a guide to the best of what's worth visiting.",
+        "el": "Η περιοχή του Ναυπλίου, και συνολικά η Αργολίδα, διαθέτει μοναδικά αξιοθέατα συμπεριλαμβανομένων τριών μνημείων UNESCO. Δημιουργήσαμε έναν οδηγό με τα καλύτερα που αξίζει να επισκεφτείτε."
+      },
+      "groups": [
+        {
+          "label": {
+            "en": "Sights of Nafplio",
+            "el": "Αξιοθέατα Ναυπλίου"
+          },
+          "cards": [
+            {
+              "image": "data/img/palamidi.svg",
+              "title": {
+                "en": "Palamidi Fortress",
+                "el": "Φρούριο Παλαμήδι"
+              },
+              "body": {
+                "en": "The most beautiful castle in Greece.",
+                "el": "Το ομορφότερο κάστρο της Ελλάδας"
+              },
+              "mapUrl": "https://maps.google.com/?q=Palamidi+Nafplio",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            },
+            {
+              "image": "data/img/oldtown.svg",
+              "title": {
+                "en": "Nafplio Old Town",
+                "el": "Παλιά Πόλη Ναυπλίου"
+              },
+              "body": {
+                "en": "Wander the marble alleys, Syntagma Square and the seafront — ideal at sunset.",
+                "el": "Περπατήστε στα μαρμάρινα σοκάκια, την πλατεία Συντάγματος και την παραλία — ιδανικά το ηλιοβασίλεμα."
+              },
+              "mapUrl": "https://maps.google.com/?q=Nafplio+Old+Town",
+              "mapLabel": {
+                "en": "Open in Maps",
+                "el": "Άνοιγμα στον χάρτη"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "restaurants",
+      "icon": "restaurants",
+      "title": {
+        "en": "Restaurants",
+        "el": "Εστιατόρια"
+      },
+      "cards": [
+        {
+          "image": "data/img/restaurant.svg",
+          "title": {
+            "en": "Lola Taverna",
+            "el": "Ταβέρνα Λόλα"
+          },
+          "body": {
+            "en": "Family-run taverna by the sea. Order the grilled octopus.",
+            "el": "Οικογενειακή ταβέρνα δίπλα στη θάλασσα. Δοκιμάστε το χταπόδι σχάρας."
+          },
+          "mapUrl": "https://maps.google.com/?q=taverna+Poros",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        }
+      ]
+    },
+    {
+      "id": "activities",
+      "icon": "activities",
+      "title": {
+        "en": "Activities",
+        "el": "Δραστηριότητες"
+      },
+      "intro": {
+        "en": "In our area you can do plenty of activities and discover its beautiful nature and cultural wealth. We've selected reliable, excellent partners and recommend them to you.",
+        "el": "Στην περιοχή μας μπορείτε να κάνετε αρκετές δραστηριότητες και να ανακαλύψετε την όμορφη φύση αλλά και τον πολιτιστικό της πλούτο. Επιλέξαμε για εσάς και σας προτείνουμε αξιόπιστους και εξαιρετικούς συνεργάτες."
+      },
+      "cards": [
+        {
+          "image": "data/img/cruise.svg",
+          "title": {
+            "en": "Day cruise — Hydra & Spetses",
+            "el": "Μονοήμερη κρουαζιέρα Ύδρα & Σπέτσες"
+          },
+          "body": {
+            "en": "Departure is early in the morning. We handle the ticket booking — contact us.",
+            "el": "Η αναχώρηση γίνεται νωρίς το πρωί | Αναλαμβάνουμε την κράτηση εισιτηρίων, επικοινωνήστε μαζί μας."
+          }
+        },
+        {
+          "image": "data/img/sailing.svg",
+          "title": {
+            "en": "Sailing — Private cruises in the Argolic Gulf",
+            "el": "Sailing - Ιδιωτικές κρουαζιέρες στον Αργολικό"
+          },
+          "body": {
+            "en": "For information and bookings, contact us.",
+            "el": "Για πληροφορίες / κρατήσεις επικοινωνήστε μαζί μας."
+          }
+        },
+        {
+          "image": "data/img/fishing.svg",
+          "title": {
+            "en": "Tolo Fishing Trips",
+            "el": "Tolo Fishing Trips"
+          },
+          "body": {
+            "en": "For information and bookings, contact us.",
+            "el": "Για πληροφορίες / κρατήσεις επικοινωνήστε μαζί μας."
+          }
+        }
+      ]
+    },
+    {
+      "id": "transfers",
+      "icon": "transfers",
+      "title": {
+        "en": "Transfers",
+        "el": "Μεταφορές"
+      },
+      "cards": [
+        {
+          "image": "data/img/carrental.svg",
+          "title": {
+            "en": "Local taxi",
+            "el": "Τοπικό ταξί"
+          },
+          "body": {
+            "en": "Reliable driver for the airport or day trips. Message us on WhatsApp and we'll arrange it.",
+            "el": "Αξιόπιστος οδηγός για αεροδρόμιο ή εκδρομές. Στείλτε μήνυμα στο WhatsApp και θα το κανονίσουμε."
+          }
+        }
+      ]
+    }
+  ],
+  "home": [
+    {
+      "icon": "arrival",
+      "title": {
+        "en": "Arrival",
+        "el": "Άφιξη"
+      },
+      "subtitle": {
+        "en": "Access instructions",
+        "el": "Οδηγίες πρόσβασης"
+      },
+      "section": "arrival"
+    },
+    {
+      "icon": "property",
+      "title": {
+        "en": "House guide",
+        "el": "Οδηγός σπιτιού"
+      },
+      "subtitle": {
+        "en": "Amenities & guide",
+        "el": "Παροχές & οδηγίες"
+      },
+      "section": "property"
+    },
+    {
+      "icon": "wifi",
+      "title": {
+        "en": "Wi-Fi",
+        "el": "Wi-Fi"
+      },
+      "subtitle": {
+        "en": "Connection code",
+        "el": "Κωδικός σύνδεσης"
+      },
+      "section": "wifi"
+    },
+    {
+      "icon": "rules",
+      "title": {
+        "en": "Rules",
+        "el": "Κανόνες"
+      },
+      "subtitle": {
+        "en": "House rules",
+        "el": "Όροι διαμονής"
+      },
+      "section": "property",
+      "cardMatch": "rules"
+    },
+    {
+      "icon": "checkout",
+      "title": {
+        "en": "Check-out",
+        "el": "Check-out"
+      },
+      "subtitle": {
+        "en": "Departure",
+        "el": "Αναχώρηση"
+      },
+      "section": "checkout"
+    },
+    {
+      "icon": "navarea",
+      "title": {
+        "en": "Area",
+        "el": "Περιοχή"
+      },
+      "subtitle": {
+        "en": "Beaches & sights",
+        "el": "Παραλίες & σημεία"
+      },
+      "tab": "area"
+    },
+    {
+      "icon": "restaurants",
+      "title": {
+        "en": "Restaurants",
+        "el": "Εστιατόρια"
+      },
+      "subtitle": {
+        "en": "Our suggestions",
+        "el": "Οι προτάσεις μας"
+      },
+      "section": "restaurants"
+    },
+    {
+      "icon": "sights",
+      "title": {
+        "en": "Sights",
+        "el": "Αξιοθέατα"
+      },
+      "subtitle": {
+        "en": "What to see",
+        "el": "Τι να δείτε"
+      },
+      "section": "sights"
+    },
+    {
+      "icon": "navcontact",
+      "title": {
+        "en": "Contact",
+        "el": "Επικοινωνία"
+      },
+      "subtitle": {
+        "en": "We're here for you",
+        "el": "Είμαστε εδώ για εσάς"
+      },
+      "tab": "contact"
+    }
+  ]
+};
+const LANG_NAMES = {en:"English",el:"Ελληνικά",fr:"Français",de:"Deutsch",it:"Italiano"};
+const ALL_LANGS = ["en","el","fr","de","it"];
+let M;
+
+const clone = (o)=>JSON.parse(JSON.stringify(o));
+const esc = (s)=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+function norm(v){ if(v==null) return {en:"",el:""}; if(typeof v==="string") return {en:v,el:v}; return Object.assign({en:"",el:""},v); }
+
+/* ---------- photos (held in memory until ZIP export) ---------- */
+const PHOTOS={};      // filename -> Uint8Array
+const THUMBS={};      // image path -> dataURL (for preview/thumbnails)
+const NAME2PATH={};   // filename -> model path that owns it
+function slugify(s){ return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"x"; }
+function thumb(path){ return THUMBS[path] ? `<img class="thumb" src="${THUMBS[path]}" alt="">` : ""; }
+function readDataURL(file){ return new Promise(r=>{ const fr=new FileReader(); fr.onload=()=>r(fr.result); fr.readAsDataURL(file); }); }
+function dataURLBytes(d){ const s=atob((d.split(",")[1])||""); const u=new Uint8Array(s.length); for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i); return u; }
+function compress(file,maxW,q){ return new Promise(res=>{ const img=new Image(); const u=URL.createObjectURL(file);
+  img.onload=()=>{ const sc=Math.min(1,maxW/img.width); const w=Math.round(img.width*sc),h=Math.round(img.height*sc);
+    const cv=document.createElement("canvas"); cv.width=w; cv.height=h; cv.getContext("2d").drawImage(img,0,0,w,h);
+    const durl=cv.toDataURL("image/jpeg",q); URL.revokeObjectURL(u); res({durl,bytes:dataURLBytes(durl)}); };
+  img.onerror=()=>{ URL.revokeObjectURL(u); res({durl:"",bytes:new Uint8Array()}); }; img.src=u; }); }
+
+/* ---------- minimal ZIP writer (store, no deps) ---------- */
+const CRC=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
+function crc32(b){let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=CRC[(c^b[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+function u16(n){return new Uint8Array([n&255,(n>>>8)&255]);}
+function u32(n){return new Uint8Array([n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255]);}
+function cat(parts){let len=0;parts.forEach(p=>len+=p.length);const o=new Uint8Array(len);let off=0;parts.forEach(p=>{o.set(p,off);off+=p.length;});return o;}
+function makeZip(files){ const enc=new TextEncoder(); const locals=[]; const central=[]; let offset=0;
+  files.forEach(f=>{ const name=enc.encode(f.name); const data=f.data; const crc=crc32(data);
+    const local=cat([u32(0x04034b50),u16(20),u16(0),u16(0),u16(0),u16(0),u32(crc),u32(data.length),u32(data.length),u16(name.length),u16(0),name,data]);
+    locals.push(local);
+    central.push(cat([u32(0x02014b50),u16(20),u16(20),u16(0),u16(0),u16(0),u16(0),u32(crc),u32(data.length),u32(data.length),u16(name.length),u16(0),u16(0),u16(0),u16(0),u32(0),u32(offset),name]));
+    offset+=local.length; });
+  const cd=cat(central);
+  const end=cat([u32(0x06054b50),u16(0),u16(0),u16(files.length),u16(files.length),u32(cd.length),u32(offset),u16(0)]);
+  return cat([...locals,cd,end]); }
+
+function ensure(){
+  M.meta = M.meta||{}; M.meta.languages = M.meta.languages||["en","el"];
+  M.meta.welcomeTitle=norm(M.meta.welcomeTitle); M.meta.welcomeMessage=norm(M.meta.welcomeMessage);
+  M.contact = M.contact||{}; M.actions = M.actions||[];
+  M.actions.forEach(a=>a.label=norm(a.label));
+  (M.sections||[]).forEach(s=>{ s._on = s._on!==false; s.title=norm(s.title); s.intro=norm(s.intro); s.subtitle=norm(s.subtitle);
+    if(s.groups){ s.groups.forEach(g=>{ g.label=norm(g.label); (g.cards||[]).forEach(prepCard); }); }
+    else { (s.cards||[]).forEach(prepCard); }
+  });
+}
+function prepCard(c){ c._on=c._on!==false; c.title=norm(c.title); c.body=norm(c.body);
+  if(c.mapLabel!=null) c.mapLabel=norm(c.mapLabel); if(c.codeLabel!=null) c.codeLabel=norm(c.codeLabel); }
+
+/* ---------- path get/set for input binding ---------- */
+function getP(path){ return path.split(".").reduce((o,k)=> o==null?o:o[k], M); }
+function setP(path,val){ const ks=path.split("."); let o=M; for(let i=0;i<ks.length-1;i++){ if(o[ks[i]]==null)o[ks[i]]={}; o=o[ks[i]]; } o[ks[ks.length-1]]=val; }
+
+/* ---------- render ---------- */
+function biField(label,path,textarea){
+  const langs=M.meta.languages; let h="";
+  langs.forEach(l=>{
+    const v=esc((getP(path)||{})[l]||"");
+    const lab = label + (langs.length>1?" ("+l.toUpperCase()+")":"");
+    h+=`<label class="fld"><span>${esc(lab)}</span>`+
+       (textarea?`<textarea data-path="${path}.${l}">${v}</textarea>`:`<input type="text" data-path="${path}.${l}" value="${v}">`)+
+       `</label>`;
+  });
+  return h;
+}
+function clistText(arr,l){ return (Array.isArray(arr)?arr:[]).map(it=> (typeof it==='string') ? (l==='en'?it:'') : ((it&&it[l])||'') ).join("\n"); }
+function clistField(path, arr){
+  const langs=M.meta.languages; let h=`<div class="fld"><span>Checklist — one item per line (optional)</span>`;
+  langs.forEach(l=>{ h+=`<textarea class="clist" data-clist="${path}" data-lang="${l}" placeholder="One item per line${langs.length>1?' ('+l.toUpperCase()+')':''}">${esc(clistText(arr,l))}</textarea>`; });
+  return h+`</div>`;
+}
+function cardHTML(c, path){
+  const title = esc(c.title.en||c.title.el||"(untitled)");
+  const hasWifi = !!c.wifi, hasCode = c.code!=null, hasMap = c.mapUrl!=null;
+  return `<details class="card" data-off="${c._on?0:1}">
+    <summary>
+      <span class="sw"><input type="checkbox" data-path="${path}._on" ${c._on?"checked":""}><span class="track"></span><span class="knob"></span></span>
+      <span class="card-title">${title}</span>
+      <span class="ord">
+        <button class="ordbtn" data-moveup="${path}" title="Move up" aria-label="Move up">↑</button>
+        <button class="ordbtn" data-movedown="${path}" title="Move down" aria-label="Move down">↓</button>
+      </span>
+    </summary>
+    <div class="inner">
+      ${biField("Title",path+".title")}
+      ${biField("Text",path+".body",true)}
+      ${clistField(path, c.checklist)}
+      <div class="fld"><span>Photo</span><div class="photo">${thumb(c.image)}<div class="col"><input type="file" accept="image/*" data-photo="${path}.image" data-label="${esc(c.title.en||c.title.el||"photo")}"><input type="text" class="photoname" data-path="${path}.image" value="${esc(c.image||"")}" placeholder="or type a filename"></div></div></div>
+      <div class="fld"><span>Photo 2 (optional — e.g. a second instruction image)</span><div class="photo">${thumb(c.image2)}<div class="col"><input type="file" accept="image/*" data-photo="${path}.image2" data-label="${esc((c.title.en||c.title.el||"photo")+" 2")}"><input type="text" class="photoname" data-path="${path}.image2" value="${esc(c.image2||"")}" placeholder="or type a filename"></div></div></div>
+      <details class="more"><summary>More options (map link · code · WiFi)</summary>
+        <div class="row2">
+          <label class="fld"><span>Map link (optional)</span><input type="text" data-path="${path}.mapUrl" value="${esc(c.mapUrl||"")}" placeholder="https://maps.google.com/?q=..."></label>
+          <label class="fld"><span>Distance / time (optional)</span><input type="text" data-path="${path}.distance" value="${esc((c.distance&&(c.distance.en||c.distance))||"")}" placeholder="e.g. 3.6 km or 15 min"></label>
+          <label class="fld"><span>Door / lockbox code (optional)</span><input type="text" data-path="${path}.code" value="${esc(c.code||"")}" placeholder="e.g. 4729"></label>
+          <label class="fld"><span>WiFi network (optional)</span><input type="text" data-path="${path}.wifi.network" value="${esc(c.wifi?c.wifi.network:"")}"></label>
+          <label class="fld"><span>WiFi password (optional)</span><input type="text" data-path="${path}.wifi.password" value="${esc(c.wifi?c.wifi.password:"")}"></label>
+        </div>
+      </details>
+      <button class="del" data-del="${path}">Delete this card</button>
+    </div>
+  </details>`;
+}
+function render(){
+  ensure();
+  let h="";
+  // basics
+  h+=`<div class="panel"><h2>Property</h2>
+    <div class="row2">
+      <label class="fld"><span>Property name</span><input type="text" data-path="meta.name" value="${esc(M.meta.name||"")}"></label>
+      <label class="fld"><span>Link name / slug (filename)</span><input type="text" id="slug" value="${esc(M.meta.slug||(M.meta.name||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"villa")}"></label>
+    </div>
+    <div class="row2">
+      <div class="fld"><span>Logo</span><div class="photo">${thumb(M.meta.brandLogo)}<div class="col"><input type="file" accept="image/*" data-photo="meta.brandLogo" data-label="logo" data-logo="1"><input type="text" class="photoname" data-path="meta.brandLogo" value="${esc(M.meta.brandLogo||"")}" placeholder="data/img/logo.svg"></div></div></div>
+      <div class="fld"><span>Hero photo</span><div class="photo">${thumb(M.meta.heroImage)}<div class="col"><input type="file" accept="image/*" data-photo="meta.heroImage" data-label="hero"><input type="text" class="photoname" data-path="meta.heroImage" value="${esc(M.meta.heroImage||"")}" placeholder="data/img/hero.jpg"></div></div></div>
+    </div>
+    <label class="fld"><span>Languages</span></label>
+    <div class="langs">${ALL_LANGS.map(l=>`<label><input type="checkbox" class="langtog" value="${l}" ${M.meta.languages.includes(l)?"checked":""}> ${LANG_NAMES[l]}</label>`).join("")}</div>
+    ${biField("Welcome title","meta.welcomeTitle")}
+    ${biField("Welcome message","meta.welcomeMessage",true)}
+    <div class="row2">
+      <label class="fld"><span>Latitude (optional — shows live weather on the home card)</span><input type="text" data-path="meta.coords.lat" value="${esc(M.meta.coords&&M.meta.coords.lat!=null?M.meta.coords.lat:"")}" placeholder="e.g. 37.0389"></label>
+      <label class="fld"><span>Longitude</span><input type="text" data-path="meta.coords.lng" value="${esc(M.meta.coords&&M.meta.coords.lng!=null?M.meta.coords.lng:"")}" placeholder="e.g. 22.1142"></label>
+    </div>
+    <label class="fld"><span>Google review link (optional — a 5-star tap on the home screen opens this)</span><input type="text" data-path="meta.googleReviewUrl" value="${esc(M.meta.googleReviewUrl||"")}" placeholder="https://g.page/r/..."></label>
+  </div>`;
+  // contact + actions
+  h+=`<div class="panel"><h2>Contact & buttons</h2>
+    <div class="row2">
+      <label class="fld"><span>Phone</span><input type="text" data-path="contact.phone" value="${esc(M.contact.phone||"")}" placeholder="+30..."></label>
+      <label class="fld"><span>WhatsApp number</span><input type="text" data-path="contact.whatsapp" value="${esc(M.contact.whatsapp||"")}" placeholder="+30..."></label>
+    </div>
+    <label class="fld"><span>Viber number</span><input type="text" data-path="contact.viber" value="${esc(M.contact.viber||"")}" placeholder="+30..."></label>
+    ${(M.actions||[]).map((a,i)=>`<div class="row2">
+      <div>${biField("Bottom button "+(i+1),"actions."+i+".label")}</div>
+      <label class="fld"><span>Button link</span><input type="text" data-path="actions.${i}.url" value="${esc(a.url||"")}"></label>
+    </div>`).join("")}
+  </div>`;
+  // sections
+  (M.sections||[]).forEach((s,si)=>{
+    h+=`<div class="panel">
+      <div class="secthead">
+        <span class="sw"><input type="checkbox" data-path="sections.${si}._on" ${s._on?"checked":""}><span class="track"></span><span class="knob"></span></span>
+        <h2>${esc(s.title.en||s.title.el||s.id)}</h2>
+      </div>
+      ${biField("Tile subtitle (optional, small line under the tile's title on the home screen)","sections."+si+".subtitle")}
+      <label class="fld" style="display:flex;align-items:center;gap:8px;flex-direction:row"><input type="checkbox" data-path="sections.${si}.area" ${s.area?"checked":""} style="width:auto"> <span>Show this on the Area tab of the bottom navigation</span></label>
+      ${biField("Intro text (optional, shown under the title)","sections."+si+".intro",true)}
+      ${s.link!==undefined ? `<label class="fld"><span>External link (this tile opens the link instead of a page — e.g. your Google review URL)</span><input type="text" data-path="sections.${si}.link" value="${esc(s.link||"")}" placeholder="https://..."></label>` : ""}`;
+    if(s.link!==undefined){ h+=`</div>`; return; }
+    if(s.groups){
+      s.groups.forEach((g,gi)=>{
+        h+=`<div class="grouphead">${esc(g.label.en||g.label.el||"")}</div>`;
+        h+=(g.cards||[]).map((c,ci)=>cardHTML(c,`sections.${si}.groups.${gi}.cards.${ci}`)).join("");
+        h+=`<button class="addbtn" data-add="sections.${si}.groups.${gi}.cards">+ Add card here</button>`;
+      });
+    } else {
+      h+=(s.cards||[]).map((c,ci)=>cardHTML(c,`sections.${si}.cards.${ci}`)).join("");
+      h+=`<button class="addbtn" data-add="sections.${si}.cards">+ Add card here</button>`;
+    }
+    h+=`</div>`;
+  });
+  document.getElementById("form").innerHTML=h;
+  document.getElementById("slugEcho").textContent = document.getElementById("slug").value||"villa";
+  refreshJSON();
+}
+
+/* ---------- events ---------- */
+document.getElementById("form").addEventListener("input",(e)=>{
+  const el=e.target;
+  if(el.dataset.path){
+    let v = el.type==="checkbox" ? el.checked : el.value;
+    setP(el.dataset.path, v);
+    if(el.dataset.path.endsWith("._on")){ const d=el.closest("details.card"); if(d) d.dataset.off = el.checked?0:1; }
+    refreshJSON();
+  }
+  if(el.id==="slug"){ M.meta.slug=el.value; document.getElementById("slugEcho").textContent=el.value||"villa"; }
+});
+document.getElementById("form").addEventListener("change", async (e)=>{
+  const el=e.target;
+  if(el.matches('input[type=file][data-photo]')){
+    const file=el.files&&el.files[0]; if(!file) return;
+    const isLogo=el.dataset.logo==="1";
+    const slug=slugify(document.getElementById("slug").value||M.meta.name||"villa");
+    const label=slugify(el.dataset.label||"photo");
+    const path=el.dataset.photo;
+    let durl,bytes,ext;
+    if(file.type==="image/svg+xml"||(isLogo&&file.type==="image/png")){
+      durl=await readDataURL(file); bytes=dataURLBytes(durl); ext=file.type==="image/svg+xml"?".svg":".png";
+    } else {
+      const r=await compress(file,isLogo?512:1400,0.82); durl=r.durl; bytes=r.bytes; ext=".jpg";
+    }
+    // release any previous file owned by this field
+    Object.keys(NAME2PATH).forEach(k=>{ if(NAME2PATH[k]===path){ delete NAME2PATH[k]; delete PHOTOS[k]; } });
+    let name=slug+"-"+label+ext, i=2;
+    while(NAME2PATH[name]&&NAME2PATH[name]!==path){ name=slug+"-"+label+"-"+(i++)+ext; }
+    NAME2PATH[name]=path; PHOTOS[name]=bytes;
+    const imgPath="data/img/"+name; THUMBS[imgPath]=durl; setP(path,imgPath);
+    render(); return;
+  }
+  if(el.classList.contains("langtog")){
+    const set=new Set(M.meta.languages);
+    el.checked?set.add(el.value):set.delete(el.value);
+    M.meta.languages=ALL_LANGS.filter(l=>set.has(l)); if(M.meta.languages.length===0)M.meta.languages=["en"];
+    render();
+  }
+});
+document.getElementById("form").addEventListener("input",(e)=>{
+  const cl=e.target.closest(".clist"); if(!cl) return;
+  const path=cl.dataset.clist, form=document.getElementById("form"), langs=M.meta.languages, vals={};
+  langs.forEach(l=>{ const ta=form.querySelector('.clist[data-clist="'+path+'"][data-lang="'+l+'"]'); vals[l]=(ta?ta.value:"").split("\n"); });
+  const n=Math.max(0,...langs.map(l=>vals[l].length)); const arr=[];
+  for(let i=0;i<n;i++){ const item={}; let any=false; langs.forEach(l=>{ const v=(vals[l][i]||"").trim(); if(v){item[l]=v; any=true;} }); if(any) arr.push(item); }
+  setP(path+".checklist", arr); refreshJSON();
+});
+
+document.getElementById("form").addEventListener("click",(e)=>{
+  // toggle switches (cards live inside <summary>, so stop the card from expanding)
+  const sw = e.target.closest(".sw");
+  if(sw){
+    e.preventDefault(); e.stopPropagation();
+    const cb = sw.querySelector('input[type="checkbox"]');
+    if(cb && cb.dataset.path){
+      cb.checked = !cb.checked;
+      setP(cb.dataset.path, cb.checked);
+      if(cb.dataset.path.endsWith("._on")){ const d=cb.closest("details.card"); if(d) d.dataset.off = cb.checked?0:1; }
+      refreshJSON();
+    }
+    return;
+  }
+  const mv = e.target.closest("[data-moveup],[data-movedown]");
+  if(mv){
+    e.preventDefault(); e.stopPropagation();
+    const up = mv.hasAttribute("data-moveup");
+    const path = mv.getAttribute("data-moveup") || mv.getAttribute("data-movedown");
+    const ks = path.split("."); const idx = +ks.pop(); const arr = ks.reduce((o,k)=>o[k], M);
+    const ni = up ? idx-1 : idx+1;
+    if(Array.isArray(arr) && ni>=0 && ni<arr.length){ const t=arr[idx]; arr[idx]=arr[ni]; arr[ni]=t; render(); }
+    return;
+  }
+  const add=e.target.dataset && e.target.dataset.add;
+  if(add){ const arr=getP(add); arr.push({_on:true,title:{en:"New card",el:"Νέα κάρτα"},body:{en:"",el:""},image:""}); render(); return; }
+  const del=e.target.dataset && e.target.dataset.del;
+  if(del){ if(!confirm("Delete this card?"))return; const ks=del.split("."); const idx=+ks.pop(); const arr=ks.reduce((o,k)=>o[k],M); arr.splice(idx,1); render(); }
+});
+
+/* ---------- output ---------- */
+function txt(o){ const langs=M.meta.languages; const r={}; langs.forEach(l=>{ if(o&&o[l]) r[l]=o[l]; }); return Object.keys(r).length?r:undefined; }
+function normImg(v){ if(!v)return undefined; v=v.trim(); if(/^(https?:|data:|data\/)/.test(v))return v; return "data/img/"+v.replace(/^.*[\\/]/,""); }
+function cleanCard(c){ if(c._on===false)return null; const card={};
+  const im=normImg(c.image); if(im)card.image=im;
+  const im2=normImg(c.image2); if(im2)card.image2=im2;
+  const tt=txt(c.title); if(tt)card.title=tt;
+  const bb=txt(c.body); if(bb)card.body=bb;
+  if(Array.isArray(c.checklist)&&c.checklist.length){ const cl=c.checklist.map(it=>txt(it)).filter(Boolean); if(cl.length)card.checklist=cl; }
+  if(c.wifi&&(c.wifi.network||c.wifi.password)) card.wifi={network:c.wifi.network||"",password:c.wifi.password||""};
+  if(c.code&&String(c.code).trim()){ card.code=c.code; const cl=txt(c.codeLabel||{en:"Code",el:"Κωδικός"}); if(cl)card.codeLabel=cl; }
+  if(c.mapUrl&&c.mapUrl.trim()){ card.mapUrl=c.mapUrl; const ml=txt(c.mapLabel||{en:"Open in Maps",el:"Άνοιγμα στον χάρτη"}); if(ml)card.mapLabel=ml; }
+  if(c.distance&&String(c.distance.en||c.distance).trim()){ card.distance=c.distance; }
+  if(c.key)card.key=c.key;
+  return Object.keys(card).length?card:null;
+}
+function build(){
+  const langs=M.meta.languages||["en"]; const out={meta:{}};
+  out.meta.name=M.meta.name||"";
+  if(M.meta.brandLogo)out.meta.brandLogo=M.meta.brandLogo.trim();
+  if(M.meta.heroImage)out.meta.heroImage=normImg(M.meta.heroImage);
+  const wt=txt(M.meta.welcomeTitle); if(wt)out.meta.welcomeTitle=wt;
+  const wm=txt(M.meta.welcomeMessage); if(wm)out.meta.welcomeMessage=wm;
+  out.meta.languages=langs;
+  const lat=M.meta.coords&&M.meta.coords.lat, lng=M.meta.coords&&M.meta.coords.lng;
+  if(lat!==""&&lat!=null&&lng!==""&&lng!=null) out.meta.coords={lat:+lat,lng:+lng};
+  if(M.meta.googleReviewUrl&&M.meta.googleReviewUrl.trim()) out.meta.googleReviewUrl=M.meta.googleReviewUrl.trim();
+  out.contact={}; if(M.contact.phone)out.contact.phone=M.contact.phone; if(M.contact.whatsapp)out.contact.whatsapp=M.contact.whatsapp; if(M.contact.viber)out.contact.viber=M.contact.viber;
+  out.actions=(M.actions||[]).map(a=>{ const o={icon:a.icon||"info"}; const l=txt(a.label); if(l)o.label=l; if(a.url)o.url=a.url; return o; });
+  out.sections=[];
+  (M.sections||[]).forEach(s=>{ if(s._on===false)return; const sec={id:s.id,icon:s.icon}; const tt=txt(s.title); if(tt)sec.title=tt;
+    const ii=txt(s.intro); if(ii)sec.intro=ii;
+    const st=txt(s.subtitle); if(st)sec.subtitle=st;
+    if(s.area) sec.area=true;
+    if(s.link!==undefined){ if(s.link)sec.link=s.link; out.sections.push(sec); return; }
+    if(s.groups){ const gs=[]; s.groups.forEach(g=>{ const cs=(g.cards||[]).map(cleanCard).filter(Boolean); if(cs.length){ const go={}; const gl=txt(g.label); if(gl)go.label=gl; if(g.key)go.key=g.key; go.cards=cs; gs.push(go);} }); if(gs.length)sec.groups=gs; }
+    else { const cs=(s.cards||[]).map(cleanCard).filter(Boolean); if(cs.length)sec.cards=cs; }
+    if(sec.groups||sec.cards)out.sections.push(sec);
+  });
+  // Preserve the home-screen button layout as-is (the builder doesn't edit it yet,
+  // but must not drop it on save). Kept verbatim from the loaded/default data.
+  if(Array.isArray(M.home) && M.home.length) out.home = clone(M.home);
+  return out;
+}
+function refreshJSON(){ document.getElementById("jsonOut").textContent=JSON.stringify(build(),null,2); }
+
+/* ---------- toolbar actions ---------- */
+function slugName(){ return (document.getElementById("slug").value||"property").replace(/[^a-z0-9_-]/gi,"")||"property"; }
+document.getElementById("btnDownload").addEventListener("click",()=>{
+  const enc=new TextEncoder();
+  const files=[{name:slugName()+".json", data:enc.encode(JSON.stringify(build(),null,2))}];
+  Object.keys(PHOTOS).forEach(name=> files.push({name:"data/img/"+name, data:PHOTOS[name]}));
+  const blob=new Blob([makeZip(files)],{type:"application/zip"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=slugName()+".zip"; a.click();
+});
+document.getElementById("btnCopy").addEventListener("click",async()=>{
+  try{ await navigator.clipboard.writeText(JSON.stringify(build(),null,2)); alert("Copied. Save it as data/"+slugName()+".json"); }
+  catch{ alert("Copy failed — use Download instead."); }
+});
+document.getElementById("btnLoad").addEventListener("click",()=>{
+  try{ M=JSON.parse(document.getElementById("jsonBox").value); render(); alert("Loaded."); }
+  catch(e){ alert("That isn't valid JSON."); }
+});
+document.getElementById("btnPreview").addEventListener("click",async()=>{
+  const obj=build();
+  // show uploaded photos in the preview by swapping paths for their data URLs
+  const swap=(o)=>{ if(o&&o.image&&THUMBS[o.image]) o.image=THUMBS[o.image]; if(o&&o.image2&&THUMBS[o.image2]) o.image2=THUMBS[o.image2]; };
+  if(obj.meta){ if(THUMBS[obj.meta.heroImage]) obj.meta.heroImage=THUMBS[obj.meta.heroImage]; if(THUMBS[obj.meta.brandLogo]) obj.meta.brandLogo=THUMBS[obj.meta.brandLogo]; }
+  (obj.sections||[]).forEach(s=>{ (s.cards||[]).forEach(swap); (s.groups||[]).forEach(g=>(g.cards||[]).forEach(swap)); });
+  const data=JSON.stringify(obj);
+  try{
+    const [css,js]=await Promise.all([fetch("styles.css").then(r=>r.text()),fetch("app.js").then(r=>r.text())]);
+    const doc=`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>${css}<\/style><\/head>
+<body><main id="app"></main><div id="toast" class="toast"></div>
+<script>window.__PERLA_DATA=${data};<\/script><script>${js}<\/script><\/body><\/html>`;
+    const w=window.open("","_blank");
+    w.document.open(); w.document.write(doc); w.document.close();
+  }catch(err){
+    alert("Preview needs the builder to be opened from the hosted site (same folder as styles.css/app.js). For now, Download the file and open the guide normally.");
+  }
+});
+
+/* ---------- boot ---------- */
+/* Boot: if the URL has ?p=<slug>, load that villa's JSON automatically
+   (used by dashboard.html). Otherwise start from the blank template. */
+const bootSlug = new URLSearchParams(location.search).get("p");
+if (bootSlug) {
+  fetch(`data/${bootSlug}.json`)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(d => { M = d; ensure(); render(); })
+    .catch(() => { M = clone(DEFAULTS); render(); alert("Could not load " + bootSlug + ".json — starting blank."); });
+} else {
+  M = clone(DEFAULTS); render();
+}
+</script>
+</body>
+</html>

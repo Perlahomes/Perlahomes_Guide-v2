@@ -1,0 +1,368 @@
+{
+  "meta": {
+    "name": "Siena",
+    "brandLogo": "data/img/siena-logo.jpg",
+    "heroImage": "data/img/siena-hero.jpg",
+    "welcomeTitle": {
+      "en": "Welcome to Siena",
+      "el": "Καλώς ήρθατε στο Siena"
+    },
+    "welcomeMessage": {
+      "en": "Dear guest, this guide has everything you need for a smooth, comfortable stay  door codes, WiFi, directions and our local favourites. We hope you have a wonderful time.",
+      "el": "Αγαπητέ επισκέπτη, σε αυτόν τον οδηγό θα βρείτε ό,τι χρειάζεστε για μια άνετη διαμονή  κωδικούς, WiFi, οδηγίες και τοπικές προτάσεις. Καλή διαμονή!"
+    },
+    "languages": [
+      "en",
+      "el"
+    ],
+    "coords": {
+      "lat": 37.0389,
+      "lng": 22.1142
+    }
+  },
+  "contact": {
+    "phone": "+306906134633",
+    "whatsapp": "+306906134633",
+    "viber": "+306906134633"
+  },
+  "actions": [
+    {
+      "icon": "checkin",
+      "label": {
+        "en": "Web site",
+        "el": "Φόρμα Check-in"
+      },
+      "url": "https:www.perlahomes.gr"
+    },
+    {
+      "icon": "phone",
+      "label": {
+        "en": "Contact",
+        "el": "Επικοινωνία"
+      },
+      "url": "tel:+306906134633"
+    }
+  ],
+  "sections": [
+    {
+      "id": "arrival",
+      "icon": "arrival",
+      "title": {
+        "en": "On your arrival",
+        "el": "Κατά την άφιξή σας"
+      },
+      "cards": [
+        {
+          "image": "data/img/siena-location.jpg",
+          "title": {
+            "en": "Location",
+            "el": "Τοποθεσία"
+          },
+          "body": {
+            "en": "If you are arriving with your own transport, tap below to see our location on the map.",
+            "el": "Εάν έρχεστε με δικό σας μεταφορικό μέσο, πατήστε για δείτε την τοποθεσία μας στον χάρτη."
+          },
+          "mapUrl": "https://maps.app.goo.gl/JncRbXCtWSwbzcSn8",
+          "mapLabel": {
+            "en": "Open in Maps",
+            "el": "Άνοιγμα στον χάρτη"
+          }
+        },
+        {
+          "image": "data/img/siena-the-building.jpg",
+          "title": {
+            "en": "The building",
+            "el": "Το κτίριο"
+          },
+          "body": {
+            "en": "When you arrive, you'll see this building / entrance — look for it to find us.",
+            "el": "Όταν φτάσετε, θα δείτε αυτό το κτίριο / είσοδο — αναζητήστε το για να μας βρείτε."
+          }
+        },
+        {
+          "image": "data/img/siena-garage-door.jpg",
+          "image2": "data/img/siena-garage-door-2.jpg",
+          "title": {
+            "en": "Garage door",
+            "el": "Πόρτα γκαράζ"
+          },
+          "body": {
+            "en": "Use the code below to open the garage door. (Replace with the exact instructions.)",
+            "el": "Χρησιμοποιήστε τον κωδικό παρακάτω για να ανοίξετε την πόρτα του γκαράζ. (Αντικαταστήστε με τις ακριβείς οδηγίες.)"
+          },
+          "code": "2026#",
+          "codeLabel": {
+            "en": "Code",
+            "el": "Κωδικός"
+          }
+        },
+        {
+          "image": "data/img/siena-key-locker.jpg",
+          "title": {
+            "en": "Key locker",
+            "el": "Key locker"
+          },
+          "body": {
+            "en": "Find the keys in the locker shown in the photo. The code will be sent to you before arrival.",
+            "el": "Βρείτε τα κλειδιά στο locker της φωτογραφίας. Θα σας σταλεί ο κωδικός πριν την άφιξη."
+          },
+          "code": "5528",
+          "codeLabel": {
+            "en": "Code",
+            "el": "Κωδικός"
+          }
+        }
+      ],
+      "subtitle": {
+        "en": "Access instructions",
+        "el": "Οδηγίες πρόσβασης"
+      }
+    },
+    {
+      "id": "property",
+      "icon": "property",
+      "title": {
+        "en": "Property guide",
+        "el": "Οδηγός σπιτιού"
+      },
+      "groups": [
+        {
+          "label": {
+            "en": "Useful information",
+            "el": "Χρήσιμες πληροφορίες"
+          },
+          "cards": [
+            {
+              "image": "data/img/siena-air-conditioning.jpg",
+              "title": {
+                "en": "Air conditioning",
+                "el": "Κλιματισμός"
+              },
+              "body": {
+                "en": "For the villa to cool properly, all doors and windows must be closed. The A/C is controlled centrally from the panel next to the main entrance. ",
+                "el": "Για τον σωστό κλιματισμό της βίλας θα πρέπει όλα οι πόρτες και τα παράθυρα να είναι κλειστά. Ο κλιματισμός ελέγχεται κεντρικά από το πάνελ δίπλα στην κεντρική είσοδο. "
+              }
+            },
+            {
+              "image": "data/img/siena-hot-water.jpg",
+              "title": {
+                "en": "Hot water",
+                "el": "Ζεστό νερό"
+              },
+              "body": {
+                "en": "Hot water is normally available 24/7 through the solar water heating system. If there is insufficient hot water, please activate the water heater by pressing the timer switch as shown in the photo. The water should be heated within approximately 30 minutes. **Note:** The timer will switch off automatically after approximately 30 minutes, so no further action is required. **Important:** After 20 minutes, please ensure that the timer/switch returns to the OFF position.",
+                "el": "Ζεστό νερό είναι διαθέσιμο όλο το 24ωρο μέσω του ηλιακού θερμοσίφωνα. Σε περίπτωση που δεν υπάρχει επαρκές ζεστό νερό, παρακαλούμε ενεργοποιήστε τον θερμοσίφωνα πατώντας τον χρονοδιακόπτη (timer), όπως φαίνεται στη φωτογραφία. Το νερό θα ζεσταθεί σε περίπου 30 λεπτά. **Σημείωση:** Ο χρονοδιακόπτης απενεργοποιείται αυτόματα μετά από περίπου 30 λεπτά, επομένως δεν απαιτείται κάποια επιπλέον ενέργεια."
+              }
+            }
+          ]
+        },
+        {
+          "label": {
+            "en": "Rules",
+            "el": "Κανονισμοί"
+          },
+          "cards": [
+            {
+              "image": "data/img/siena-smoking.jpg",
+              "title": {
+                "en": "Smoking",
+                "el": "Κάπνισμα"
+              },
+              "body": {
+                "en": "Not allowed inside the house.",
+                "el": "Απαγορεύεται εντός τις οικείας."
+              }
+            }
+          ],
+          "key": "rules"
+        }
+      ],
+      "subtitle": {
+        "en": "Amenities & guide",
+        "el": "Παροχές & οδηγίες"
+      }
+    },
+    {
+      "id": "wifi",
+      "icon": "wifi",
+      "title": {
+        "en": "Wi-Fi",
+        "el": "Wi-Fi"
+      },
+      "subtitle": {
+        "en": "Connection code",
+        "el": "Κωδικός σύνδεσης"
+      },
+      "cards": [
+        {
+          "image": "data/img/siena-wi-fi.jpg",
+          "title": {
+            "en": "Wi-Fi",
+            "el": "Wi-Fi"
+          },
+          "wifi": {
+            "network": "Siena Apartment ",
+            "password": "Siena2026@"
+          }
+        }
+      ]
+    },
+    {
+      "id": "checkout",
+      "icon": "checkout",
+      "title": {
+        "en": "Check-out",
+        "el": "Check-out"
+      },
+      "subtitle": {
+        "en": "Departure",
+        "el": "Αναχώρηση"
+      },
+      "cards": [
+        {
+          "title": {
+            "en": "Check-out",
+            "el": "Αναχώρηση"
+          },
+          "body": {
+            "en": "Check-out is by 11:00. A quick checklist before you go:",
+            "el": "Η αναχώρηση είναι έως τις 11:00. Μια γρήγορη λίστα πριν φύγετε:"
+          },
+          "checklist": [
+            {
+              "en": "Close all windows",
+              "el": "Κλείστε όλα τα παράθυρα"
+            },
+            {
+              "en": "Turn off the lights & A/C",
+              "el": "Σβήστε τα φώτα & το A/C"
+            },
+            {
+              "en": "Leave the keys on the table",
+              "el": "Αφήστε τα κλειδιά στο τραπέζι"
+            },
+            {
+              "en": "Lock the door",
+              "el": "Κλειδώστε την πόρτα"
+            },
+            {
+              "en": "Have a safe trip!",
+              "el": "Καλή επιστροφή!"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "home": [
+    {
+      "icon": "arrival",
+      "title": {
+        "en": "Arrival",
+        "el": "Άφιξη"
+      },
+      "subtitle": {
+        "en": "Access instructions",
+        "el": "Οδηγίες πρόσβασης"
+      },
+      "section": "arrival"
+    },
+    {
+      "icon": "property",
+      "title": {
+        "en": "House guide",
+        "el": "Οδηγός σπιτιού"
+      },
+      "subtitle": {
+        "en": "Amenities & guide",
+        "el": "Παροχές & οδηγίες"
+      },
+      "section": "property"
+    },
+    {
+      "icon": "wifi",
+      "title": {
+        "en": "Wi-Fi",
+        "el": "Wi-Fi"
+      },
+      "subtitle": {
+        "en": "Connection code",
+        "el": "Κωδικός σύνδεσης"
+      },
+      "section": "wifi"
+    },
+    {
+      "icon": "rules",
+      "title": {
+        "en": "Rules",
+        "el": "Κανόνες"
+      },
+      "subtitle": {
+        "en": "House rules",
+        "el": "Όροι διαμονής"
+      },
+      "section": "property",
+      "cardMatch": "rules"
+    },
+    {
+      "icon": "checkout",
+      "title": {
+        "en": "Check-out",
+        "el": "Check-out"
+      },
+      "subtitle": {
+        "en": "Departure",
+        "el": "Αναχώρηση"
+      },
+      "section": "checkout"
+    },
+    {
+      "icon": "navarea",
+      "title": {
+        "en": "Area",
+        "el": "Περιοχή"
+      },
+      "subtitle": {
+        "en": "Beaches & sights",
+        "el": "Παραλίες & σημεία"
+      },
+      "tab": "area"
+    },
+    {
+      "icon": "restaurants",
+      "title": {
+        "en": "Restaurants",
+        "el": "Εστιατόρια"
+      },
+      "subtitle": {
+        "en": "Our suggestions",
+        "el": "Οι προτάσεις μας"
+      },
+      "section": "restaurants"
+    },
+    {
+      "icon": "sights",
+      "title": {
+        "en": "Sights",
+        "el": "Αξιοθέατα"
+      },
+      "subtitle": {
+        "en": "What to see",
+        "el": "Τι να δείτε"
+      },
+      "section": "sights"
+    },
+    {
+      "icon": "navcontact",
+      "title": {
+        "en": "Contact",
+        "el": "Επικοινωνία"
+      },
+      "subtitle": {
+        "en": "We're here for you",
+        "el": "Είμαστε εδώ για εσάς"
+      },
+      "tab": "contact"
+    }
+  ]
+}

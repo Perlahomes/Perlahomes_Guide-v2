@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Perlahomes · Link Generator</title>
+<style>
+  :root{--navy:#1f3a5f;--accent:#2f6fd0;--ink:#18222e;--muted:#687180;--line:#e3e6ea;--bg:#f3f4f6;--card:#fff;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  .bar{background:var(--navy);color:#fff;padding:14px 16px;font-weight:700}
+  .wrap{max-width:560px;margin:0 auto;padding:18px 14px 60px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+  label.fld{display:block;margin:12px 0}
+  label.fld>span{display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:4px}
+  input,select{width:100%;font:inherit;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:11px 12px;background:#fff}
+  .out{background:#0e1c2b;color:#cfe3ff;border-radius:11px;padding:14px;word-break:break-all;font-size:.92rem;margin-top:6px}
+  .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  button{font:inherit;font-weight:700;border:0;border-radius:10px;padding:11px 16px;cursor:pointer}
+  .b-primary{background:var(--accent);color:#fff}
+  .b-ghost{background:#eaf1fb;color:var(--accent)}
+  .qr{display:flex;gap:16px;align-items:center;margin-top:14px;flex-wrap:wrap}
+  .qr img{width:170px;height:170px;border:1px solid var(--line);border-radius:11px;background:#fff}
+  .hint{font-size:.82rem;color:var(--muted);margin-top:6px}
+  h2{font-size:1.05rem;color:var(--navy);margin:0 0 6px}
+  .small{font-size:.8rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="bar">Perlahomes · Guest Link Generator</div>
+<div class="wrap">
+
+  <div class="panel">
+    <h2>Settings (set once)</h2>
+    <label class="fld"><span>Your guide's web address (base URL)</span>
+      <input type="text" id="base" placeholder="https://perlahomes.github.io/guest-guide/">
+    </label>
+    <p class="hint">This is where your guide is hosted. It's remembered on this device.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Make a guest link</h2>
+    <label class="fld"><span>Property</span>
+      <select id="prop"></select>
+    </label>
+    <label class="fld" id="manualWrap" style="display:none"><span>Property slug (filename)</span>
+      <input type="text" id="manual" placeholder="villa-aurora">
+    </label>
+    <label class="fld"><span>Guest first name (optional — personalizes the greeting)</span>
+      <input type="text" id="gname" placeholder="Giorgo">
+    </label>
+    <label class="fld"><span>Checkout date (link stops working after this day)</span>
+      <input type="date" id="date">
+    </label>
+    <label class="fld"><span>Or no expiry</span>
+      <select id="expiry"><option value="1">Expire after checkout date</option><option value="0">Never expires (permanent link)</option></select>
+    </label>
+
+    <div class="out" id="link">—</div>
+    <div class="btns">
+      <button class="b-primary" id="copy">Copy link</button>
+      <button class="b-ghost" id="open">Open</button>
+      <button class="b-ghost" id="dlqr">Download QR</button>
+    </div>
+    <div class="qr"><img id="qr" alt="QR code" hidden><p class="small" id="qrnote"></p></div>
+  </div>
+
+  <p class="small">Tip: paste the link into your booking message, WhatsApp, or print the QR for the welcome card. A permanent link (no expiry) is handy for your own testing.</p>
+</div>
+
+<script>
+const $ = (id)=>document.getElementById(id);
+const base = $("base"), prop = $("prop"), manual = $("manual"), manualWrap = $("manualWrap"),
+      gname = $("gname"), dateEl = $("date"), expiry = $("expiry"), linkEl = $("link"), qr = $("qr"), qrnote = $("qrnote");
+
+// remember base URL
+const DEFAULT_BASE = "https://perlahomes.github.io/Perlahomes-guide/";
+try{ base.value = localStorage.getItem("perla_base") || DEFAULT_BASE; }catch{ base.value = DEFAULT_BASE; }
+base.addEventListener("input", ()=>{ try{ localStorage.setItem("perla_base", base.value); }catch{}; update(); });
+
+// default checkout date = tomorrow
+const t = new Date(Date.now()+86400000); dateEl.value = t.toISOString().slice(0,10);
+
+// load property list
+fetch("data/properties.json",{cache:"no-cache"})
+  .then(r=>r.ok?r.json():[])
+  .then(list=>{
+    if(Array.isArray(list) && list.length){
+      prop.innerHTML = list.map(p=>`<option value="${p.slug}">${p.name||p.slug}</option>`).join("")
+        + `<option value="__manual__">Other (type slug)…</option>`;
+    } else { useManual(); }
+    update();
+  })
+  .catch(()=>{ useManual(); update(); });
+
+function useManual(){ prop.innerHTML = `<option value="__manual__">Type slug…</option>`; manualWrap.style.display="block"; }
+prop.addEventListener("change", ()=>{ manualWrap.style.display = prop.value==="__manual__" ? "block" : "none"; update(); });
+manual.addEventListener("input", update);
+gname.addEventListener("input", update);
+dateEl.addEventListener("input", update);
+expiry.addEventListener("change", update);
+
+function slug(){ return prop.value==="__manual__" ? (manual.value.trim().replace(/[^a-z0-9_-]/gi,"")) : prop.value; }
+function buildLink(){
+  let b = (base.value||"").trim(); if(b && !/\/$/.test(b)) b += "/";
+  const s = slug(); if(!s) return "";
+  let url = `${b}index.html?p=${encodeURIComponent(s)}`;
+  if(expiry.value==="1" && dateEl.value) url += `&until=${dateEl.value}`;
+  if(gname.value.trim()) url += `&name=${encodeURIComponent(gname.value.trim())}`;
+  return url;
+}
+function update(){
+  const url = buildLink();
+  linkEl.textContent = url || "Choose a property to see the link.";
+  if(url && /^https?:\/\//.test(url)){
+    qr.src = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=8&data=" + encodeURIComponent(url);
+    qr.hidden = false; qrnote.textContent = "Scan to open the guide.";
+  } else { qr.hidden = true; qrnote.textContent = url ? "Add your base URL above to generate a QR code." : ""; }
+}
+
+$("copy").addEventListener("click", async ()=>{
+  const url = buildLink(); if(!url) return;
+  try{ await navigator.clipboard.writeText(url); $("copy").textContent="Copied!"; setTimeout(()=>$("copy").textContent="Copy link",1200); }
+  catch{ alert("Copy failed — select the link text manually."); }
+});
+$("open").addEventListener("click", ()=>{ const url=buildLink(); if(/^https?:\/\//.test(url)) window.open(url,"_blank"); else alert("Add your base URL first."); });
+$("dlqr").addEventListener("click", ()=>{ if(qr.hidden) return alert("Add your base URL first."); const a=document.createElement("a"); a.href=qr.src; a.download=(slug()||"guide")+"-qr.png"; a.target="_blank"; a.click(); });
+</script>
+</body>
+</html>
