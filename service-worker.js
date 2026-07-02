@@ -12,7 +12,7 @@
 
    Bump CACHE when you change the shell files to force a refresh.
    ========================================================= */
-const CACHE = "perla-v6";
+const CACHE = "perla-v7";
 
 const SHELL = [
   "./",
